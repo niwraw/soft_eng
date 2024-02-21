@@ -14,8 +14,14 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                'school-background': "url('public/assets/image/plm.png')",
+            }
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        require('tailwind-scrollbar')
+    ],
 };
