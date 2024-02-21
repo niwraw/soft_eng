@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('firstName');
             $table->string('middleName');
-            $table->enum('suffix_name', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
+            $table->enum('suffix', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
             $table->string('email')->unique();
             $table->string('contactNum')->unique();
             $table->enum('applicationType', ['SHS', 'ALS', 'OLD', 'TRANSFER']);
