@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,10 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__.'/auth.php';
+
+Route::middleware('guest')->group(function () {
+    Route::get('apply', [ApplicationController::class, 'create'])
+    ->name('apply');
+
+    Route::post('apply', [ApplicationController::class, 'store'])->name('apply.post');
+});

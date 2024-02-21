@@ -36,7 +36,7 @@
                     <span>Inquiry</span>
                 </a>
 
-                <a href="{{ route('register') }}">
+                <a href="{{ route('apply') }}">
                     <span>Apply</span>
                 </a>
             </div>

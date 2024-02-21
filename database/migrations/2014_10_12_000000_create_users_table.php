@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('applicant_personal_information', function (Blueprint $table) {
             $table->id();
+            $table->string('applicant_id')->unique();
+
             // Personal Info
             $table->string('lastName');
             $table->string('firstName');
@@ -22,7 +24,18 @@ return new class extends Migration
             $table->string('contactNum')->unique();
             $table->enum('applicationType', ['SHS', 'ALS', 'OLD', 'TRANSFER']);
             $table->enum('gender', ['male', 'female']);
-            
+
+            // //Documents
+            // $table->binary('birthCert');
+            // $table->binary('form137');
+
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_other_information', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
+
             // Other Information
             $table->string('maidenName')->nullable();
             $table->date('birthDate');
@@ -32,6 +45,13 @@ return new class extends Migration
             $table->string('city');
             $table->string('barangay');
             $table->string('zip');
+
+            $table->timestamps();
+        });
+
+        Schema::create('apllicant_father_information', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
 
             // Father Information
             $table->string('fatherLast');
@@ -43,6 +63,13 @@ return new class extends Migration
             $table->string('fatherJob');
             $table->string('fatherIncome');
 
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_mother_infomation', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
+
             // Mother Information
             $table->string('motherLast');
             $table->string('motherFirst');
@@ -52,6 +79,13 @@ return new class extends Migration
             $table->string('motherContact');
             $table->string('motherJob');
             $table->string('motherIncome');
+
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_guardian_information', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
 
             // Guardian Information
             $table->string('guardianLast')->nullable();
@@ -63,6 +97,13 @@ return new class extends Migration
             $table->string('guardianJob')->nullable();
             $table->string('guardianIncome')->nullable();
 
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_school_information', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
+
             // School Information
             $table->string('lrn');
             $table->string('school');
@@ -71,17 +112,18 @@ return new class extends Migration
             $table->enum('strand', ['ABM', 'HUMSS', 'STEM', 'GAS' , 'TVL', 'SPORTS' , 'ADT', 'PBM']);
             $table->string('gwa');
 
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_program_information', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
+
             // Program Choices
             $table->string('choice1');
             $table->string('choice2');
             $table->string('choice3');
 
-            //Documents
-            $table->binary('birthCert');
-            $table->binary('form137');
-
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }
