@@ -54,14 +54,14 @@ return new class extends Migration
             $table->string('motherIncome');
 
             // Guardian Information
-            $table->string('guardianLast');
-            $table->string('guardianFirst');
-            $table->string('guardianMiddle');
+            $table->string('guardianLast')->nullable();
+            $table->string('guardianFirst')->nullable();
+            $table->string('guardianMiddle')->nullable();
             $table->enum('guardianSuffix', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
-            $table->string('guardianAddress');
-            $table->string('guardianContact');
-            $table->string('guardianJob');
-            $table->string('guardianIncome');
+            $table->string('guardianAddress')->nullable();
+            $table->string('guardianContact')->nullable();
+            $table->string('guardianJob')->nullable();
+            $table->string('guardianIncome')->nullable();
 
             // School Information
             $table->string('lrn');

@@ -108,7 +108,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/6">
                 <x-input-label for="gender" :value="__('Gender')" />
                 <div>
-                    <select name="gender" id="gender" class="block w-full mt-1">
+                    <select name="gender" id="gender" class="block w-full mt-1" required>
                         <option value="">Please select</option>
                         <option value="">Male</option>
                         <option value="">Female</option>
@@ -140,13 +140,13 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="flex flex-row gap-3">
             <div class="w-1/3">
                 <x-input-label for="address" :value="__('House No./St./Vill./Subd./Compound')" />
-                <x-text-input wire:model="" id="address" class="block w-full mt-1" type="text" name="address" autofocus/>
+                <x-text-input wire:model="" id="address" class="block w-full mt-1" type="text" name="address" required autofocus/>
             </div>
 
             <div class="w-1/3">
                 <x-input-label for="region" :value="__('Region')" />
                 <div>
-                    <select name="region" id="region" class="block w-full mt-1">
+                    <select name="region" id="region" class="block w-full mt-1" required>
                         <option value="">Please select</option>
 
                     </select>
@@ -154,9 +154,9 @@ new #[Layout('layouts.guest')] class extends Component
             </div>
 
             <div class="w-1/3">
-                <x-input-label for="city" :value="__('City/Municipality')" />
+                <x-input-label for="city" :value="__('City/Municipality')"/>
                 <div>
-                    <select name="city" id="city" class="block w-full mt-1">
+                    <select name="city" id="city" class="block w-full mt-1" required>
                         <option value="">Please select</option>
                     </select>
                 </div>
@@ -167,7 +167,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/3">
                 <x-input-label for="barangay" :value="__('Barangay')" />
                 <div>
-                    <select name="barangay" id="barangay" class="block w-full mt-1">
+                    <select name="barangay" id="barangay" class="block w-full mt-1" required>
                         <option value="">Please select</option>
                     </select>
                 </div>
@@ -176,7 +176,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/3">
                 <x-input-label for="zip" :value="__('Zip Code')" />
                 <div>
-                    <select name="zip" id="zip" class="block w-full mt-1">
+                    <select name="zip" id="zip" class="block w-full mt-1" required>
                         <option value="">Please select</option>
                     </select>
                 </div>
@@ -205,7 +205,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/6">
                 <x-input-label for="fatherSuffix" :value="__('Suffix')" />
                 <div>
-                    <select name="fatherSuffix" id="fatherSuffix" class="block w-full mt-1">
+                    <select name="fatherSuffix" id="fatherSuffix" class="block w-full mt-1" required>
                         <option value="">Please select</option>
                         <option value="">None</option>
                         <option value="">Jr.</option>
@@ -257,7 +257,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/6">
                 <x-input-label for="motherSuffix" :value="__('Suffix')" />
                 <div>
-                    <select name="motherSuffix" id="motherSuffix" class="block w-full mt-1">
+                    <select name="motherSuffix" id="motherSuffix" class="block w-full mt-1" required>
                         <option value="">Please select</option>
                         <option value="">None</option>
                         <option value="">Jr.</option>
@@ -294,16 +294,16 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="flex flex-row gap-3">
             <div class="w-1/3">
                 <x-input-label for="guardianLast" :value="__('Last Name')" />
-                <x-text-input wire:model="" id="guardianLast" class="block w-full mt-1" type="text" name="guardianLast" required/>
+                <x-text-input wire:model="" id="guardianLast" class="block w-full mt-1" type="text" name="guardianLast"/>
             </div>
             <div class="w-1/3">
                 <x-input-label for="guardianFirst" :value="__('First Name')" />
-                <x-text-input wire:model="" id="guardianFirst" class="block w-full mt-1" type="text" name="guardianFirst" required/>
+                <x-text-input wire:model="" id="guardianFirst" class="block w-full mt-1" type="text" name="guardianFirst"/>
             </div>
 
             <div class="w-1/3">
                 <x-input-label for="guardianMiddle" :value="__('Middle Name')" />
-                <x-text-input wire:model="" id="guardianMiddle" class="block w-full mt-1" type="text" name="guardianMiddle" required/>
+                <x-text-input wire:model="" id="guardianMiddle" class="block w-full mt-1" type="text" name="guardianMiddle"/>
             </div>
 
             <div class="w-1/6">
@@ -324,21 +324,21 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="flex flex-row gap-3">
             <div class="w-1/3">
                 <x-input-label for="guardianAddress" :value="__('Address')" />
-                <x-text-input wire:model="" id="guardianAddress" class="block w-full mt-1" type="text" name="guardianAddress" required/>
+                <x-text-input wire:model="" id="guardianAddress" class="block w-full mt-1" type="text" name="guardianAddress"/>
             </div>
             <div class="w-1/3">
                 <x-input-label for="guardianContact" :value="__('Contact Number')" />
-                <x-text-input wire:model="" id="guardianContact" class="block w-full mt-1" type="text" name="guardianContact" required/>
+                <x-text-input wire:model="" id="guardianContact" class="block w-full mt-1" type="text" name="guardianContact"/>
             </div>
 
             <div class="w-1/3">
                 <x-input-label for="guardianJob" :value="__('Occupation')" />
-                <x-text-input wire:model="" id="guardianJob" class="block w-full mt-1" type="text" name="guardianJob" required/>
+                <x-text-input wire:model="" id="guardianJob" class="block w-full mt-1" type="text" name="guardianJob"/>
             </div>
 
             <div class="w-1/6">
                 <x-input-label for="guardianIncome" :value="__('Income')" />
-                <x-text-input wire:model="" id="guardianIncome" class="block w-full mt-1" type="text" name="guardianIncome" required/>
+                <x-text-input wire:model="" id="guardianIncome" class="block w-full mt-1" type="text" name="guardianIncome"/>
             </div>
         </div>
 
@@ -361,7 +361,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/6">
                 <x-input-label for="schoolType" :value="__('School Type')" />
                 <div>
-                    <select name="schoolType" id="schoolType" required class="block w-full mt-1">
+                    <select name="schoolType" id="schoolType" required class="block w-full mt-1" required>
                         <option value="">Select Type</option>
                         <option value="public">Public</option>
                         <option value="private">Private</option>
@@ -374,7 +374,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/3">
                 <x-input-label for="strand" :value="__('Academic Strand')" />
                 <div>
-                    <select name="schoolAddress" id="schoolAddress" required class="block w-full mt-1">
+                    <select name="schoolAddress" id="schoolAddress" required class="block w-full mt-1" required>
                         <option value="">Select Strand</option>
                         <option value="ABM">Accountancy, Business and Management (ABM)</option>
                         <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
@@ -404,7 +404,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/3">
                 <x-input-label for="choice1" :value="__('Program Choice 1')" />
                 <div>
-                    <select name="choice1" id="choice1" required class="block w-full mt-1">
+                    <select name="choice1" id="choice1" required class="block w-full mt-1" required>
                         <option value="">Select Strand</option>
                         <option value="ABM">Accountancy, Business and Management (ABM)</option>
                         <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
@@ -421,7 +421,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/3">
                 <x-input-label for="choice2" :value="__('Program Choice 2')" />
                 <div>
-                    <select name="choice2" id="choice2" required class="block w-full mt-1">
+                    <select name="choice2" id="choice2" required class="block w-full mt-1" required>
                         <option value="">Select Strand</option>
                         <option value="ABM">Accountancy, Business and Management (ABM)</option>
                         <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
@@ -438,7 +438,7 @@ new #[Layout('layouts.guest')] class extends Component
             <div class="w-1/3">
                 <x-input-label for="choice3" :value="__('Program Choice 3')" />
                 <div>
-                    <select name="choice3" id="choice3" required class="block w-full mt-1">
+                    <select name="choice3" id="choice3" required class="block w-full mt-1" required>
                         <option value="">Select Strand</option>
                         <option value="ABM">Accountancy, Business and Management (ABM)</option>
                         <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
