@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
+        "org_heigl/ghostscript": "^2.3",
         "spatie/pdf-to-image": "^1.2",
         "thiagoalessio/tesseract_ocr": "^2.13"
     },

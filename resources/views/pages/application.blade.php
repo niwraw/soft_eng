@@ -19,7 +19,7 @@
         <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0">
             <div class="w-11/12 px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg">
                 <div>
-                    <form action="{{ route('apply.post') }}" method="POST" class="flex flex-col gap-7">
+                    <form action="{{ route('apply.post') }}" method="POST" class="flex flex-col gap-7" enctype="multipart/form-data">
                         <!-- Name -->
                         @csrf
 
@@ -29,6 +29,7 @@
                             <div class="w-1/3">
                                 <x-input-label for="lastName" :value="__('Last Name')" />
                                 <x-text-input id="lastName" class="block w-full mt-1" type="text" name="lastName" required autofocus/>
+                                <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
@@ -460,6 +461,13 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <span>Required Documents (PDF ONLY)</span>
+                        <div>
+                            <x-input-label for="birthCert" :value="__('Birth Certificate (PSA)')" />
+                            <x-text-input id="birthCert" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="birthCert" required accept=".pdf"/>
+                            <x-input-error :messages="$errors->get('birthCert')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center">

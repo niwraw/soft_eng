@@ -11,9 +11,14 @@ use App\Models\ApplicantMotherInformation;
 use App\Models\ApplicantSchoolInformation;
 use App\Models\ApplicantSelectionInformation;
 use App\Models\ApplicantGuardianInformation;
+use App\Models\ApplicantDocumentBirthCert;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use App\Helper\Helper;
+use Illuminate\Support\Facades\Redirect;
+use Org_Heigl\Ghostscript\Ghostscript;
+use Spatie\PdfToImage\Pdf;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class ApplicationController extends Controller
 {
@@ -22,8 +27,38 @@ class ApplicationController extends Controller
         return view('pages.application');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request) : RedirectResponse
     {
+        $validated = $request->validate([
+            'lastName' => ['required', 'string', 'max:100'],
+            'birthCert' => [
+                'required',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $pdf->saveImage($folder . 'test' . '.jpeg');
+
+                    $file_read = (new TesseractOCR($folder . 'test' . '.jpeg'))->setLanguage('eng')->run();
+
+                    $file_read = strtolower($file_read);
+
+                    $file_path = $folder . 'test' . '.jpeg';
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    } 
+
+                    if(strpos($file_read, 'birth') === false) {
+                        $fail('Not a birth cert');
+                    }
+                }
+            ]
+        ]);
+
         $year = date('Y');
 
         $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
@@ -105,13 +140,19 @@ class ApplicationController extends Controller
         $selection->choice2 = $request->choice2;
         $selection->choice3 = $request->choice3;
 
-        $user->save();
-        $other->save();
-        $father->save();
-        $mother->save();
-        $guardian->save();
-        $school->save();
-        $selection->save();
+        // $user->save();
+        // $other->save();
+        // $father->save();
+        // $mother->save();
+        // $guardian->save();
+        // $school->save();
+        // $selection->save();
+
+        if($request->has('birthCert')) {
+
+
+
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }
