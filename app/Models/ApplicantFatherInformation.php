@@ -9,6 +9,6 @@ class ApplicantFatherInformation extends Model
 {
     use HasFactory;
 
-    protected $table = 'apllicant_father_information';
+    protected $table = 'applicant_father_information';
     protected $guarded = [];
 }
