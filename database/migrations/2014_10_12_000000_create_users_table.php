@@ -49,7 +49,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('apllicant_father_information', function (Blueprint $table) {
+        Schema::create('applicant_father_information', function (Blueprint $table) {
             $table->string('applicant_id')->primary();
             $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
 
@@ -123,6 +123,14 @@ return new class extends Migration
             $table->string('choice1');
             $table->string('choice2');
             $table->string('choice3');
+
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_document_birthcert', function (Blueprint $table) {
+            $table->id();
+            $table->string('birthCert');
+            $table->enum('status', ['pending', 'approved', 'reupload'])->default('pending');
 
             $table->timestamps();
         });
