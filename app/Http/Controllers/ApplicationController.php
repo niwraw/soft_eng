@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationController extends Controller
 {
@@ -42,7 +43,7 @@ class ApplicationController extends Controller
 
                     $pdf->saveImage($folder . 'test' . '.jpeg');
 
-                    $file_read = (new TesseractOCR($folder . 'test' . '.jpeg'))->setLanguage('eng')->run();
+                    $file_read = (new TesseractOCR($folder . 'test' . '.jpeg'))->setLanguage('eng')->setOem(1)->run();
 
                     $file_read = strtolower($file_read);
 

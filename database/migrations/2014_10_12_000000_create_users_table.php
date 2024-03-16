@@ -134,13 +134,67 @@ return new class extends Migration
 
             $table->timestamps();
         });
-    }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('users');
+        Schema::create('app_form_application_type', function (Blueprint $table) {
+            $table->id();
+            $table->string('applicationType');
+
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_region', function (Blueprint $table) {
+            $table->string('region')->primary();
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_province', function (Blueprint $table) {
+            $table->string('province')->primary();
+            $table->string('region');
+            $table->foreign('region')->references('region')->on('app_form_region')->onUpdate('cascade')->onDelete('cascade');
+            
+            
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_municipality', function (Blueprint $table) {
+            $table->string('municipality')->primary();
+            $table->string('province');
+            $table->foreign('province')->references('province')->on('app_form_province')->onUpdate('cascade')->onDelete('cascade');
+            
+            
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_zip', function (Blueprint $table) {
+            $table->string('zip')->primary();
+            $table->string('municipality');
+            $table->foreign('municipality')->references('municipality')->on('app_form_municipality')->onUpdate('cascade')->onDelete('cascade');
+            
+            
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_colleges', function (Blueprint $table) {
+            $table->string('college_code')->primary();
+            $table->string('college');
+            
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_course', function (Blueprint $table) {
+            $table->string('course_code')->primary();
+            $table->string('course');
+            $table->string('college_code');
+            $table->foreign('college_code')->references('college_code')->on('app_form_colleges')->onUpdate('cascade')->onDelete('cascade');
+            
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_school', function (Blueprint $table) {
+            $table->integer('school_id')->primary();
+            $table->string('school_name');
+            
+            $table->timestamps();
+        });
     }
 };
