@@ -104,6 +104,34 @@ class DatabaseSeeder extends Seeder
         //     ['region' => 'Region VII', 'province' => 'Lapu-Lapu'],
         //     ['region' => 'Region VII', 'province' => 'Mandaue'],
         // ];
+
+        $collegedepartment = [
+            ['college_code' => 'CN', 'college' => 'College of Nursing'],
+            ['college_code' => 'CPT', 'college' => 'College of Physical Therapy'],
+            ['college_code' => 'CASBE', 'college' => 'College of Architecture and Sustainable Built Environments'],
+            ['college_code' => 'CED', 'college' => 'College of Education'],
+            ['college_code' => 'CE', 'college' => 'College of Engineering'],
+            ['college_code' => 'CS', 'college' => 'College of Science'],
+            ['college_code' => 'CISTM', 'college' => 'College of Information System and Technological Management'],
+            ['college_code' => 'CHASS','college' => 'College of Humanities, Arts and Social Sciences']
+        ];
+        
+        $programs = [
+            ['course_code' => 'BSCS', 'course' => 'Bachelor of Science in Computer Science', 'college_code' => 'CISTM'],
+            ['course_code' => 'BSIT', 'course' => 'Bachelor of Science in Information Technology', 'college_code' => 'CISTM'],
+            ['course_code' => 'BSC', 'course' => 'Bachelor of Science in Communications', 'college_code' => 'CHASS'],
+            ['course_code' => 'BSCSPR', 'course' => 'Bachelor of Science in Communications with Specialization in Public Relations', 'college_code' => 'CHASS'],
+            ['course_code' => 'BSSW', 'course' => 'Bachelor of Science in Social Work', 'college_code' => 'CHASS'],
+            ['course_code' => 'BSN', 'course' => 'Bachelor of Science in Nursing', 'college_code' => 'CN'],
+            ['course_code' => 'BSPT', 'course' => 'Bachelor of Science in Physical Therapy', 'college_code' => 'CPT'],
+            ['course_code' => 'BSArchi', 'course' => 'Bachelor of Science in Architecture', 'college_code' => 'CASBE'],
+            ['course_code' => 'BSME', 'course' => 'Bachelor of Science in Mechanical Engineering', 'college_code' => 'CE'],
+            ['course_code' => 'BSEE', 'course' => 'Bachelor of Science in Electrical Engineering', 'college_code' => 'CE'],
+            ['course_code' => 'BSCE', 'course' => 'Bachelor of Science in Chemical Engineering', 'college_code' => 'CE'],
+            ['course_code' => 'BSCpE', 'course' => 'Bachelor of Science in Computer Engineering', 'college_code' => 'CE'],
+            ['course_code' => 'BSEcE', 'course' => 'Bachelor of Science in Electronics Engineering', 'college_code' => 'CE'],
+        ];
+        
         
         $schools = [
             ['school_id'=> 400860, 'school_name'=> 'Data Center College of the Philippines'],
@@ -173,23 +201,10 @@ class DatabaseSeeder extends Seeder
             ['school_id'=> 406187, 'school_name'=> "Saint Michael's Academy, Rizal, Inc."],
             ['school_id'=> 406198, 'school_name'=> "St. Theresita's High School - Tinglayan"],
             ['school_id'=> 406199, 'school_name'=> 'Bauko Catholic School'],
-            ['school_id'=> 406182, 'school_name'=> "St. Paul's Memorial School of Kalinga, Inc."],
-            ['school_id'=> 406183, 'school_name'=> 'St. Theresita High School of Salegseg, Inc.'],
-            ['school_id'=> 400927, 'school_name'=> 'International School of Asia and the Pacific-Kalinga Campus'],
-            ['school_id'=> 400939, 'school_name'=> 'Cordillera A+ Computer Technology College'],
-            ['school_id'=> 406188, 'school_name'=> 'Saint Tonis College, Inc.'],
-            ['school_id'=> 406192, 'school_name'=> 'St. Theresita High School - Tabuk'],
-            ['school_id'=> 406195, 'school_name'=> 'Tabuk Institute'],
-            ['school_id'=> 407461, 'school_name'=> "Saint William's Academy"],
-            ['school_id'=> 480511, 'school_name'=> 'Kalinga Colleges of Science and Technology'],
-            ['school_id'=> 600198, 'school_name'=> 'Kalinga-Apayao State College'],
-            ['school_id'=> 406185, 'school_name'=> "St. Theresita's School of Lubuagan, Inc."],
-            ['school_id'=> 406186, 'school_name'=> 'St. Theresita High School - Pinukpuk'],
-            ['school_id'=> 406187, 'school_name'=> "Saint Michael's Academy, Rizal, Inc."],
-            ['school_id'=> 406198, 'school_name'=> "St. Theresita's High School - Tinglayan"],
-            ['school_id'=> 406199, 'school_name'=> 'Bauko Catholic School'],
         ];
 
         DB::table('app_form_school')->insert($schools);
+        DB::table('app_form_colleges')->insert($collegedepartment);
+        DB::table('app_form_course')->insert($programs);
     }
 }

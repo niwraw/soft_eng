@@ -142,12 +142,9 @@
                                     <select name="city" id="city" class="block w-full mt-1" required>
                                         <option value="">Please select</option>
                                         <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        @foreach ($schools as $school)
+                                            <option value="{{ $school }}">{{ $school }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -358,9 +355,13 @@
                                 <x-input-label for="lrn" :value="__('Learner\'s Reference No. (LRN)')" />
                                 <x-text-input id="lrn" class="block w-full mt-1" type="text" name="lrn" required/>
                             </div>
-                            <div class="w-1/3">
+                            <div class="relative w-1/3 search-bar">
                                 <x-input-label for="school" :value="__('School/Senior High School Attended')" />
-                                <x-text-input id="school" class="block w-full mt-1" type="text" name="school" required/>
+                                <x-text-input id="school" class="block w-full mt-1" type="text" name="school" required autocomplete="off"/>
+                                
+                                <div class="absolute hidden w-full h-auto bg-white border border-gray-300 rounded-md max-h-80 datalist">
+
+                                </div>
                             </div>
 
                             <div class="w-1/3">
@@ -414,16 +415,11 @@
                             <div class="w-1/3">
                                 <x-input-label for="choice1" :value="__('Program Choice 1')" />
                                 <div>
-                                    <select name="choice1" id="choice1" required class="block w-full mt-1" required>
-                                        <option value="">Select Strand</option>
-                                        <option value="ABM">Accountancy, Business and Management (ABM)</option>
-                                        <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
-                                        <option value="STEM">Science, Technology, Engineering and Mathematics (STEM)</option>
-                                        <option value="GAS">General Academic Strand (GAS)</option>
-                                        <option value="TVL">Technical-Vocational Livelihood (TVL)</option>
-                                        <option value="SPORTS">Sports Track</option>
-                                        <option value="ADT">Arts and Design Track</option>
-                                        <option value="PBM">Pre-Baccalaureate Maritime</option>
+                                    <select name="choice1" id="choice1" required class="block w-full mt-1" required onchange="updateSelectOptions()">
+                                        <option value="" disabled selected="true">Select Program Choice 1</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{ $course->course_code }}">{{ $course->course }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -431,16 +427,11 @@
                             <div class="w-1/3">
                                 <x-input-label for="choice2" :value="__('Program Choice 2')" />
                                 <div>
-                                    <select name="choice2" id="choice2" required class="block w-full mt-1" required>
-                                        <option value="">Select Strand</option>
-                                        <option value="ABM">Accountancy, Business and Management (ABM)</option>
-                                        <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
-                                        <option value="STEM">Science, Technology, Engineering and Mathematics (STEM)</option>
-                                        <option value="GAS">General Academic Strand (GAS)</option>
-                                        <option value="TVL">Technical-Vocational Livelihood (TVL)</option>
-                                        <option value="SPORTS">Sports Track</option>
-                                        <option value="ADT">Arts and Design Track</option>
-                                        <option value="PBM">Pre-Baccalaureate Maritime</option>
+                                    <select name="choice2" id="choice2" required class="block w-full mt-1" required onchange="updateSelectOptions()">
+                                        <option value="" disabled selected="true">Select Program Choice 2</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{ $course->course_code }}">{{ $course->course }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -448,16 +439,11 @@
                             <div class="w-1/3">
                                 <x-input-label for="choice3" :value="__('Program Choice 3')" />
                                 <div>
-                                    <select name="choice3" id="choice3" required class="block w-full mt-1" required>
-                                        <option value="">Select Strand</option>
-                                        <option value="ABM">Accountancy, Business and Management (ABM)</option>
-                                        <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
-                                        <option value="STEM">Science, Technology, Engineering and Mathematics (STEM)</option>
-                                        <option value="GAS">General Academic Strand (GAS)</option>
-                                        <option value="TVL">Technical-Vocational Livelihood (TVL)</option>
-                                        <option value="SPORTS">Sports Track</option>
-                                        <option value="ADT">Arts and Design Track</option>
-                                        <option value="PBM">Pre-Baccalaureate Maritime</option>
+                                    <select name="choice3" id="choice3" required class="block w-full mt-1" required onchange="updateSelectOptions()">
+                                        <option value="" disabled selected="true">Select Program Choice 3</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{ $course->course_code }}">{{ $course->course }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -493,5 +479,77 @@
                     </div>
             </div>
         </div>
+
+        <script>
+            var schools = @json($schools);
+            const search = document.querySelector('.search-bar');
+            const datalist = search.querySelector('.datalist');
+            const input = search.querySelector('input');
+
+            input.onkeyup = (e) =>{
+                let schoolInput = e.target.value;
+                let result = [];
+                datalist.classList.remove('hidden');
+                
+                if(schoolInput){
+                    result = schools.filter((data) => {
+                        return data.toLocaleLowerCase().includes(schoolInput.toLocaleLowerCase());
+                    });
+
+                    result = result.map((data) => {
+                        return data = '<li class="w-full px-2 py-1.5 cursor-default hover:bg-gray-300" onclick="selectOption()">' + data + '</li>';
+                    });
+
+                    console.log(result);
+                }
+
+                if (schoolInput.length < 1) {
+                    result = [];
+                    datalist.classList.add('hidden');
+                }
+                else
+                {
+                    displayResult(result);
+                }
+            }
+
+            function selectOption(){
+                input.value = event.target.innerText;
+                datalist.classList.add('hidden');
+            }
+
+            function displayResult(result){
+                let list;
+                
+                if(!result.length){
+                    schoolInput = input.value;
+                    list = '<li class="w-full px-2 py-5">Not found: ' + schoolInput + '</li>';
+                }
+                else{
+                    list = result.join('');
+                }
+                
+                datalist.innerHTML = '<ul class="h-full p-2 overflow-y-scroll max-h-80">' + list + '</ul>';
+            }
+
+            function updateSelectOptions() {
+                var selects = document.querySelectorAll('select[name^="choice"]');
+                var selectedValues = Array.from(selects).map(function (s) { return s.value; });
+
+                selects.forEach(function (s) {
+                    Array.from(s.options).forEach(function (option) {
+                        if (selectedValues.includes(option.value) && s.value !== option.value) {
+                            option.disabled = true;
+                        } else {
+                            option.disabled = false;
+                        }
+                    });
+                });
+
+                if (option.value === ""){
+                    option.disabled = true;
+                }
+            }
+        </script>
     </body>
 </html>

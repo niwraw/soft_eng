@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\ApplicantFatherInformation;
+use App\Models\SchoolModel;
 use App\Models\ApplicantOtherInformation;
 use App\Models\ApplicantPersonalInformation;
 use App\Models\ApplicantMotherInformation;
 use App\Models\ApplicantSchoolInformation;
 use App\Models\ApplicantSelectionInformation;
 use App\Models\ApplicantGuardianInformation;
+use App\Models\CourseModel;
 use App\Models\ApplicantDocumentBirthCert;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
@@ -19,13 +21,17 @@ use Illuminate\Support\Facades\Redirect;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class ApplicationController extends Controller
 {
     public function create(): View
     {
-        return view('pages.application');
+        $schools = SchoolModel::all()->pluck('school_name');
+        $courses = CourseModel::get(['course_code', 'course']);;
+
+        // dd($courses);
+        return view('pages.application', compact('schools'), compact('courses'));
     }
 
     public function store(Request $request) : RedirectResponse
