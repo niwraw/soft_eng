@@ -46,7 +46,7 @@
                                 <x-input-label for="suffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="suffix" id="suffix" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                         <option value="">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
@@ -74,7 +74,7 @@
                                 <x-input-label for="applicationType" :value="__('Appication Type')" />
                                 <div>
                                     <select name="applicationType" id="applicationType" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                         <option value="SHS">Senior High School</option>
                                         <option value="ALS">Alternative Learning System</option>
                                         <option value="OLD">High School Graduate</option>
@@ -87,7 +87,7 @@
                                 <x-input-label for="gender" :value="__('Gender')" />
                                 <div>
                                     <select name="gender" id="gender" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                     </select>
@@ -124,14 +124,7 @@
                                 <x-input-label for="region" :value="__('Region')" />
                                 <div>
                                     <select name="region" id="region" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,11 +133,7 @@
                                 <x-input-label for="city" :value="__('City/Municipality')"/>
                                 <div>
                                     <select name="city" id="city" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
-                                        <option value="">None</option>
-                                        @foreach ($schools as $school)
-                                            <option value="{{ $school }}">{{ $school }}</option>
-                                        @endforeach
+                                        <option value="" disabled selected="true">Please select</option>
                                     </select>
                                 </div>
                             </div>
@@ -155,14 +144,8 @@
                                 <x-input-label for="barangay" :value="__('Barangay')" />
                                 <div>
                                     <select name="barangay" id="barangay" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled selected="true">Please select</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -171,14 +154,7 @@
                                 <x-input-label for="zip" :value="__('Zip Code')" />
                                 <div>
                                     <select name="zip" id="zip" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                     </select>
                                 </div>
                             </div>
@@ -207,7 +183,7 @@
                                 <x-input-label for="fatherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="fatherSuffix" id="fatherSuffix" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                         <option value="">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
@@ -261,7 +237,7 @@
                                 <x-input-label for="motherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="motherSuffix" id="motherSuffix" class="block w-full mt-1" required>
-                                        <option value="">Please select</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                         <option value="">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
@@ -315,7 +291,7 @@
                                 <x-input-label for="guardianSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="guardianSuffix" id="guardianSuffix" class="block w-full mt-1">
-                                        <option value="">Please select</option>
+                                        <option value="" disabled selected="true">Please select</option>
                                         <option value="">None</option>
                                         <option value="Jr.">Jr.</option>
                                         <option value="Sr.">Sr.</option>
@@ -386,7 +362,7 @@
                                 <x-input-label for="strand" :value="__('Academic Strand')" />
                                 <div>
                                     <select name="strand" id="strand" required class="block w-full mt-1" required>
-                                        <option value="">Select Strand</option>
+                                        <option value="" disabled selected="true">Select Strand</option>
                                         <option value="ABM">Accountancy, Business and Management (ABM)</option>
                                         <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
                                         <option value="STEM">Science, Technology, Engineering and Mathematics (STEM)</option>
