@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('region');
             $table->string('city');
             $table->string('barangay');
-            $table->string('zip');
+            // $table->string('zip');
 
             $table->timestamps();
         });

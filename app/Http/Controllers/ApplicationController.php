@@ -28,7 +28,7 @@ class ApplicationController extends Controller
     public function create(): View
     {
         $schools = SchoolModel::all()->pluck('school_name');
-        $courses = CourseModel::get(['course_code', 'course']);;
+        $courses = CourseModel::get(['course_code', 'course']);
 
         // dd($courses);
         return view('pages.application', compact('schools'), compact('courses'));
@@ -92,7 +92,7 @@ class ApplicationController extends Controller
         $other->region = $request->region;
         $other->city = $request->city;
         $other->barangay = $request->barangay;
-        $other->zip = $request->zip;
+        // $other->zip = $request->zip;
 
         $father = new ApplicantFatherInformation();
 
