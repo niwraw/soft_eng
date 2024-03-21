@@ -514,17 +514,13 @@
 
                 selects.forEach(function (s) {
                     Array.from(s.options).forEach(function (option) {
-                        if (selectedValues.includes(option.value) && s.value !== option.value) {
+                        if (option.value === "" || (selectedValues.includes(option.value) && s.value !== option.value)) {
                             option.disabled = true;
                         } else {
                             option.disabled = false;
                         }
                     });
                 });
-
-                if (option.value === ""){
-                    option.disabled = true;
-                }
             }
         </script>
     </body>
