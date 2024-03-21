@@ -143,36 +143,48 @@ return new class extends Migration
         });
 
         Schema::create('app_form_region', function (Blueprint $table) {
-            $table->string('region')->primary();
+            $table->string('region_code')->primary();
+            $table->string('region_name');
             $table->timestamps();
         });
 
         Schema::create('app_form_province', function (Blueprint $table) {
-            $table->string('province')->primary();
-            $table->string('region');
-            $table->foreign('region')->references('region')->on('app_form_region')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('province_code')->primary();
+            $table->string('province_name');
+            $table->string('region_code');
+            $table->foreign('region_code')->references('region_code')->on('app_form_region')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->timestamps();
+        });
+
+        Schema::create('app_form_city', function (Blueprint $table) {
+            $table->string('city_code')->primary();
+            $table->string('city_name');
+            $table->string('province_code');
+            $table->foreign('province_code')->references('province_code')->on('app_form_province')->onUpdate('cascade')->onDelete('cascade');
             
             
             $table->timestamps();
         });
 
-        Schema::create('app_form_municipality', function (Blueprint $table) {
-            $table->string('municipality')->primary();
-            $table->string('province');
-            $table->foreign('province')->references('province')->on('app_form_province')->onUpdate('cascade')->onDelete('cascade');
+        Schema::create('app_form_barangay', function (Blueprint $table) {
+            $table->string('brgy_code')->primary();
+            $table->string('brgy_name');
+            $table->string('city_code');
+            $table->foreign('city_code')->references('city_code')->on('app_form_city')->onUpdate('cascade')->onDelete('cascade');
             
             
             $table->timestamps();
         });
 
-        Schema::create('app_form_zip', function (Blueprint $table) {
-            $table->string('zip')->primary();
-            $table->string('municipality');
-            $table->foreign('municipality')->references('municipality')->on('app_form_municipality')->onUpdate('cascade')->onDelete('cascade');
+        // Schema::create('app_form_zip', function (Blueprint $table) {
+        //     $table->string('zip')->primary();
+        //     $table->string('municipality');
+        //     $table->foreign('municipality')->references('municipality')->on('app_form_municipality')->onUpdate('cascade')->onDelete('cascade');
             
             
-            $table->timestamps();
-        });
+        //     $table->timestamps();
+        // });
 
         Schema::create('app_form_colleges', function (Blueprint $table) {
             $table->string('college_code')->primary();
