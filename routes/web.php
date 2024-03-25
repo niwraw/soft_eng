@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\BarangayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +35,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('apply', [ApplicationController::class, 'store'])->name('apply.post');
 });
+
+Route::get('/get-provinces/{regionCode}', [ProvinceController::class, 'getProvinces']);
+Route::get('/get-cities/{provinceCode}', [CityController::class, 'getCities']);
+Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangays']);

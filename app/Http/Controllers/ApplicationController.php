@@ -13,6 +13,10 @@ use App\Models\ApplicantSchoolInformation;
 use App\Models\ApplicantSelectionInformation;
 use App\Models\ApplicantGuardianInformation;
 use App\Models\CourseModel;
+use App\Models\Regions;
+use App\Models\Provinces;
+use App\Models\Cities;
+use App\Models\Barangays;
 use App\Models\ApplicantDocumentBirthCert;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
@@ -21,6 +25,7 @@ use Illuminate\Support\Facades\Redirect;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use Illuminate\Validation\Rule;
 
 
 class ApplicationController extends Controller
@@ -29,41 +34,67 @@ class ApplicationController extends Controller
     {
         $schools = SchoolModel::all()->pluck('school_name');
         $courses = CourseModel::get(['course_code', 'course']);
+        $regions = Regions::get(['region_code', 'region_name']);
 
-        // dd($courses);
-        return view('pages.application', compact('schools'), compact('courses'));
+        // dd($regions);
+        return view('pages.application', compact('schools', 'courses', 'regions'));
     }
 
     public function store(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
-            'lastName' => ['required', 'string', 'max:100'],
-            'birthCert' => [
-                'required',
-                function($attribute, $value, $fail) {
-                    $upload_dir = 'uploads/';
+            // Application Information
+            'lastName' => ['required', 'string', 'max:20'],
+            'firstName' => ['required', 'string', 'max:20'],
+            'middleName' => ['required', 'string', 'max:20'],
+            'suffix' => ['nullable', Rule::in(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])],
+            'email' => ['required', 'email', 'unique:applicant_personal_information',
+                        function ($attribute, $value, $fail) {
+                            if (str_ends_with($value, '@plm.edu.ph')) {
+                                $fail('Invalid Email!');
+                            }
+                        },
+                    ],
+            'contactNum' => ['required', 'string', 'max:11', 'unique:applicant_personal_information', 'regex:/^09\d{9}$/'],
+            'applicationType' => ['required'],
+            'gender' => ['required'],
 
-                    $folder = base_path('public/' . $upload_dir . 'test/');
-                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
-                    $pdf = new Pdf($value);
+            // Other Information
+            'maidenName' => ['nullable', 'string', 'max:75'],
+            'birthDate' => ['required', 'date'],
+            'birthPlace' => ['required', 'string', 'max:75'],
+            'address' => ['required', 'string', 'max:255'],
 
-                    $pdf->saveImage($folder . 'test' . '.jpeg');
 
-                    $file_read = (new TesseractOCR($folder . 'test' . '.jpeg'))->setLanguage('eng')->setOem(1)->run();
+            // 'birthCert' => [
+            //     'required',
+            //     function($attribute, $value, $fail) {
+            //         $upload_dir = 'uploads/';
 
-                    $file_read = strtolower($file_read);
+            //         $folder = base_path('public/' . $upload_dir . 'test/');
+            //         Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+            //         $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+            //         $pdf->saveImage($folder . 'test' . '.jpeg');
 
-                    if (file_exists($file_path)) {
-                        unlink($file_path);
-                    } 
+            //         $file_read = (new TesseractOCR($folder . 'test' . '.jpeg'))->setLanguage('eng')->setOem(1)->run();
 
-                    if(strpos($file_read, 'birth') === false) {
-                        $fail('Not a birth cert');
-                    }
-                }
-            ]
+            //         $file_read = strtolower($file_read);
+
+            //         $file_path = $folder . 'test' . '.jpeg';
+
+            //         if (file_exists($file_path)) {
+            //             unlink($file_path);
+            //         } 
+
+            //         if(strpos($file_read, 'birth') === false) {
+            //             $fail('Not a birth cert');
+            //         }
+            //     }
+            // ]
+        ], [
+            'contactNum.regex' => 'Invalid contact number format! Should start with \'09\'',
+
         ]);
 
         $year = date('Y');

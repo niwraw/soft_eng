@@ -19,15 +19,11 @@ return new class extends Migration
             $table->string('lastName');
             $table->string('firstName');
             $table->string('middleName');
-            $table->enum('suffix', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
+            $table->enum('suffix', ['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])->nullable();
             $table->string('email')->unique();
             $table->string('contactNum')->unique();
             $table->enum('applicationType', ['SHS', 'ALS', 'OLD', 'TRANSFER']);
             $table->enum('gender', ['male', 'female']);
-
-            // //Documents
-            // $table->binary('birthCert');
-            // $table->binary('form137');
 
             $table->timestamps();
         });

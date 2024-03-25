@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     
     <body class="font-sans antialiased text-gray-900">
@@ -28,70 +29,77 @@
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="lastName" :value="__('Last Name')" />
-                                <x-text-input id="lastName" class="block w-full mt-1" type="text" name="lastName" required autofocus/>
+                                <x-text-input id="lastName" class="block w-full mt-1" type="text" name="lastName" value="{{ old('lastName') }}" required autofocus/>
                                 <x-input-error :messages="$errors->get('lastName')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="firstName" :value="__('First Name')" />
-                                <x-text-input id="firstName" class="block w-full mt-1" type="text" name="firstName" required autofocus/>
+                                <x-text-input id="firstName" class="block w-full mt-1" type="text" name="firstName" required autofocus value="{{ old('firstName') }}"/>
+                                <x-input-error :messages="$errors->get('firstName')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="middleName" :value="__('Middle Name')" />
-                                <x-text-input id="middleName" class="block w-full mt-1" type="text" name="middleName" required autofocus/>
+                                <x-text-input id="middleName" class="block w-full mt-1" type="text" name="middleName" required autofocus value="{{ old('middleName') }}"/>
+                                
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="suffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="suffix" id="suffix" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled {{ old('suffix') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="" {{ old('suffix') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('suffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('suffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('suffix') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('suffix') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('suffix') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('suffix') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('suffix')" class="mt-2" />
                             </div>
                         </div>
                         
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="email" :value="__('Email Address')" />
-                                <x-text-input id="email" class="block w-full mt-1" type="email" name="email" required/>
+                                <x-text-input id="email" class="block w-full mt-1" type="email" name="email" required value="{{ old('email') }}"/>
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="contactNum" :value="__('Contact Number')" />
-                                <x-text-input id="contactNum" class="block w-full mt-1" type="text" name="contactNum" required/>
+                                <x-text-input id="contactNum" class="block w-full mt-1" type="text" name="contactNum" required value="{{ old('contactNum') }}"/>
+                                <x-input-error :messages="$errors->get('contactNum')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="applicationType" :value="__('Appication Type')" />
                                 <div>
                                     <select name="applicationType" id="applicationType" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
-                                        <option value="SHS">Senior High School</option>
-                                        <option value="ALS">Alternative Learning System</option>
-                                        <option value="OLD">High School Graduate</option>
-                                        <option value="TRANSFER">Transferee</option>
+                                        <option value="" disabled {{ old('applicationType') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="SHS" {{ old('applicationType') == 'SHS' ? 'selected' : '' }}>Senior High School</option>
+                                        <option value="ALS" {{ old('applicationType') == 'ALS' ? 'selected' : '' }}>Alternative Learning System</option>
+                                        <option value="OLD" {{ old('applicationType') == 'OLD' ? 'selected' : '' }}>High School Graduate</option>
+                                        <option value="TRANSFER" {{ old('applicationType') == 'TRANSFER' ? 'selected' : '' }}>Transferee</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('applicationType')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="gender" :value="__('Gender')" />
                                 <div>
                                     <select name="gender" id="gender" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="" disabled {{ old('gender') === null ? 'selected' : '' }}>Please select</option>
+                                        <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                        <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('gender')" class="mt-2" />
                             </div>
                         </div>
 
@@ -99,17 +107,20 @@
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="maidenName" :value="__('Maiden Name (If Married)')" />
-                                <x-text-input id="maidenName" class="block w-full mt-1" type="text" name="maidenName" autofocus/>
+                                <x-text-input id="maidenName" class="block w-full mt-1" type="text" name="maidenName" autofocus value="{{ old('maidenName') }}"/>
+                                <x-input-error :messages="$errors->get('maidenName')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="birthDate" :value="__('Birth Date')" />
-                                <x-text-input id="birthDate" class="block w-full mt-1" type="date" name="birthDate" required autofocus/>
+                                <x-text-input id="birthDate" class="block w-full mt-1" type="date" name="birthDate" required autofocus value="{{ old('birthDate') }}"/>
+                                <x-input-error :messages="$errors->get('birthDate')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="birthPlace" :value="__('Birth Place')" />
-                                <x-text-input id="birthPlace" class="block w-full mt-1" type="text" name="birthPlace" required autofocus/>
+                                <x-text-input id="birthPlace" class="block w-full mt-1" type="text" name="birthPlace" required autofocus value="{{ old('birthPlace') }}"/>
+                                <x-input-error :messages="$errors->get('birthPlace')" class="mt-2" />
                             </div>
 
                         </div>
@@ -117,23 +128,27 @@
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="address" :value="__('House No./St./Vill./Subd./Compound')" />
-                                <x-text-input id="address" class="block w-full mt-1" type="text" name="address" required autofocus/>
+                                <x-text-input id="address" class="block w-full mt-1" type="text" name="address" required autofocus value="{{ old('address') }}"/>
+                                <x-input-error :messages="$errors->get('address')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="region" :value="__('Region')" />
                                 <div>
                                     <select name="region" id="region" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
+                                        <option value="" disabled {{ old('region') === null ? 'selected' : '' }}>Please select</option>
+                                        @foreach ($regions as $region)
+                                            <option value="{{ $region->region_code }}" {{ old('region') == $region->region_code ? 'selected' : '' }}>{{ $region->region_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <div class="w-1/3">
-                                <x-input-label for="city" :value="__('City/Municipality')"/>
+                                <x-input-label for="province" :value="__('Province')"/>
                                 <div>
-                                    <select name="city" id="city" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
+                                    <select name="province" id="province" class="block w-full mt-1" required>
+                                        <option value="" disabled {{ old('province') === null ? 'selected' : '' }}>Please select</option>
                                     </select>
                                 </div>
                             </div>
@@ -141,20 +156,19 @@
 
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
-                                <x-input-label for="barangay" :value="__('Barangay')" />
+                                <x-input-label for="city" :value="__('City/Municipality')" />
                                 <div>
-                                    <select name="barangay" id="barangay" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
-
+                                    <select name="city" id="city" class="block w-full mt-1" required>
+                                        <option value="" disabled {{ old('city') === null ? 'selected' : '' }}>Please select</option>
                                     </select>
                                 </div>
                             </div>
-
+                            
                             <div class="w-1/3">
-                                <x-input-label for="zip" :value="__('Zip Code')" />
+                                <x-input-label for="barangay" :value="__('Barangay')" />
                                 <div>
-                                    <select name="zip" id="zip" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
+                                    <select name="barangay" id="barangay" class="block w-full mt-1" required>
+                                        <option value="" disabled {{ old('barangay') === null ? 'selected' : '' }}>Please select</option>
                                     </select>
                                 </div>
                             </div>
@@ -163,7 +177,7 @@
                             </div>
                         </div>
 
-                        <span>Father's Information</span>
+                        {{-- <span>Father's Information</span>
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="fatherLast" :value="__('Last Name')" />
@@ -430,7 +444,7 @@
                             <x-input-label for="birthCert" :value="__('Birth Certificate (PSA)')" />
                             <x-text-input id="birthCert" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="birthCert" required accept=".pdf"/>
                             <x-input-error :messages="$errors->get('birthCert')" class="mt-2" />
-                        </div>
+                        </div> --}}
 
                         <div class="flex items-center">
                             <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" />
@@ -457,7 +471,7 @@
         </div>
 
         <script>
-            var schools = @json($schools);
+            {{-- var schools = @json($schools);
             const search = document.querySelector('.search-bar');
             const datalist = search.querySelector('.datalist');
             const input = search.querySelector('input');
@@ -498,8 +512,7 @@
                 let list;
                 
                 if(!result.length){
-                    schoolInput = input.value;
-                    list = '<li class="w-full px-2 py-5">Not found: ' + schoolInput + '</li>';
+                    datalist.classList.add('hidden');
                 }
                 else{
                     list = result.join('');
@@ -521,7 +534,57 @@
                         }
                     });
                 });
-            }
+            } --}}
+
+            $(document).ready(function() {
+                $('#region').on('change', function() {
+                    var regionCode = $(this).val();
+                    $.ajax({
+                        url: '/get-provinces/' + regionCode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#province').html(data);
+                            var oldProvince = "{{ old('province') }}";
+                            if (oldProvince) {
+                                $('#province').val(oldProvince).trigger('change');
+                            }
+                            $('#city').html('<option value="" disabled selected="true">Please select</option>');
+                            $('#barangay').html('<option value="" disabled selected="true">Please select</option>');
+                        }
+                    });
+                }).trigger('change');
+
+                $('#province').on('change', function() {
+                    var provinceCode = $(this).val();
+                    $.ajax({
+                        url: '/get-cities/' + provinceCode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#city').html(data);
+                            var oldCity = "{{ old('city') }}";
+                            if (oldCity) {
+                                $('#city').val(oldCity).trigger('change');
+                            }
+                            $('#barangay').html('<option value="" disabled selected="true">Please select</option>');
+                        }
+                    });
+                });
+
+                $('#city').on('change', function() {
+                    var cityCode = $(this).val();
+                    $.ajax({
+                        url: '/get-barangays/' + cityCode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#barangay').html(data);
+                            var oldBarangay = "{{ old('barangay') }}";
+                            if (oldBarangay) {
+                                $('#barangay').val(oldBarangay);
+                            }
+                        }
+                    });
+                });
+            });
         </script>
     </body>
 </html>

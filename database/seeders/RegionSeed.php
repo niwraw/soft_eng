@@ -56,5 +56,7 @@ class RegionSeed extends Seeder
                 'city_code' => $obj->city_code,
             ]);
         }
+
+        
     }
 }
