@@ -14,6 +14,17 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            input[type="number"]::-webkit-inner-spin-button,
+            input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            }
+
+            input[type="number"] {
+            -moz-appearance: textfield;
+            }
+        </style>
     </head>
     
     <body class="font-sans antialiased text-gray-900">
@@ -72,7 +83,7 @@
 
                             <div class="w-1/3">
                                 <x-input-label for="contactNum" :value="__('Contact Number')" />
-                                <x-text-input id="contactNum" class="block w-full mt-1" type="text" name="contactNum" required value="{{ old('contactNum') }}"/>
+                                <x-text-input id="contactNum" class="block w-full mt-1 appearance-none" type="number" name="contactNum" required value="{{ old('contactNum') }}" maxlength="11"/>
                                 <x-input-error :messages="$errors->get('contactNum')" class="mt-2" />
                             </div>
 
