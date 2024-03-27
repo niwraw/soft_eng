@@ -99,10 +99,23 @@ class ApplicationController extends Controller
             'guardianJob' => ['nullable', 'string', 'max:75'],
             'guardianIncome' => ['nullable', 'numeric'],
 
+            // School Information
+            'lrn' => ['required', 'string', 'max:12'],
+            'school' => ['required', 'string', 'max:75'],
+            'schoolEmail' => ['required', 'email'],
+            'schoolType' => ['required'],
+            'strand' => ['required'],
+            'gwa' => ['required'],
 
+            // Selection Information
+            'choice1' => ['required'],
+            'choice2' => ['required'],
+            'choice3' => ['required'],
 
+            // Files
             // 'birthCert' => [
             //     'required',
+            //     'mimes:pdf',
             //     function($attribute, $value, $fail) {
             //         $upload_dir = 'uploads/';
 
@@ -129,7 +142,6 @@ class ApplicationController extends Controller
             // ]
         ], [
             'contactNum.regex' => 'Invalid contact number format! Should start with \'09\'',
-
         ]);
 
         $year = date('Y');

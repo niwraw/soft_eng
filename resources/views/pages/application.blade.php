@@ -390,7 +390,7 @@
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="lrn" :value="__('Learner\'s Reference No. (LRN)')" />
-                                <x-text-input id="lrn" class="block w-full mt-1" type="text" name="lrn" required value="{{ old('lrn') }}"/>
+                                <x-text-input id="lrn" class="block w-full mt-1" type="number" name="lrn" required value="{{ old('lrn') }}"/>
                             </div>
                             <div class="relative w-1/3 search-bar">
                                 <x-input-label for="school" :value="__('School/Senior High School Attended')" />
@@ -437,7 +437,7 @@
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="gwa" :value="__('Grade Weighted Average (GWA)')" />
-                                <x-text-input id="gwa" class="block w-full mt-1" type="text" name="gwa" required value="{{ old('gwa') }}"/>
+                                <x-text-input id="gwa" class="block w-full mt-1" type="number" name="gwa" required value="{{ old('gwa') }}"/>
                             </div>
 
                             <div class="w-1/3">
