@@ -64,6 +64,20 @@ class ApplicationController extends Controller
             'birthDate' => ['required', 'date'],
             'birthPlace' => ['required', 'string', 'max:75'],
             'address' => ['required', 'string', 'max:255'],
+            'region' => ['required'],
+            'city' => ['required'],
+            'barangay' => ['required'],
+            // 'zip' => ['required', 'string', 'max:4'],
+
+            // Father Information
+            'fatherLast' => ['required', 'string', 'max:20'],
+            'fatherFirst' => ['required', 'string', 'max:20'],
+            'fatherMiddle' => ['required', 'string', 'max:20'],
+            'fatherSuffix' => ['nullable', Rule::in(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])],
+            'fatherAddress' => ['required', 'string', 'max:255'],
+            'fatherContact' => ['required', 'string', 'max:11', 'regex:/^09\d{9}$/'],
+            'fatherJob' => ['required', 'string', 'max:75'],
+            'fatherIncome' => ['required', 'numeric'],
 
 
             // 'birthCert' => [

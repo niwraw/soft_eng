@@ -153,6 +153,7 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('region')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
@@ -162,6 +163,7 @@
                                         <option value="" disabled {{ old('province') === null ? 'selected' : '' }}>Please select</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('province')" class="mt-2" />
                             </div>
                         </div>
 
@@ -173,6 +175,7 @@
                                         <option value="" disabled {{ old('city') === null ? 'selected' : '' }}>Please select</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('city')" class="mt-2" />
                             </div>
                             
                             <div class="w-1/3">
@@ -182,63 +185,76 @@
                                         <option value="" disabled {{ old('barangay') === null ? 'selected' : '' }}>Please select</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('barangay')" class="mt-2" />
                             </div>
                             
                             <div class="w-1/3">
                             </div>
                         </div>
 
-                        {{-- <span>Father's Information</span>
+                        <span>Father's Information</span>
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="fatherLast" :value="__('Last Name')" />
-                                <x-text-input id="fatherLast" class="block w-full mt-1" type="text" name="fatherLast" required/>
+                                <x-text-input id="fatherLast" class="block w-full mt-1" type="text" name="fatherLast" required value="{{ old('fatherLast') }}"/>
+                                <x-input-error :messages="$errors->get('fatherLast')" class="mt-2" />
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="fatherFirst" :value="__('First Name')" />
-                                <x-text-input id="fatherFirst" class="block w-full mt-1" type="text" name="fatherFirst" required/>
+                                <x-text-input id="fatherFirst" class="block w-full mt-1" type="text" name="fatherFirst" required value="{{ old('fatherFirst') }}"/>
+                                <x-input-error :messages="$errors->get('fatherFirst')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="fatherMiddle" :value="__('Middle Name')" />
-                                <x-text-input id="fatherMiddle" class="block w-full mt-1" type="text" name="fatherMiddle" required/>
+                                <x-text-input id="fatherMiddle" class="block w-full mt-1" type="text" name="fatherMiddle" required value="{{ old('fatherMiddle') }}"/>
+                                <x-input-error :messages="$errors->get('fatherMiddle')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="fatherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="fatherSuffix" id="fatherSuffix" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled {{ old('suffix') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="" {{ old('suffix') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('suffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('suffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('suffix') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('suffix') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('suffix') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('suffix') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('fatherSuffix')" class="mt-2" />
                             </div>
                         </div>
 
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="fatherAddress" :value="__('Address')" />
-                                <x-text-input id="fatherAddress" class="block w-full mt-1" type="text" name="fatherAddress" required/>
+                                <x-text-input id="fatherAddress" class="block w-full mt-1" type="text" name="fatherAddress" required value="{{ old('fatherAddress') }}"/>
+                                <x-input-error :messages="$errors->get('fatherAddress')" class="mt-2" />
+                                <div class="flex flex-row items-center w-full h-4 gap-1 py-3 mt-2">
+                                    <input type="checkbox" id="sameFather">
+                                    <label for="sameFather">Same as Applicant's Address</label>
+                                </div>
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="fatherContact" :value="__('Contact Number')" />
-                                <x-text-input id="fatherContact" class="block w-full mt-1" type="text" name="fatherContact" required/>
+                                <x-text-input id="fatherContact" class="block w-full mt-1" type="number" name="fatherContact" required value="{{ old('fatherContact') }}"/>
+                                <x-input-error :messages="$errors->get('fatherContact')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="fatherJob" :value="__('Occupation')" />
-                                <x-text-input id="fatherJob" class="block w-full mt-1" type="text" name="fatherJob" required/>
+                                <x-text-input id="fatherJob" class="block w-full mt-1" type="text" name="fatherJob" required value="{{ old('fatherJob') }}"/>
+                                <x-input-error :messages="$errors->get('fatherJob')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
-                                <x-input-label for="fatherIncome" :value="__('Income')" />
-                                <x-text-input id="fatherIncome" class="block w-full mt-1" type="text" name="fatherIncome" required/>
+                                <x-input-label for="fatherIncome" :value="__('Income (in Pesos)')" />
+                                <x-text-input id="fatherIncome" class="block w-full mt-1" type="number" name="fatherIncome" required value="{{ old('fatherIncome') }}"/>
+                                <x-input-error :messages="$errors->get('fatherIncome')" class="mt-2" />
                             </div>
                         </div>
 
@@ -455,7 +471,7 @@
                             <x-input-label for="birthCert" :value="__('Birth Certificate (PSA)')" />
                             <x-text-input id="birthCert" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="birthCert" required accept=".pdf"/>
                             <x-input-error :messages="$errors->get('birthCert')" class="mt-2" />
-                        </div> --}}
+                        </div>
 
                         <div class="flex items-center">
                             <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" />
@@ -482,7 +498,7 @@
         </div>
 
         <script>
-            {{-- var schools = @json($schools);
+            var schools = @json($schools);
             const search = document.querySelector('.search-bar');
             const datalist = search.querySelector('.datalist');
             const input = search.querySelector('input');
@@ -545,7 +561,7 @@
                         }
                     });
                 });
-            } --}}
+            }
 
             $(document).ready(function() {
                 $('#region').on('change', function() {
@@ -594,6 +610,26 @@
                             }
                         }
                     });
+                });
+
+                $('#sameFather').on('change', function() {
+                    if ($(this).is(':checked')) {
+                        var address = $('#address').val();
+                        var region = $('#region option:selected').text();
+                        var province = $('#province option:selected').text();
+                        var city = $('#city option:selected').text();
+                        var barangay = $('#barangay option:selected').text();
+
+                        if (address != "" && region != "Please Select" && province != "Please Select" && city != "Please Select" && barangay != "Please Select") {
+                            $('#fatherAddress').val([address, barangay, city, province, region].filter(Boolean).join(', '));
+                        }
+                        else
+                        {
+                            $(this).prop('checked', false);
+                        }
+                    } else {
+                        $('#fatherAddress').val('');
+                    }
                 });
             });
         </script>
