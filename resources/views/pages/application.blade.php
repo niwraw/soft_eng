@@ -707,9 +707,6 @@
                     });
                 });
 
-                {{-- var isChecked = localStorage.getItem('sameFatherChecked') === 'true';
-                $('#sameFather').prop('checked', isChecked); --}}
-
                 $('#sameFather').on('change', function() {
                     if ($(this).is(':checked')) {
                         var address = $('#address').val();
@@ -728,12 +725,7 @@
                     } else {
                         $('#fatherAddress').val('');
                     }
-
-                    {{-- localStorage.setItem('sameFatherChecked', $(this).is(':checked')); --}}
                 });
-
-                {{-- var isChecked = localStorage.getItem('sameMotherChecked') === 'true';
-                $('#sameMother').prop('checked', isChecked); --}}
 
                 $('#sameMother').on('change', function() {
                     if ($(this).is(':checked')) {
@@ -753,8 +745,6 @@
                     } else {
                         $('#motherAddress').val('');
                     }
-
-                    {{-- localStorage.setItem('sameMotherChecked', $(this).is(':checked')); --}}
                 });
 
                 $('#sameGuardian').on('change', function() {
@@ -775,8 +765,6 @@
                     } else {
                         $('#guardianAddress').val('');
                     }
-
-                    {{-- localStorage.setItem('sameMotherChecked', $(this).is(':checked')); --}}
                 });
             });
         </script>
