@@ -366,6 +366,11 @@
                                 <x-input-label for="guardianAddress" :value="__('Address')" />
                                 <x-text-input id="guardianAddress" class="block w-full mt-1" type="text" name="guardianAddress" value="{{ old('guardianAddress') }}"/>
                                 <x-input-error :messages="$errors->get('guardianAddress')" class="mt-2" />
+
+                                <div class="flex flex-row items-center w-full h-4 gap-1 py-3 mt-2">
+                                    <input type="checkbox" id="sameGuardian">
+                                    <label for="sameGuardian">Same as Applicant's Address</label>
+                                </div>
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="guardianContact" :value="__('Contact Number')" />
@@ -492,6 +497,34 @@
                             <x-text-input id="birthCert" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="birthCert" required accept=".pdf"/>
                             <x-input-error :messages="$errors->get('birthCert')" class="mt-2" />
                         </div>
+                        
+                        <div id="shsInputs" style="display: none;">
+                            <x-input-label for="form137" :value="__('Form 137')" />
+                            <x-text-input id="form137" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="form137" accept=".pdf" />
+                        </div>
+
+                        <div id="alsInputs" style="display: none;">
+                            <x-input-label for="certificate" :value="__('Certificate')" />
+                            <x-text-input id="certificate" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="certificate" accept=".pdf" />
+                        </div>
+
+                        <div id="oldInputs" style="display: none;">
+                            <div>
+                                <x-input-label for="approvalLetter" :value="__('Letter of Approval')" />
+                                <x-text-input id="approvalLetter" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="approvalLetter" accept=".pdf" />
+                            </div>
+
+                            <div class="mt-8">
+                                <x-input-label for="highSchoolCard" :value="__('High School Card')" />
+                                <x-text-input id="highSchoolCard" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="highSchoolCard" accept=".pdf" />
+                            </div>
+                        </div>
+
+                        <div id="transfereeInputs" style="display: none;">
+                            <x-input-label for="transcriptRecord" :value="__('Transcript of Record')" />
+                            <x-text-input id="transcriptRecord" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="transcriptRecord" accept=".pdf" />
+                        </div>
+                        
 
                         <div class="flex items-center">
                             <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" />
@@ -584,6 +617,36 @@
             }
 
             $(document).ready(function() {
+                
+                
+                $('#applicationType').on('change', function() {
+                    var selectedType = this.value;
+                    var shsInputs = document.getElementById('shsInputs');
+                    var alsInputs = document.getElementById('alsInputs');
+                    var oldInputs = document.getElementById('oldInputs');
+                    var transfereeInputs = document.getElementById('transfereeInputs');
+
+                    shsInputs.style.display = 'none';
+                    alsInputs.style.display = 'none';
+                    oldInputs.style.display = 'none';
+                    transfereeInputs.style.display = 'none';
+
+                    switch (selectedType) {
+                        case 'SHS':
+                            shsInputs.style.display = 'block';
+                            break;
+                        case 'ALS':
+                            alsInputs.style.display = 'block';
+                            break;
+                        case 'OLD':
+                            oldInputs.style.display = 'block';
+                            break;
+                        case 'TRANSFER':
+                            transfereeInputs.style.display = 'block';
+                            break;
+                    }
+                }).trigger('change');
+
                 $('#address').on('change', function() {
                     $('#sameFather').prop('checked', false).trigger('change');
                     $('#sameMother').prop('checked', false).trigger('change');
@@ -689,6 +752,28 @@
                         }
                     } else {
                         $('#motherAddress').val('');
+                    }
+
+                    {{-- localStorage.setItem('sameMotherChecked', $(this).is(':checked')); --}}
+                });
+
+                $('#sameGuardian').on('change', function() {
+                    if ($(this).is(':checked')) {
+                        var address = $('#address').val();
+                        var region = $('#region option:selected').text();
+                        var province = $('#province option:selected').text();
+                        var city = $('#city option:selected').text();
+                        var barangay = $('#barangay option:selected').text();
+
+                        if (address != "" && region != "Please Select" && province != "Please Select" && city != "Please Select" && barangay != "Please Select") {
+                            $('#guardianAddress').val([address, barangay, city, province, region].filter(Boolean).join(', '));
+                        }
+                        else
+                        {
+                            $(this).prop('checked', false);
+                        }
+                    } else {
+                        $('#guardianAddress').val('');
                     }
 
                     {{-- localStorage.setItem('sameMotherChecked', $(this).is(':checked')); --}}
