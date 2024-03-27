@@ -79,6 +79,27 @@ class ApplicationController extends Controller
             'fatherJob' => ['required', 'string', 'max:75'],
             'fatherIncome' => ['required', 'numeric'],
 
+            // Mother Information
+            'motherLast' => ['required', 'string', 'max:20'],
+            'motherFirst' => ['required', 'string', 'max:20'],
+            'motherMiddle' => ['required', 'string', 'max:20'],
+            'motherSuffix' => ['nullable', Rule::in(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V'])],
+            'motherAddress' => ['required', 'string', 'max:255'],
+            'motherContact' => ['required', 'string', 'max:11', 'regex:/^09\d{9}$/'],
+            'motherJob' => ['required', 'string', 'max:75'],
+            'motherIncome' => ['required', 'numeric'],
+
+            // Guardian Information
+            'guardianLast' => ['nullable', 'string', 'max:20'],
+            'guardianFirst' => ['nullable', 'string', 'max:20'],
+            'guardianMiddle' => ['nullable', 'string', 'max:20'],
+            'guardianSuffix' => ['nullable'],
+            'guardianAddress' => ['nullable', 'string', 'max:255'],
+            'guardianContact' => ['nullable', 'string', 'max:11', 'regex:/^09\d{9}$/'],
+            'guardianJob' => ['nullable', 'string', 'max:75'],
+            'guardianIncome' => ['nullable', 'numeric'],
+
+
 
             // 'birthCert' => [
             //     'required',

@@ -215,14 +215,14 @@
                                 <x-input-label for="fatherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="fatherSuffix" id="fatherSuffix" class="block w-full mt-1" required>
-                                        <option value="" disabled {{ old('suffix') == '' ? 'selected' : '' }}>Please select</option>
-                                        <option value="" {{ old('suffix') == 'None' ? 'selected' : '' }}>None</option>
-                                        <option value="Jr." {{ old('suffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
-                                        <option value="Sr." {{ old('suffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
-                                        <option value="II" {{ old('suffix') == 'II' ? 'selected' : '' }}>II</option>
-                                        <option value="III" {{ old('suffix') == 'III' ? 'selected' : '' }}>III</option>
-                                        <option value="IV" {{ old('suffix') == 'IV' ? 'selected' : '' }}>IV</option>
-                                        <option value="V" {{ old('suffix') == 'V' ? 'selected' : '' }}>V</option>
+                                        <option value="" disabled {{ old('fatherSuffix') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="" {{ old('fatherSuffix') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('fatherSuffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('fatherSuffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('fatherSuffix') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('fatherSuffix') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('fatherSuffix') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('fatherSuffix') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('fatherSuffix')" class="mt-2" />
@@ -262,107 +262,127 @@
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="motherLast" :value="__('Last Name')" />
-                                <x-text-input id="motherLast" class="block w-full mt-1" type="text" name="motherLast" required/>
+                                <x-text-input id="motherLast" class="block w-full mt-1" type="text" name="motherLast" required value="{{ old('motherLast') }}"/>
+                                <x-input-error :messages="$errors->get('motherLast')" class="mt-2" />
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="motherFirst" :value="__('First Name')" />
-                                <x-text-input id="motherFirst" class="block w-full mt-1" type="text" name="motherFirst" required/>
+                                <x-text-input id="motherFirst" class="block w-full mt-1" type="text" name="motherFirst" required value="{{ old('motherFirst') }}"/>
+                                <x-input-error :messages="$errors->get('motherFirst')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="motherMiddle" :value="__('Middle Name')" />
-                                <x-text-input id="motherMiddle" class="block w-full mt-1" type="text" name="motherMiddle" required/>
+                                <x-text-input id="motherMiddle" class="block w-full mt-1" type="text" name="motherMiddle" required value="{{ old('motherMiddle') }}"/>
+                                <x-input-error :messages="$errors->get('motherMiddle')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="motherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="motherSuffix" id="motherSuffix" class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled {{ old('motherSuffix') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="" {{ old('motherSuffix') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('motherSuffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('motherSuffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('motherSuffix') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('motherSuffix') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('motherSuffix') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('motherSuffix') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('motherSuffix')" class="mt-2" />
                             </div>
                         </div>
 
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="motherAddress" :value="__('Address')" />
-                                <x-text-input id="motherAddress" class="block w-full mt-1" type="text" name="motherAddress" required/>
+                                <x-text-input id="motherAddress" class="block w-full mt-1" type="text" name="motherAddress" required value="{{ old('motherAddress') }}"/>
+                                <x-input-error :messages="$errors->get('motherAddress')" class="mt-2" />
+                                <div class="flex flex-row items-center w-full h-4 gap-1 py-3 mt-2">
+                                    <input type="checkbox" id="sameMother">
+                                    <label for="sameMother">Same as Applicant's Address</label>
+                                </div>
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="motherContact" :value="__('Contact Number')" />
-                                <x-text-input id="motherContact" class="block w-full mt-1" type="text" name="motherContact" required/>
+                                <x-text-input id="motherContact" class="block w-full mt-1" type="number" name="motherContact" required value="{{ old('motherContact') }}"/>
+                                <x-input-error :messages="$errors->get('motherContact')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="motherJob" :value="__('Occupation')" />
-                                <x-text-input id="motherJob" class="block w-full mt-1" type="text" name="motherJob" required/>
+                                <x-text-input id="motherJob" class="block w-full mt-1" type="text" name="motherJob" required value="{{ old('motherJob') }}"/>
+                                <x-input-error :messages="$errors->get('motherJob')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="motherIncome" :value="__('Income')" />
-                                <x-text-input id="motherIncome" class="block w-full mt-1" type="text" name="motherIncome" required/>
+                                <x-text-input id="motherIncome" class="block w-full mt-1" type="number" name="motherIncome" required value="{{ old('motherIncome') }}"/>
+                                <x-input-error :messages="$errors->get('motherIncome')" class="mt-2" />
                             </div>
                         </div>
 
-                        <span>Guardian's Information</span>
+                        <span>Guardian's Information (Optional)</span>
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="guardianLast" :value="__('Last Name')" />
-                                <x-text-input id="guardianLast" class="block w-full mt-1" type="text" name="guardianLast"/>
+                                <x-text-input id="guardianLast" class="block w-full mt-1" type="text" name="guardianLast" value="{{ old('guardianLast') }}"/>
+                                <x-input-error :messages="$errors->get('guardianLast')" class="mt-2" />
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="guardianFirst" :value="__('First Name')" />
-                                <x-text-input id="guardianFirst" class="block w-full mt-1" type="text" name="guardianFirst"/>
+                                <x-text-input id="guardianFirst" class="block w-full mt-1" type="text" name="guardianFirst" value="{{ old('guardianFirst') }}"/>
+                                <x-input-error :messages="$errors->get('guardianFirst')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="guardianMiddle" :value="__('Middle Name')" />
-                                <x-text-input id="guardianMiddle" class="block w-full mt-1" type="text" name="guardianMiddle"/>
+                                <x-text-input id="guardianMiddle" class="block w-full mt-1" type="text" name="guardianMiddle" value="{{ old('guardianMiddle') }}"/>
+                                <x-input-error :messages="$errors->get('guardianMiddle')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="guardianSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="guardianSuffix" id="guardianSuffix" class="block w-full mt-1">
-                                        <option value="" disabled selected="true">Please select</option>
-                                        <option value="">None</option>
-                                        <option value="Jr.">Jr.</option>
-                                        <option value="Sr.">Sr.</option>
-                                        <option value="I">II</option>
-                                        <option value="III">III</option>
-                                        <option value="IV">IV</option>
-                                        <option value="V">V</option>
+                                        <option value="" disabled {{ old('guardianSuffix') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="" {{ old('guardianSuffix') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('guardianSuffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('guardianSuffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('guardianSuffix') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('guardianSuffix') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('guardianSuffix') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('guardianSuffix') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
+                                <x-input-error :messages="$errors->get('guardianSuffix')" class="mt-2" />
                             </div>
                         </div>
 
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="guardianAddress" :value="__('Address')" />
-                                <x-text-input id="guardianAddress" class="block w-full mt-1" type="text" name="guardianAddress"/>
+                                <x-text-input id="guardianAddress" class="block w-full mt-1" type="text" name="guardianAddress" value="{{ old('guardianAddress') }}"/>
+                                <x-input-error :messages="$errors->get('guardianAddress')" class="mt-2" />
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="guardianContact" :value="__('Contact Number')" />
-                                <x-text-input id="guardianContact" class="block w-full mt-1" type="text" name="guardianContact"/>
+                                <x-text-input id="guardianContact" class="block w-full mt-1" type="text" name="guardianContact" value="{{ old('guardianContact') }}"/>
+                                <x-input-error :messages="$errors->get('guardianContact')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="guardianJob" :value="__('Occupation')" />
-                                <x-text-input id="guardianJob" class="block w-full mt-1" type="text" name="guardianJob"/>
+                                <x-text-input id="guardianJob" class="block w-full mt-1" type="text" name="guardianJob" value="{{ old('guardianJob') }}"/>
+                                <x-input-error :messages="$errors->get('guardianJob')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="guardianIncome" :value="__('Income')" />
-                                <x-text-input id="guardianIncome" class="block w-full mt-1" type="text" name="guardianIncome"/>
+                                <x-text-input id="guardianIncome" class="block w-full mt-1" type="text" name="guardianIncome" value="{{ old('guardianIncome') }}"/>
+                                <x-input-error :messages="$errors->get('guardianMiddle')" class="mt-2" />
                             </div>
                         </div>
 
@@ -564,41 +584,53 @@
             }
 
             $(document).ready(function() {
+                $('#address').on('change', function() {
+                    $('#sameFather').prop('checked', false).trigger('change');
+                    $('#sameMother').prop('checked', false).trigger('change');
+                });
+                
                 $('#region').on('change', function() {
                     var regionCode = $(this).val();
+                    $('#sameFather').prop('checked', false).trigger('change');
+                    $('#sameMother').prop('checked', false).trigger('change');
                     $.ajax({
                         url: '/get-provinces/' + regionCode,
                         type: 'GET',
                         success: function(data) {
                             $('#province').html(data);
+                            $('#city').html('<option value="" disabled selected="true">Please select</option>');
+                            $('#barangay').html('<option value="" disabled selected="true">Please select</option>');
                             var oldProvince = "{{ old('province') }}";
                             if (oldProvince) {
                                 $('#province').val(oldProvince).trigger('change');
                             }
-                            $('#city').html('<option value="" disabled selected="true">Please select</option>');
-                            $('#barangay').html('<option value="" disabled selected="true">Please select</option>');
+                            
                         }
                     });
                 }).trigger('change');
 
                 $('#province').on('change', function() {
                     var provinceCode = $(this).val();
+                    $('#sameFather').prop('checked', false).trigger('change');
+                    $('#sameMother').prop('checked', false).trigger('change');
                     $.ajax({
                         url: '/get-cities/' + provinceCode,
                         type: 'GET',
                         success: function(data) {
                             $('#city').html(data);
+                            $('#barangay').html('<option value="" disabled selected="true">Please select</option>');
                             var oldCity = "{{ old('city') }}";
                             if (oldCity) {
                                 $('#city').val(oldCity).trigger('change');
                             }
-                            $('#barangay').html('<option value="" disabled selected="true">Please select</option>');
                         }
                     });
                 });
 
                 $('#city').on('change', function() {
                     var cityCode = $(this).val();
+                    $('#sameFather').prop('checked', false).trigger('change');
+                    $('#sameMother').prop('checked', false).trigger('change');
                     $.ajax({
                         url: '/get-barangays/' + cityCode,
                         type: 'GET',
@@ -612,6 +644,9 @@
                     });
                 });
 
+                {{-- var isChecked = localStorage.getItem('sameFatherChecked') === 'true';
+                $('#sameFather').prop('checked', isChecked); --}}
+
                 $('#sameFather').on('change', function() {
                     if ($(this).is(':checked')) {
                         var address = $('#address').val();
@@ -620,7 +655,7 @@
                         var city = $('#city option:selected').text();
                         var barangay = $('#barangay option:selected').text();
 
-                        if (address != "" && region != "Please Select" && province != "Please Select" && city != "Please Select" && barangay != "Please Select") {
+                        if (address != "" && region != "Please select" && province != "Please select" && city != "Please select" && barangay != "Please select") {
                             $('#fatherAddress').val([address, barangay, city, province, region].filter(Boolean).join(', '));
                         }
                         else
@@ -630,6 +665,33 @@
                     } else {
                         $('#fatherAddress').val('');
                     }
+
+                    {{-- localStorage.setItem('sameFatherChecked', $(this).is(':checked')); --}}
+                });
+
+                {{-- var isChecked = localStorage.getItem('sameMotherChecked') === 'true';
+                $('#sameMother').prop('checked', isChecked); --}}
+
+                $('#sameMother').on('change', function() {
+                    if ($(this).is(':checked')) {
+                        var address = $('#address').val();
+                        var region = $('#region option:selected').text();
+                        var province = $('#province option:selected').text();
+                        var city = $('#city option:selected').text();
+                        var barangay = $('#barangay option:selected').text();
+
+                        if (address != "" && region != "Please Select" && province != "Please Select" && city != "Please Select" && barangay != "Please Select") {
+                            $('#motherAddress').val([address, barangay, city, province, region].filter(Boolean).join(', '));
+                        }
+                        else
+                        {
+                            $(this).prop('checked', false);
+                        }
+                    } else {
+                        $('#motherAddress').val('');
+                    }
+
+                    {{-- localStorage.setItem('sameMotherChecked', $(this).is(':checked')); --}}
                 });
             });
         </script>
