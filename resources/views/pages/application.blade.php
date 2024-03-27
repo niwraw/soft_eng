@@ -60,14 +60,14 @@
                                 <x-input-label for="suffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="suffix" id="suffix" class="block w-full mt-1" required>
-                                        <option value="" disabled {{ old('suffix') == '' ? 'selected' : '' }}>Please select</option>
-                                        <option value="" {{ old('suffix') == 'None' ? 'selected' : '' }}>None</option>
-                                        <option value="Jr." {{ old('suffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
-                                        <option value="Sr." {{ old('suffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
-                                        <option value="II" {{ old('suffix') == 'II' ? 'selected' : '' }}>II</option>
-                                        <option value="III" {{ old('suffix') == 'III' ? 'selected' : '' }}>III</option>
-                                        <option value="IV" {{ old('suffix') == 'IV' ? 'selected' : '' }}>IV</option>
-                                        <option value="V" {{ old('suffix') == 'V' ? 'selected' : '' }}>V</option>
+                                        <option value="" disabled {{ old('suffix', '') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="None" {{ old('suffix', '') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('suffix', '') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('suffix', '') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('suffix', '') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('suffix', '') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('suffix', '') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('suffix', '') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('suffix')" class="mt-2" />
@@ -91,11 +91,11 @@
                                 <x-input-label for="applicationType" :value="__('Appication Type')" />
                                 <div>
                                     <select name="applicationType" id="applicationType" class="block w-full mt-1" required>
-                                        <option value="" disabled {{ old('applicationType') == '' ? 'selected' : '' }}>Please select</option>
-                                        <option value="SHS" {{ old('applicationType') == 'SHS' ? 'selected' : '' }}>Senior High School</option>
-                                        <option value="ALS" {{ old('applicationType') == 'ALS' ? 'selected' : '' }}>Alternative Learning System</option>
-                                        <option value="OLD" {{ old('applicationType') == 'OLD' ? 'selected' : '' }}>High School Graduate</option>
-                                        <option value="TRANSFER" {{ old('applicationType') == 'TRANSFER' ? 'selected' : '' }}>Transferee</option>
+                                        <option value="" disabled {{ old('applicationType', '') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="SHS" {{ old('applicationType', '') == 'SHS' ? 'selected' : '' }}>Senior High School</option>
+                                        <option value="ALS" {{ old('applicationType', '') == 'ALS' ? 'selected' : '' }}>Alternative Learning System</option>
+                                        <option value="OLD" {{ old('applicationType', '') == 'OLD' ? 'selected' : '' }}>High School Graduate</option>
+                                        <option value="TRANSFER" {{ old('applicationType', '') == 'TRANSFER' ? 'selected' : '' }}>Transferee</option>
                                     </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('applicationType')" class="mt-2" />
@@ -105,7 +105,7 @@
                                 <x-input-label for="gender" :value="__('Gender')" />
                                 <div>
                                     <select name="gender" id="gender" class="block w-full mt-1" required>
-                                        <option value="" disabled {{ old('gender') === null ? 'selected' : '' }}>Please select</option>
+                                        <option value="" disabled {{ old('gender', '') == '' ? 'selected' : '' }}>Please select</option>
                                         <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                                         <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                                     </select>
@@ -215,14 +215,14 @@
                                 <x-input-label for="fatherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="fatherSuffix" id="fatherSuffix" class="block w-full mt-1" required>
-                                        <option value="" disabled {{ old('fatherSuffix') == '' ? 'selected' : '' }}>Please select</option>
-                                        <option value="" {{ old('fatherSuffix') == 'None' ? 'selected' : '' }}>None</option>
-                                        <option value="Jr." {{ old('fatherSuffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
-                                        <option value="Sr." {{ old('fatherSuffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
-                                        <option value="II" {{ old('fatherSuffix') == 'II' ? 'selected' : '' }}>II</option>
-                                        <option value="III" {{ old('fatherSuffix') == 'III' ? 'selected' : '' }}>III</option>
-                                        <option value="IV" {{ old('fatherSuffix') == 'IV' ? 'selected' : '' }}>IV</option>
-                                        <option value="V" {{ old('fatherSuffix') == 'V' ? 'selected' : '' }}>V</option>
+                                        <option value="" disabled {{ old('fatherSuffix', '') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="None" {{ old('fatherSuffix', '') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('fatherSuffix', '') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('fatherSuffix', '') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('fatherSuffix', '') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('fatherSuffix', '') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('fatherSuffix', '') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('fatherSuffix', '') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('fatherSuffix')" class="mt-2" />
@@ -281,14 +281,14 @@
                                 <x-input-label for="motherSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="motherSuffix" id="motherSuffix" class="block w-full mt-1" required>
-                                        <option value="" disabled {{ old('motherSuffix') == '' ? 'selected' : '' }}>Please select</option>
-                                        <option value="" {{ old('motherSuffix') == 'None' ? 'selected' : '' }}>None</option>
-                                        <option value="Jr." {{ old('motherSuffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
-                                        <option value="Sr." {{ old('motherSuffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
-                                        <option value="II" {{ old('motherSuffix') == 'II' ? 'selected' : '' }}>II</option>
-                                        <option value="III" {{ old('motherSuffix') == 'III' ? 'selected' : '' }}>III</option>
-                                        <option value="IV" {{ old('motherSuffix') == 'IV' ? 'selected' : '' }}>IV</option>
-                                        <option value="V" {{ old('motherSuffix') == 'V' ? 'selected' : '' }}>V</option>
+                                        <option value="" disabled {{ old('motherSuffix', '') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="None" {{ old('motherSuffix', '') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('motherSuffix', '') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('motherSuffix', '') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('motherSuffix', '') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('motherSuffix', '') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('motherSuffix', '') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('motherSuffix', '') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('motherSuffix')" class="mt-2" />
@@ -347,14 +347,14 @@
                                 <x-input-label for="guardianSuffix" :value="__('Suffix')" />
                                 <div>
                                     <select name="guardianSuffix" id="guardianSuffix" class="block w-full mt-1">
-                                        <option value="" disabled {{ old('guardianSuffix') == '' ? 'selected' : '' }}>Please select</option>
-                                        <option value="" {{ old('guardianSuffix') == 'None' ? 'selected' : '' }}>None</option>
-                                        <option value="Jr." {{ old('guardianSuffix') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
-                                        <option value="Sr." {{ old('guardianSuffix') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
-                                        <option value="II" {{ old('guardianSuffix') == 'II' ? 'selected' : '' }}>II</option>
-                                        <option value="III" {{ old('guardianSuffix') == 'III' ? 'selected' : '' }}>III</option>
-                                        <option value="IV" {{ old('guardianSuffix') == 'IV' ? 'selected' : '' }}>IV</option>
-                                        <option value="V" {{ old('guardianSuffix') == 'V' ? 'selected' : '' }}>V</option>
+                                        <option value="" disabled {{ old('guardianSuffix', '') == '' ? 'selected' : '' }}>Please select</option>
+                                        <option value="None" {{ old('guardianSuffix', '') == 'None' ? 'selected' : '' }}>None</option>
+                                        <option value="Jr." {{ old('guardianSuffix', '') == 'Jr.' ? 'selected' : '' }}>Jr.</option>
+                                        <option value="Sr." {{ old('guardianSuffix', '') == 'Sr.' ? 'selected' : '' }}>Sr.</option>
+                                        <option value="II" {{ old('guardianSuffix', '') == 'II' ? 'selected' : '' }}>II</option>
+                                        <option value="III" {{ old('guardianSuffix', '') == 'III' ? 'selected' : '' }}>III</option>
+                                        <option value="IV" {{ old('guardianSuffix', '') == 'IV' ? 'selected' : '' }}>IV</option>
+                                        <option value="V" {{ old('guardianSuffix', '') == 'V' ? 'selected' : '' }}>V</option>
                                     </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('guardianSuffix')" class="mt-2" />
