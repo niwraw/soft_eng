@@ -390,11 +390,11 @@
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="lrn" :value="__('Learner\'s Reference No. (LRN)')" />
-                                <x-text-input id="lrn" class="block w-full mt-1" type="text" name="lrn" required/>
+                                <x-text-input id="lrn" class="block w-full mt-1" type="text" name="lrn" required value="{{ old('lrn') }}"/>
                             </div>
                             <div class="relative w-1/3 search-bar">
                                 <x-input-label for="school" :value="__('School/Senior High School Attended')" />
-                                <x-text-input id="school" class="block w-full mt-1" type="text" name="school" required autocomplete="off"/>
+                                <x-text-input id="school" class="block w-full mt-1" type="text" name="school" required autocomplete="off" value="{{ old('school') }}"/>
                                 
                                 <div class="absolute hidden w-full h-auto bg-white border border-gray-300 rounded-md max-h-80 datalist">
 
@@ -403,16 +403,16 @@
 
                             <div class="w-1/3">
                                 <x-input-label for="schoolEmail" :value="__('School Email Address')" />
-                                <x-text-input id="schoolEmail" class="block w-full mt-1" type="email" name="schoolEmail" required/>
+                                <x-text-input id="schoolEmail" class="block w-full mt-1" type="email" name="schoolEmail" required value="{{ old('schoolEmail') }}"/>
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="schoolType" :value="__('School Type')" />
                                 <div>
                                     <select name="schoolType" id="schoolType" required class="block w-full mt-1" required>
-                                        <option value="">Select Type</option>
-                                        <option value="public">Public</option>
-                                        <option value="private">Private</option>
+                                        <option value="" {{ old('schoolType') == '' ? 'selected' : '' }}>Select Type</option>
+                                        <option value="public" {{ old('schoolType') == 'public' ? 'selected' : '' }}>Public</option>
+                                        <option value="private" {{ old('schoolType') == 'private' ? 'selected' : '' }}>Private</option>
                                     </select>
                                 </div>
                             </div>
@@ -423,21 +423,21 @@
                                 <x-input-label for="strand" :value="__('Academic Strand')" />
                                 <div>
                                     <select name="strand" id="strand" required class="block w-full mt-1" required>
-                                        <option value="" disabled selected="true">Select Strand</option>
-                                        <option value="ABM">Accountancy, Business and Management (ABM)</option>
-                                        <option value="HUMSS">Humanities and Social Sciences (HUMSS)</option>
-                                        <option value="STEM">Science, Technology, Engineering and Mathematics (STEM)</option>
-                                        <option value="GAS">General Academic Strand (GAS)</option>
-                                        <option value="TVL">Technical-Vocational Livelihood (TVL)</option>
-                                        <option value="SPORTS">Sports Track</option>
-                                        <option value="ADT">Arts and Design Track</option>
-                                        <option value="PBM">Pre-Baccalaureate Maritime</option>
+                                        <option value="" disabled {{ old('strand') == '' ? 'selected' : '' }}>Select Strand</option>
+                                        <option value="ABM" {{ old('strand') == 'ABM' ? 'selected' : '' }}>Accountancy, Business and Management (ABM)</option>
+                                        <option value="HUMSS" {{ old('strand') == 'HUMSS' ? 'selected' : '' }}>Humanities and Social Sciences (HUMSS)</option>
+                                        <option value="STEM" {{ old('strand') == 'STEM' ? 'selected' : '' }}>Science, Technology, Engineering and Mathematics (STEM)</option>
+                                        <option value="GAS" {{ old('strand') == 'GAS' ? 'selected' : '' }}>General Academic Strand (GAS)</option>
+                                        <option value="TVL" {{ old('strand') == 'TVL' ? 'selected' : '' }}>Technical-Vocational Livelihood (TVL)</option>
+                                        <option value="SPORTS" {{ old('strand') == 'SPORTS' ? 'selected' : '' }}>Sports Track</option>
+                                        <option value="ADT" {{ old('strand') == 'ADT' ? 'selected' : '' }}>Arts and Design Track</option>
+                                        <option value="PBM" {{ old('strand') == 'PBM' ? 'selected' : '' }}>Pre-Baccalaureate Maritime</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="gwa" :value="__('Grade Weighted Average (GWA)')" />
-                                <x-text-input id="gwa" class="block w-full mt-1" type="text" name="gwa" required/>
+                                <x-text-input id="gwa" class="block w-full mt-1" type="text" name="gwa" required value="{{ old('gwa') }}"/>
                             </div>
 
                             <div class="w-1/3">
@@ -453,9 +453,9 @@
                                 <x-input-label for="choice1" :value="__('Program Choice 1')" />
                                 <div>
                                     <select name="choice1" id="choice1" required class="block w-full mt-1" required onchange="updateSelectOptions()">
-                                        <option value="" disabled selected="true">Select Program Choice 1</option>
+                                        <option value="" disabled {{ old('choice1') == '' ? 'selected' : '' }}>Select Program Choice 1</option>
                                         @foreach ($courses as $course)
-                                            <option value="{{ $course->course_code }}">{{ $course->course }}</option>
+                                            <option value="{{ $course->course_code }}" {{ old('choice1') == $course->course_code ? 'selected' : '' }}>{{ $course->course }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -465,9 +465,9 @@
                                 <x-input-label for="choice2" :value="__('Program Choice 2')" />
                                 <div>
                                     <select name="choice2" id="choice2" required class="block w-full mt-1" required onchange="updateSelectOptions()">
-                                        <option value="" disabled selected="true">Select Program Choice 2</option>
+                                        <option value="" disabled {{ old('choice2') == '' ? 'selected' : '' }}>Select Program Choice 2</option>
                                         @foreach ($courses as $course)
-                                            <option value="{{ $course->course_code }}">{{ $course->course }}</option>
+                                            <option value="{{ $course->course_code }}" {{ old('choice2') == $course->course_code ? 'selected' : '' }}>{{ $course->course }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -477,9 +477,9 @@
                                 <x-input-label for="choice3" :value="__('Program Choice 3')" />
                                 <div>
                                     <select name="choice3" id="choice3" required class="block w-full mt-1" required onchange="updateSelectOptions()">
-                                        <option value="" disabled selected="true">Select Program Choice 3</option>
+                                        <option value="" disabled {{ old('choice3') == '' ? 'selected' : '' }}>Select Program Choice 3</option>
                                         @foreach ($courses as $course)
-                                            <option value="{{ $course->course_code }}">{{ $course->course }}</option>
+                                            <option value="{{ $course->course_code }}" {{ old('choice3') == $course->course_code ? 'selected' : '' }}>{{ $course->course }}</option>
                                         @endforeach
                                     </select>
                                 </div>
