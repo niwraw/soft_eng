@@ -26,6 +26,65 @@ use Illuminate\Validation\Rule;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
+function laplacianVariance($imagePath) {
+    $image = imagecreatefromjpeg($imagePath);
+    $width = imagesx($image);
+    $height = imagesy($image);
+
+    $laplacian = [
+        [-1, -1, -1],
+        [-1,  8, -1],
+        [-1, -1, -1]
+    ];
+
+    $variance = 0;
+    for ($x = 1; $x < $width - 1; $x++) {
+        for ($y = 1; $y < $height - 1; $y++) {
+            $sum = 0;
+            for ($i = -1; $i <= 1; $i++) {
+                for ($j = -1; $j <= 1; $j++) {
+                    $rgb = imagecolorat($image, $x + $i, $y + $j);
+                    $gray = ($rgb >> 16) & 0xFF;
+                    $sum += $gray * $laplacian[$i + 1][$j + 1];
+                }
+            }
+            $variance += $sum * $sum;
+        }
+    }
+
+    imagedestroy($image);
+    return $variance / (($width - 2) * ($height - 2));
+}
+
+function calculateContrast($imagePath) {
+    $image = imagecreatefromjpeg($imagePath);
+    $width = imagesx($image);
+    $height = imagesy($image);
+
+    $mean = 0;
+    $totalPixels = $width * $height;
+    for ($x = 0; $x < $width; $x++) {
+        for ($y = 0; $y < $height; $y++) {
+            $rgb = imagecolorat($image, $x, $y);
+            $gray = ($rgb >> 16) & 0xFF;
+            $mean += $gray;
+        }
+    }
+    $mean /= $totalPixels;
+
+    $sumOfSquares = 0;
+    for ($x = 0; $x < $width; $x++) {
+        for ($y = 0; $y < $height; $y++) {
+            $rgb = imagecolorat($image, $x, $y);
+            $gray = ($rgb >> 16) & 0xFF;
+            $sumOfSquares += pow($gray - $mean, 2);
+        }
+    }
+
+    imagedestroy($image);
+    return sqrt($sumOfSquares / $totalPixels);
+}
+
 class ApplicationController extends Controller
 {
     public function create(): View
@@ -119,7 +178,6 @@ class ApplicationController extends Controller
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
 
-
                     $folder = base_path('public/' . $upload_dir . 'test/');
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
@@ -129,19 +187,38 @@ class ApplicationController extends Controller
                     $pdf->saveImage($file_path);
 
                     $image = $manager->read($file_path);
+
                     $image->greyscale()->save($file_path);
 
-                    $file_read = (new TesseractOCR($file_path))->run();
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a birth certificate. Please upload a valid birth certificate.');
+                    }
 
                     $file_read = strtolower($file_read);
 
-                    // if (file_exists($file_path)) {
-                    //     unlink($file_path);
-                    // } 
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
                     dd($file_read);
 
                     if(strpos($file_read, 'birth') === false) {
-                        $fail('Not a birth cert');
+                        $fail('The file cannot be recognized as a birth certificate. Please upload a valid birth certificate.');
                     }
                 }
             ]
