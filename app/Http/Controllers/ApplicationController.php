@@ -178,6 +178,8 @@ class ApplicationController extends Controller
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
 
+                    $uploadedFile = "Birth Certificate";
+
                     $folder = base_path('public/' . $upload_dir . 'test/');
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
@@ -196,7 +198,7 @@ class ApplicationController extends Controller
                     }
                     catch (\Exception $e)
                     {
-                        $fail('The file cannot be recognized as a birth certificate. Please upload a valid birth certificate.');
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
                     }
 
                     $file_read = strtolower($file_read);
@@ -215,13 +217,276 @@ class ApplicationController extends Controller
                         unlink($file_path);
                     }
 
-                    dd($file_read);
-
                     if(strpos($file_read, 'birth') === false) {
-                        $fail('The file cannot be recognized as a birth certificate. Please upload a valid birth certificate.');
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
                     }
                 }
-            ]
+            ],
+
+            'form137' => [
+                $request->applicationType == 'SHS' ? 'required' : 'nullable', 
+                'mimes:pdf',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "Form 137";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . 'test' . '.jpeg';
+
+                    $pdf->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, 'permanent') === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ],
+
+            'certificate' => [
+                $request->applicationType == 'ALS' ? 'required' : 'nullable', 
+                'mimes:pdf',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "ALS Certification";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . 'test' . '.jpeg';
+
+                    $pdf->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, 'alternative') === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ],
+
+            'approvalLetter' => [
+                $request->applicationType == 'OLD' ? 'required' : 'nullable', 
+                'mimes:pdf',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "Approval Letter";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . 'test' . '.jpeg';
+
+                    $pdf->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, 'letter') === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ],
+
+            'highSchoolCard' => [
+                $request->applicationType == 'OLD' ? 'required' : 'nullable', 
+                'mimes:pdf',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "Report Card";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . 'test' . '.jpeg';
+
+                    $pdf->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, 'report') === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ],
+
+            'transcriptRecord' => [
+                $request->applicationType == 'TRANSFER' ? 'required' : 'nullable', 
+                'mimes:pdf',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "Transcript of Record";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . 'test' . '.jpeg';
+
+                    $pdf->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, 'record') === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ],
         ], [
             'contactNum.regex' => 'Invalid contact number format! Should start with \'09\'',
             'fatherContact.regex' => 'Invalid contact number format! Should start with \'09\'',
