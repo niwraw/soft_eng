@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ApplicantDocumentBirthCert extends Model
+class DocumentTRANSFER extends Model
 {
     use HasFactory;
 
-    protected $table = 'applicant_document_birthcert';
+    protected $table = 'applicant_document_TRANSFER';
     protected $guarded = [];
 }

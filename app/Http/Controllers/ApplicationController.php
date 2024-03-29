@@ -497,95 +497,106 @@ class ApplicationController extends Controller
         $year = date('Y');
 
         $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
-        $user = new ApplicantPersonalInformation();
+        
+        $personalInfoData = [
+            'applicant_id' => $student_id,
+            'lastName' => $validated['lastName'],
+            'firstName' => $validated['firstName'],
+            'middleName' => $validated['middleName'],
+            'suffix' => $validated['suffix'],
+            'email' => $validated['email'],
+            'contact_number' => $validated['contactNum'],
+            'applicationType' => $validated['applicationType'],
+            'gender' => $validated['gender']
+        ];
+        ApplicantPersonalInformation::create($personalInfoData);
 
-        $user->applicant_id = $student_id;
+        $otherInfoData = [
+            'applicant_id' => $student_id,
+            'maidenName' => $validated['maidenName'],
+            'birthDate' => $validated['birthDate'],
+            'birthPlace' => $validated['birthPlace'],
+            'address' => $validated['address'],
+            'region' => $validated['region'],
+            'city' => $validated['city'],
+            'barangay' => $validated['barangay']
+        ];
+        ApplicantOtherInformation::create($otherInfoData);
 
-        $user->lastName = $request->lastName;
-        $user->firstName = $request->firstName;
-        $user->middleName = $request->middleName;
-        $user->suffix = $request->suffix;
-        $user->email = $request->email;
-        $user->contactNum = $request->contactNum;
-        $user->applicationType = $request->applicationType;
-        $user->gender = $request->gender;
+        $fatherInfoData = [
+            'applicant_id' => $student_id,
+            'fatherLast' => $validated['fatherLast'],
+            'fatherFirst' => $validated['fatherFirst'],
+            'fatherMiddle' => $validated['fatherMiddle'],
+            'fatherSuffix' => $validated['fatherSuffix'],
+            'fatherAddress' => $validated['fatherAddress'],
+            'fatherContact' => $validated['fatherContact'],
+            'fatherJob' => $validated['fatherJob'],
+            'fatherIncome' => $validated['fatherIncome']
+        ];
+        ApplicantFatherInformation::create($fatherInfoData);
 
-        $other = new ApplicantOtherInformation();
+        $motherInfoData = [
+            'applicant_id' => $student_id,
+            'motherLast' => $validated['motherLast'],
+            'motherFirst' => $validated['motherFirst'],
+            'motherMiddle' => $validated['motherMiddle'],
+            'motherSuffix' => $validated['motherSuffix'],
+            'motherAddress' => $validated['motherAddress'],
+            'motherContact' => $validated['motherContact'],
+            'motherJob' => $validated['motherJob'],
+            'motherIncome' => $validated['motherIncome']
+        ];
+        ApplicantMotherInformation::create($motherInfoData);
 
-        $other->applicant_id = $student_id;
-        $other->maidenName = $request->maidenName;
-        $other->birthDate = $request->birthDate;
-        $other->birthPlace = $request->birthPlace;
-        $other->address = $request->address;
-        $other->region = $request->region;
-        $other->city = $request->city;
-        $other->barangay = $request->barangay;
-        // $other->zip = $request->zip;
+        if(!empty($validated['guardianLast']) && !empty($validated['guardianFirst']) && !empty($validated['guardianMiddle']) && !empty($validated['guardianSuffix']) && !empty($validated['guardianAddress']) && !empty($validated['guardianContact']) && !empty($validated['guardianJob']) && !empty($validated['guardianIncome'])){
+            $guardianInfoData = [
+                'applicant_id' => $student_id,
+                'guardianLast' => $validated['guardianLast'],
+                'guardianFirst' => $validated['guardianFirst'],
+                'guardianMiddle' => $validated['guardianMiddle'],
+                'guardianSuffix' => $validated['guardianSuffix'],
+                'guardianAddress' => $validated['guardianAddress'],
+                'guardianContact' => $validated['guardianContact'],
+                'guardianJob' => $validated['guardianJob'],
+                'guardianIncome' => $validated['guardianIncome']
+            ];
+            ApplicantGuardianInformation::create($fatherInfoData);
+        }
 
-        $father = new ApplicantFatherInformation();
+        $schoolInfoData = [
+            'applicant_id' => $student_id,
+            'lrn' => $validated['lrn'],
+            'school' => $validated['school'],
+            'schoolEmail' => $validated['schoolEmail'],
+            'schoolType' => $validated['schoolType'],
+            'strand' => $validated['strand'],
+            'gwa' => $validated['gwa']
+        ];
+        ApplicantSchoolInformation::create($schoolInfoData);
 
-        $father->applicant_id = $student_id;
-        $father->fatherLast = $request->fatherLast;
-        $father->fatherFirst = $request->fatherFirst;
-        $father->fatherMiddle = $request->fatherMiddle;
-        $father->fatherSuffix = $request->fatherSuffix;
-        $father->fatherAddress = $request->fatherAddress;
-        $father->fatherContact = $request->fatherContact;
-        $father->fatherJob = $request->fatherJob;
-        $father->fatherIncome = $request->fatherIncome;
+        $selectionInfoData = [
+            'applicant_id' => $student_id,
+            'choice1' => $validated['choice1'],
+            'choice2' => $validated['choice2'],
+            'choice3' => $validated['choice3']
+        ];
+        ApplicantSelectionInformation::create($selectionInfoData);
 
-        $mother = new ApplicantMotherInformation();
+        if ($validated['applicationType'] == "SHS")
+        {
+            
+        }
+        else if ($validated['applicationType'] == "ALS")
+        {
 
-        $mother->applicant_id = $student_id;
-        $mother->motherLast = $request->motherLast;
-        $mother->motherFirst = $request->motherFirst;
-        $mother->motherMiddle = $request->motherMiddle;
-        $mother->motherSuffix = $request->motherSuffix;
-        $mother->motherAddress = $request->motherAddress;
-        $mother->motherContact = $request->motherContact;
-        $mother->motherJob = $request->motherJob;
-        $mother->motherIncome = $request->motherIncome;
+        }
+        else if ($validated['applicationType'] == "OLD")
+        {
 
-        $guardian = new ApplicantGuardianInformation();
-
-        $guardian->applicant_id = $student_id;
-        $guardian->guardianLast = $request->guardianLast;
-        $guardian->guardianFirst = $request->guardianFirst;
-        $guardian->guardianMiddle = $request->guardianMiddle;
-        $guardian->guardianSuffix = $request->guardianSuffix;
-        $guardian->guardianAddress = $request->guardianAddress;
-        $guardian->guardianContact = $request->guardianContact;
-        $guardian->guardianJob = $request->guardianJob;
-        $guardian->guardianIncome = $request->guardianIncome;
-
-        $school = new ApplicantSchoolInformation();
-
-        $school->applicant_id = $student_id;
-        $school->lrn = $request->lrn;
-        $school->school = $request->school;
-        $school->schoolEmail = $request->schoolEmail;
-        $school->schoolType = $request->schoolType;
-        $school->strand = $request->strand;
-        $school->gwa = $request->gwa;
-
-        $selection = new ApplicantSelectionInformation();
-
-        $selection->applicant_id = $student_id;
-        $selection->choice1 = $request->choice1;
-        $selection->choice2 = $request->choice2;
-        $selection->choice3 = $request->choice3;
-
-        // $user->save();
-        // $other->save();
-        // $father->save();
-        // $mother->save();
-        // $guardian->save();
-        // $school->save();
-        // $selection->save();
-
-        if($request->has('birthCert')) {
-
-
+        }
+        else if ($validated['applicationType'] == "TRANSFER")
+        {
 
         }
 

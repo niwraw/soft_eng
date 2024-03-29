@@ -123,17 +123,44 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('applicant_document_birthcert', function (Blueprint $table) {
+        Schema::create('applicant_document_SHS', function (Blueprint $table) {
             $table->id();
             $table->string('birthCert');
-            $table->enum('status', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('form137');
+            $table->enum('formStatus', ['pending', 'approved', 'reupload'])->default('pending');
 
             $table->timestamps();
         });
 
-        Schema::create('app_form_application_type', function (Blueprint $table) {
+        Schema::create('applicant_document_ALS', function (Blueprint $table) {
             $table->id();
-            $table->string('applicationType');
+            $table->string('birthCert');
+            $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('certificate');
+            $table->enum('certifacteStatus', ['pending', 'approved', 'reupload'])->default('pending');
+
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_document_OLD', function (Blueprint $table) {
+            $table->id();
+            $table->string('birthCert');
+            $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('approvalLetter');
+            $table->enum('approvalStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('record');
+            $table->enum('recordStatus', ['pending', 'approved', 'reupload'])->default('pending');
+
+            $table->timestamps();
+        });
+
+        Schema::create('applicant_document_TRANSFER', function (Blueprint $table) {
+            $table->id();
+            $table->string('birthCert');
+            $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('transcriptOfRecord');
+            $table->enum('torStatus', ['pending', 'approved', 'reupload'])->default('pending');
 
             $table->timestamps();
         });
@@ -201,6 +228,8 @@ return new class extends Migration
         Schema::create('app_form_school', function (Blueprint $table) {
             $table->integer('school_id')->primary();
             $table->string('school_name');
+            $table->string('province');
+            $table->string('region');
             
             $table->timestamps();
         });

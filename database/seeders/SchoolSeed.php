@@ -21,6 +21,8 @@ class SchoolSeed extends Seeder
             DB::table('app_form_school')->insert([
                 'school_id' => $obj->school_id,
                 'school_name' => $obj->school_name,
+                'province' => $obj->province,
+                'region' => $obj->region,
             ]);
         }
     }
