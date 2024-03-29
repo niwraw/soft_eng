@@ -45,5 +45,11 @@ class DatabaseSeeder extends Seeder
 
         DB::table('app_form_colleges')->insert($collegedepartment);
         DB::table('app_form_course')->insert($programs);
+
+        $users = [
+            ['email' => 'admin@plm.edu.ph', 'password' => bcrypt('password')],
+        ];
+
+        DB::table('admin_account')->insert($users);
     }
 }
