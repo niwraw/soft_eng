@@ -28,6 +28,8 @@ use thiagoalessio\TesseractOCR\TesseractOCR;
 use Illuminate\Validation\Rule;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CredentialsMail;
 
 function laplacianVariance($imagePath) {
     $image = imagecreatefromjpeg($imagePath);
@@ -669,6 +671,20 @@ class ApplicationController extends Controller
 
             DocumentTRANSFER::create($documents);
         }
+
+        $subject = 'Thank you for applying to PLMAT!';
+
+        $body = 'Hello! Thank you for applying to PLMAT. 
+        
+                Your application has been received and is currently being processed.
+
+                To check the status of your application, please visit the PLMAT website and log in using the following credentials:
+                
+                Email: ' . $validated['email'] . '
+                
+                Password: ' . $student_id . '';
+
+        Mail::to($validated['email'])->send(new CredentialsMail($subject, $body));
 
         return redirect(RouteServiceProvider::HOME);
     }
