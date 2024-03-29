@@ -14,9 +14,6 @@ use App\Models\ApplicantSelectionInformation;
 use App\Models\ApplicantGuardianInformation;
 use App\Models\CourseModel;
 use App\Models\Regions;
-use App\Models\Provinces;
-use App\Models\Cities;
-use App\Models\Barangays;
 use App\Models\ApplicantDocumentBirthCert;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
@@ -26,7 +23,8 @@ use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Illuminate\Validation\Rule;
-
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ApplicationController extends Controller
 {
@@ -113,35 +111,45 @@ class ApplicationController extends Controller
             'choice3' => ['required'],
 
             // Files
-            // 'birthCert' => [
-            //     'required',
-            //     'mimes:pdf',
-            //     function($attribute, $value, $fail) {
-            //         $upload_dir = 'uploads/';
+            'birthCert' => [
+                'required',
+                'mimes:pdf',
+                function($attribute, $value, $fail) {
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
 
-            //         $folder = base_path('public/' . $upload_dir . 'test/');
-            //         Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
-            //         $pdf = new Pdf($value);
 
-            //         $pdf->saveImage($folder . 'test' . '.jpeg');
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
 
-            //         $file_read = (new TesseractOCR($folder . 'test' . '.jpeg'))->setLanguage('eng')->setOem(1)->run();
+                    $file_path = $folder . 'test' . '.jpeg';
 
-            //         $file_read = strtolower($file_read);
+                    $pdf->saveImage($file_path);
 
-            //         $file_path = $folder . 'test' . '.jpeg';
+                    $image = $manager->read($file_path);
+                    $image->greyscale()->save($file_path);
 
-            //         if (file_exists($file_path)) {
-            //             unlink($file_path);
-            //         } 
+                    $file_read = (new TesseractOCR($file_path))->run();
 
-            //         if(strpos($file_read, 'birth') === false) {
-            //             $fail('Not a birth cert');
-            //         }
-            //     }
-            // ]
+                    $file_read = strtolower($file_read);
+
+                    // if (file_exists($file_path)) {
+                    //     unlink($file_path);
+                    // } 
+                    dd($file_read);
+
+                    if(strpos($file_read, 'birth') === false) {
+                        $fail('Not a birth cert');
+                    }
+                }
+            ]
         ], [
             'contactNum.regex' => 'Invalid contact number format! Should start with \'09\'',
+            'fatherContact.regex' => 'Invalid contact number format! Should start with \'09\'',
+            'motherContact.regex' => 'Invalid contact number format! Should start with \'09\'',
+            'guardianContact.regex' => 'Invalid contact number format! Should start with \'09\'',
         ]);
 
         $year = date('Y');
