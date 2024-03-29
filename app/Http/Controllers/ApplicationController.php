@@ -16,6 +16,7 @@ use App\Models\DocumentSHS;
 use App\Models\DocumentALS;
 use App\Models\DocumentOLD;
 use App\Models\DocumentTRANSFER;
+use App\Models\ApplicantLoginCreds;
 use App\Models\CourseModel;
 use App\Models\Regions;
 use Illuminate\Http\RedirectResponse;
@@ -30,6 +31,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CredentialsMail;
+use Illuminate\Support\Facades\Hash;
 
 function laplacianVariance($imagePath) {
     $image = imagecreatefromjpeg($imagePath);
@@ -683,6 +685,13 @@ class ApplicationController extends Controller
                 Email: ' . $validated['email'] . '
                 
                 Password: ' . $student_id . '';
+
+        $credentials = [
+            'email' => $validated['email'],
+            'password' => Hash::make($student_id)
+        ];
+
+        ApplicantLoginCreds::create($credentials);
 
         Mail::to($validated['email'])->send(new CredentialsMail($subject, $body));
 
