@@ -51,5 +51,31 @@ class DatabaseSeeder extends Seeder
         ];
 
         DB::table('admin_account')->insert($users);
+
+        $applicant = [
+            [
+                'applicant_id' => '202200001',
+                'lastName' => 'Dela Cruz',
+                'firstName' => 'Juan',
+                'middleName' => 'Dela',
+                'suffix' => 'None',
+                'email' => 'applicant@gmail.com',
+                'contactNum' => '09123456789',
+                'applicationType' => 'SHS',
+                'gender' => 'male'
+            ],
+        ];
+
+        DB::table('applicant_personal_information')->insert($applicant);
+
+        $applicant = [
+            [
+                'applicant_id' => '202200001',
+                'email' => 'applicant@gmail.com',
+                'password' => bcrypt('202200001'),
+            ],
+        ];
+
+        DB::table('applicant_accounts')->insert($applicant);
     }
 }
