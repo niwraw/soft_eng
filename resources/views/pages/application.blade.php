@@ -501,28 +501,33 @@
                         <div id="shsInputs" style="display: none;">
                             <x-input-label for="form137" :value="__('Form 137')" />
                             <x-text-input id="form137" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="form137" accept=".pdf" />
+                            <x-input-error :messages="$errors->get('form137')" class="mt-2" />
                         </div>
 
                         <div id="alsInputs" style="display: none;">
                             <x-input-label for="certificate" :value="__('Certificate')" />
                             <x-text-input id="certificate" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="certificate" accept=".pdf" />
+                            <x-input-error :messages="$errors->get('certificate')" class="mt-2" />
                         </div>
 
                         <div id="oldInputs" style="display: none;">
                             <div>
                                 <x-input-label for="approvalLetter" :value="__('Letter of Approval')" />
                                 <x-text-input id="approvalLetter" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="approvalLetter" accept=".pdf" />
+                                <x-input-error :messages="$errors->get('approvalLetter')" class="mt-2" />
                             </div>
 
                             <div class="mt-8">
                                 <x-input-label for="highSchoolCard" :value="__('High School Card')" />
                                 <x-text-input id="highSchoolCard" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="highSchoolCard" accept=".pdf" />
+                                <x-input-error :messages="$errors->get('highSchoolCard')" class="mt-2" />
                             </div>
                         </div>
 
                         <div id="transfereeInputs" style="display: none;">
                             <x-input-label for="transcriptRecord" :value="__('Transcript of Record')" />
                             <x-text-input id="transcriptRecord" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="transcriptRecord" accept=".pdf" />
+                            <x-input-error :messages="$errors->get('transcriptRecord')" class="mt-2" />
                         </div>
                         
 

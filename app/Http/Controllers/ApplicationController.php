@@ -12,9 +12,12 @@ use App\Models\ApplicantMotherInformation;
 use App\Models\ApplicantSchoolInformation;
 use App\Models\ApplicantSelectionInformation;
 use App\Models\ApplicantGuardianInformation;
+use App\Models\DocumentSHS;
+use App\Models\DocumentALS;
+use App\Models\DocumentOLD;
+use App\Models\DocumentTRANSFER;
 use App\Models\CourseModel;
 use App\Models\Regions;
-use App\Models\ApplicantDocumentBirthCert;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
 use App\Helper\Helper;
@@ -99,6 +102,10 @@ class ApplicationController extends Controller
 
     public function store(Request $request) : RedirectResponse
     {
+        $year = date('Y');
+
+        $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 6, $year);
+        
         $validated = $request->validate([
             // Application Information
             'lastName' => ['required', 'string', 'max:20'],
@@ -494,10 +501,6 @@ class ApplicationController extends Controller
             'guardianContact.regex' => 'Invalid contact number format! Should start with \'09\'',
         ]);
 
-        $year = date('Y');
-
-        $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
-        
         $personalInfoData = [
             'applicant_id' => $student_id,
             'lastName' => $validated['lastName'],
@@ -505,7 +508,7 @@ class ApplicationController extends Controller
             'middleName' => $validated['middleName'],
             'suffix' => $validated['suffix'],
             'email' => $validated['email'],
-            'contact_number' => $validated['contactNum'],
+            'contactNum' => $validated['contactNum'],
             'applicationType' => $validated['applicationType'],
             'gender' => $validated['gender']
         ];
@@ -583,21 +586,88 @@ class ApplicationController extends Controller
         ];
         ApplicantSelectionInformation::create($selectionInfoData);
 
+        $file = $request->file('birthCert');
+        $extension = $file->getClientOriginalExtension();
+
+        $birth = $student_id . '_birthCert.' . $extension;
+        $pathCert = 'uploads/Birth_Certificate/';
+        $file->move($pathCert, $birth);
+
         if ($validated['applicationType'] == "SHS")
         {
-            
+            $file = $request->file('form137');
+            $extension = $file->getClientOriginalExtension();
+
+            $form137 = $student_id . '_Form137.' . $extension;
+            $pathForm = 'uploads/Form_137/';
+            $file->move($pathForm, $form137);
+
+            $documents = [
+                'applicant_id' => $student_id,
+                'birthCert' => $pathCert . $birth,
+                'form137' => $pathForm . $form137
+            ];
+
+            DocumentSHS::create($documents);
         }
         else if ($validated['applicationType'] == "ALS")
         {
+            $file = $request->file('certificate');
+            $extension = $file->getClientOriginalExtension();
 
+            $certificate = $student_id . '_ALS_Cert.' . $extension;
+            $pathCert = 'uploads/ALS_Cert/';
+            $file->move($pathCert, $certificate);
+
+            $documents = [
+                'applicant_id' => $student_id,
+                'birthCert' => $pathCert . $birth,
+                'certificate' => $pathCert . $certificate
+            ];
+
+            DocumentALS::create($documents);
         }
         else if ($validated['applicationType'] == "OLD")
         {
+            $file = $request->file('approvalLetter');
+            $extension = $file->getClientOriginalExtension();
 
+            $approval = $student_id . '_Approval_Letter.' . $extension;
+            $pathApproval = 'uploads/Approval_Letter/';
+            $file->move($pathApproval, $approval);
+
+            $file = $request->file('highSchoolCard');
+            $extension = $file->getClientOriginalExtension();
+
+            $card = $student_id . '_Report_Card.' . $extension;
+            $pathCard = 'uploads/Report_Card/';
+            $file->move($pathCard, $card);
+
+            $documents = [
+                'applicant_id' => $student_id,
+                'birthCert' => $pathCert . $birth,
+                'approvalLetter' => $pathApproval . $approval,
+                'highSchoolCard' => $pathCard . $card
+            ];
+
+            DocumentOLD::create($documents);
         }
         else if ($validated['applicationType'] == "TRANSFER")
         {
+            $file = $request->file('transcriptRecord');
+            $extension = $file->getClientOriginalExtension();
 
+            $transcript = $student_id . '_Transcript_Record.' . $extension;
+            $pathTranscript = 'uploads/Transcript_Record/';
+            $file->move($pathTranscript, $transcript);
+
+            $documents = [
+                'applicant_id' => $student_id,
+                'birthCert' => $pathCert . $birth,
+                'transcriptRecord' => $pathTranscript . $transcript
+            ];
+
+            DocumentTRANSFER::create($documents);
         }
 
         return redirect(RouteServiceProvider::HOME);

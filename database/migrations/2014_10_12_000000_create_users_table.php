@@ -53,7 +53,7 @@ return new class extends Migration
             $table->string('fatherLast');
             $table->string('fatherFirst');
             $table->string('fatherMiddle');
-            $table->enum('fatherSuffix', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
+            $table->enum('fatherSuffix', ['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
             $table->string('fatherAddress');
             $table->string('fatherContact');
             $table->string('fatherJob');
@@ -70,7 +70,7 @@ return new class extends Migration
             $table->string('motherLast');
             $table->string('motherFirst');
             $table->string('motherMiddle');
-            $table->enum('motherSuffix', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
+            $table->enum('motherSuffix', ['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
             $table->string('motherAddress');
             $table->string('motherContact');
             $table->string('motherJob');
@@ -87,7 +87,7 @@ return new class extends Migration
             $table->string('guardianLast')->nullable();
             $table->string('guardianFirst')->nullable();
             $table->string('guardianMiddle')->nullable();
-            $table->enum('guardianSuffix', ['Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
+            $table->enum('guardianSuffix', ['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'])->nullable();
             $table->string('guardianAddress')->nullable();
             $table->string('guardianContact')->nullable();
             $table->string('guardianJob')->nullable();
@@ -124,7 +124,8 @@ return new class extends Migration
         });
 
         Schema::create('applicant_document_SHS', function (Blueprint $table) {
-            $table->id();
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
             $table->string('form137');
@@ -134,7 +135,8 @@ return new class extends Migration
         });
 
         Schema::create('applicant_document_ALS', function (Blueprint $table) {
-            $table->id();
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
             $table->string('certificate');
@@ -144,7 +146,8 @@ return new class extends Migration
         });
 
         Schema::create('applicant_document_OLD', function (Blueprint $table) {
-            $table->id();
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
             $table->string('approvalLetter');
@@ -156,7 +159,8 @@ return new class extends Migration
         });
 
         Schema::create('applicant_document_TRANSFER', function (Blueprint $table) {
-            $table->id();
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
             $table->string('transcriptOfRecord');
@@ -164,6 +168,17 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('applicant_accounts', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('email');
+            $table->foreign('email')->references('email')->on('applicant_personal_information')->onUpdate('cascade');
+            $table->string('password');
+
+            $table->timestamps();
+        });
+
 
         Schema::create('app_form_region', function (Blueprint $table) {
             $table->string('region_code')->primary();
