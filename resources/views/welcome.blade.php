@@ -80,12 +80,14 @@
                     </div>
 
                     <div class="px-5 py-3">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('login.submit') }}">
+                            @csrf
                             <div class="flex flex-col gap-5">
                                 <div class="flex flex-col gap-2">
                                     <label class="block text-gray-700 text-m">Email Address</label>
                                     <div class="mt-1">
                                         <input id="email" name="email" type="email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-800 focus:ring-1 focus:ring-blue-500">
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
                                 </div>
 

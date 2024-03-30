@@ -5,6 +5,9 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\BarangayController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\ApplicantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +42,14 @@ Route::middleware('guest')->group(function () {
 Route::get('/get-provinces/{regionCode}', [ProvinceController::class, 'getProvinces']);
 Route::get('/get-cities/{provinceCode}', [CityController::class, 'getCities']);
 Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangays']);
+
+Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+
+Route::get('/admin/dashboard', function () {
+    return view('pages.admin.dashboard');
+})->middleware('auth:admin')->name('admin.dashboard');
+
+Route::get('/applicant/dashboard', function () {
+    return view('pages.applicant.dashboard');
+})->name('user.dashboard');

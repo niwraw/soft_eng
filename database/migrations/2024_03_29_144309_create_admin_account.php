@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('password');
+            $table->enum('role', ['admin', 'ogts'])->default('admin');
             $table->timestamp('created_at')->nullable();
         });
     }

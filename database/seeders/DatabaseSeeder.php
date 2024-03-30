@@ -47,7 +47,8 @@ class DatabaseSeeder extends Seeder
         DB::table('app_form_course')->insert($programs);
 
         $users = [
-            ['email' => 'admin@plm.edu.ph', 'password' => bcrypt('password')],
+            ['email' => 'admin@plm.edu.ph', 'password' => bcrypt('password'), 'role' => 'admin'],
+            ['email' => 'ogts@plm.edu.ph', 'password' => bcrypt('password'), 'role' => 'ogts'],
         ];
 
         DB::table('admin_account')->insert($users);
