@@ -15,10 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
-        HELLO ADMISSION
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
+        @include('components.dashboard.header')
+
+        @include('components.dashboard.sidebar')
+
+        
     </body>
 </html>

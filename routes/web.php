@@ -44,12 +44,15 @@ Route::get('/get-cities/{provinceCode}', [CityController::class, 'getCities']);
 Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangays']);
 
 Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
-Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/dashboard', function () {
-    return view('pages.admin.dashboard');
+    $routeSegment = request()->segment(1);
+    $currentRoute = request()->segment(2);
+    return view('pages.admin.dashboard', compact('routeSegment', 'currentRoute'));
 })->middleware('auth:admin')->name('admin.dashboard');
 
 Route::get('/applicant/dashboard', function () {
-    return view('pages.applicant.dashboard');
+    $routeSegment = request()->segment(1);
+    return view('pages.applicant.dashboard', compact('routeSegment'));
 })->name('user.dashboard');
