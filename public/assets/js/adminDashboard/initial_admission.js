@@ -173,7 +173,7 @@ const dataStrand = {
     labels: ['ABM', 'HUMSS', 'STEM', 'GAS' , 'TVL', 'SPORTS' , 'ADT', 'PBM'],
     datasets: [{
         label: 'Number of Applicants',
-        data: [1, 2, 3, 4, 5, 6, 7, 8],
+        data: [strand.ABM, strand.HUMSS, strand.STEM, strand.GAS, strand.TVL, strand.SPORTS, strand.ADT, strand.PBM],
         borderWidth: 1
     }]
 }

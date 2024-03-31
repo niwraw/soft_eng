@@ -42,6 +42,7 @@
         var regions = JSON.parse('{!! json_encode($regions) !!}');
         var manilaRatio = JSON.parse('{!! json_encode($manilaRatio) !!}');
         var inactive = JSON.parse('{!! json_encode($inactive) !!}');
+        var strand = JSON.parse('{!! json_encode($strands) !!}');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

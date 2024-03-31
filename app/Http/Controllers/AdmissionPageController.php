@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantList;
 use App\Models\ApplicantOtherInformation;
+use App\Models\ApplicantSchoolInformation;
 
 class AdmissionPageController extends Controller
 {
@@ -87,7 +88,40 @@ class AdmissionPageController extends Controller
 
         $inactive = ApplicantList::where('activity', 'inactive')->count();
 
+        $abm = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'ABM')->where('activity', 'active')->count();
+        $humss = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'HUMSS')->where('activity', 'active')->count();
+        $stem = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'STEM')->where('activity', 'active')->count();
+        $gas = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'GAS')->where('activity', 'active')->count();
+        $tvl = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'TVL')->where('activity', 'active')->count();
+        $sports = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'SPORTS')->where('activity', 'active')->count();
+        $adt = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'ADT')->where('activity', 'active')->count();
+        $pbm = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('strand', 'PBM')->where('activity', 'active')->count();
+
+        $strands = [
+            'ABM' => $abm,
+            'HUMSS' => $humss,
+            'STEM' => $stem,
+            'GAS' => $gas,
+            'TVL' => $tvl,
+            'SPORTS' => $sports,
+            'ADT' => $adt,
+            'PBM' => $pbm,
+        ];
+
+        // $manilaPublic = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', 'Ncr, City of Manila, First District')->where('schoolType', 'public')->where('activity', 'active')->count();
+
+        // $manilaPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
+
+        // $manilaSchoolType = [
+        //     'public' => $manilaPublic,
+        //     'private' => $manilaPrivate,
+        // ];
+
+        // $otherPublic = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'public')->where('activity', 'active')->count();
+
+        // $otherPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
+
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands'));
     }
 }

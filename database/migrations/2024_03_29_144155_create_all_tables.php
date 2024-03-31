@@ -106,6 +106,10 @@ return new class extends Migration
             // School Information
             $table->string('lrn');
             $table->string('school');
+            $table->string('schoolAddress');
+            $table->string('schoolRegion');
+            $table->string('schoolProvince');
+            $table->string('schoolCity');
             $table->string('schoolEmail');
             $table->enum('schoolType', ['public', 'private']);
             $table->enum('strand', ['ABM', 'HUMSS', 'STEM', 'GAS' , 'TVL', 'SPORTS' , 'ADT', 'PBM']);
@@ -246,8 +250,9 @@ return new class extends Migration
         Schema::create('app_form_school', function (Blueprint $table) {
             $table->integer('school_id')->primary();
             $table->string('school_name');
-            $table->string('province');
-            $table->string('region');
+            $table->string('region_code');
+            $table->string('province_code');
+            $table->string('city_code');
             
             $table->timestamps();
         });
