@@ -100,10 +100,10 @@ const applicantChart = new Chart(
 
 // Region Chart
 const dataRegion = {
-    labels: ['NCR', 'CAR', 'I', 'II', 'III', 'IV-A', 'MIMAROPA', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'BARMM'],
+    labels: ['NCR', 'CAR', 'I', 'II', 'III', 'IV-A', 'MIMAROPA', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'ARMM'],
     datasets: [{
         label: 'Number of Applicants',
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ,17],
+        data: [regions['NCR'], regions['CAR'], regions['I'], regions['II'], regions['III'], regions['IV-A'], regions['MIMAROPA'], regions['V'], regions['VI'], regions['VII'], regions['VIII'], regions['IX'], regions['X'], regions['XI'], regions['XII'], regions['XIII'], regions['ARMM']],
         borderWidth: 1
     }]
 }
@@ -133,7 +133,7 @@ const dataManilaRatio = {
     labels: ['Manilenyo', 'Non-Manilenyo'],
     datasets: [{
         label: 'Manilenyo to Non-Manilenyo Ratio',
-        data: [50, 23],
+        data: [manilaRatio['manila'], manilaRatio['nonManila']],
         borderWidth: 1
     }]
 }

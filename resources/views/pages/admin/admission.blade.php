@@ -39,6 +39,8 @@
         var female = JSON.parse('{!! json_encode($femaleApplicants) !!}');
         var count = JSON.parse('{!! json_encode($count) !!}');
         var currentStatus = JSON.parse('{!! json_encode($status) !!}');
+        var regions = JSON.parse('{!! json_encode($regions) !!}');
+        var manilaRatio = JSON.parse('{!! json_encode($manilaRatio) !!}');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

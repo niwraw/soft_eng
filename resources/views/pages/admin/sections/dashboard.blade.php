@@ -100,11 +100,21 @@
         </div>
     </div>
 
-    <div class="mt-16">
+    <div class="flex items-center justify-between mt-16">
         <select id="chartSelector">
             <option value="first">Progress, Gender, & Applicant Type Statistics</option>
             <option value="second">Regions & Manila/Non-Manila Statistics</option>
             <option value="third">Strand & Public/Private Statistics</option>
         </select>
+
+        <div class="flex h-10 gap-8">
+            <a href="" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg">
+                Soft Delete
+            </a>
+
+            <a href="" class="flex items-center justify-center w-32 bg-red-500 rounded-lg">
+                Hard Delete
+            </a>
+        </div>
     </div>
 </div>
