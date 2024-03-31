@@ -170,7 +170,7 @@ const manilaRatioChart = new Chart(
 
 // Strand Chart
 const dataStrand = {
-    labels: ['STEM', 'ABM', 'HUMSS', 'GAS', 'TVL', 'SPORTS', 'ARTS', 'TECHVOC'],
+    labels: ['ABM', 'HUMSS', 'STEM', 'GAS' , 'TVL', 'SPORTS' , 'ADT', 'PBM'],
     datasets: [{
         label: 'Number of Applicants',
         data: [1, 2, 3, 4, 5, 6, 7, 8],
