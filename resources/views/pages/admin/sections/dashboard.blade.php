@@ -8,25 +8,103 @@
         <p>{{ array_sum($count) }}</p>
     </div>
 
-    <div class="grid gap-4 mb-4" style="grid-template-columns: 1fr 1fr 1.3fr;">
-        <div class="w-full h-80">
-            <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
-                <h1>Application Progress</h1>
+    <div class="h-auto chart-field" id="first" style="display: block;">
+        <div class="grid gap-4 mb-4" style="grid-template-columns: 1fr 1fr 1.3fr;">
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Application Progress</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="progressChart"></canvas>
+                </div>
             </div>
 
-            <div class="flex items-center justify-center p-1 h-72 w-ful">
-                <canvas id="progressChart" style="width: 100%; height: inherit;"></canvas>
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Gender Percentage</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Applicant Types</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="applicantChart"></canvas>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="w-full h-80">
-            <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
-                <h1>Gender Percentage</h1>
+    <div class="h-auto chart-field" id="second" style="display: none;">
+        <div class="grid gap-4 mb-4" style="grid-template-columns: 1fr 1fr;">
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Applicants per Region</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="regionChart"></canvas>
+                </div>
             </div>
 
-            <div class="flex items-center justify-center p-1 h-72 w-ful">
-                <canvas id="genderChart" style="width: 100%; height: inherit;"></canvas>
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Manila/Non-Manila Ratio</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="manilaRatioChart"></canvas>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="h-auto chart-field" id="third" style="display: none;">
+        <div class="grid gap-4 mb-4" style="grid-template-columns: 1.9fr 1fr 1fr;">
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Applicants per Strand</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="strandChart"></canvas>
+                </div>
+            </div>
+
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Manila Public/Private Ratio</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="manilaSchoolChart"></canvas>
+                </div>
+            </div>
+
+            <div class="w-full h-80">
+                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
+                    <h1>Other Public/Private Ratio</h1>
+                </div>
+
+                <div class="flex items-center justify-center w-full p-1 h-72">
+                    <canvas id="otherSchoolChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-16">
+        <select id="chartSelector">
+            <option value="first">Progress, Gender, & Applicant Type Statistics</option>
+            <option value="second">Regions & Manila/Non-Manila Statistics</option>
+            <option value="third">Strand & Public/Private Statistics</option>
+        </select>
     </div>
 </div>

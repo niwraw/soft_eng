@@ -73,7 +73,7 @@ const dataApplicant = {
     labels: ['SHS', 'ALS', 'Old Curriculum', 'Transferee'],
     datasets: [{
         label: 'Number of Applicants',
-        data: [count.shs, count.als, count.old, count.transferee],
+        data: [count.SHS, count.ALS, count.OLD, count.TRANSFER],
         borderWidth: 1
     }]
 }
@@ -277,3 +277,16 @@ const otherSchoolChart = new Chart(
     document.getElementById('otherSchoolChart'),
     configOtherSchool
 );
+
+document.getElementById('chartSelector').addEventListener('change', function() {
+    // Hide all divs
+    document.querySelectorAll('.chart-field').forEach(function(div) {
+        div.style.display = 'none';
+    });
+
+    // Show the selected div
+    var selectedDiv = document.getElementById(this.value);
+    if (selectedDiv) {
+        selectedDiv.style.display = 'block';
+    }
+});
