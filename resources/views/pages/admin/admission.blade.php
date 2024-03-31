@@ -46,4 +46,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="{{ asset('../assets/js/adminDashboard/initial_admission.js') }}"></script>
+    <script>
+        function confirmArchive() {
+            return confirm('Are you sure you want to archive Inactive Applicants?');
+        }
+
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete Inactive Applicants?');
+        }
+    </script>
 </html>

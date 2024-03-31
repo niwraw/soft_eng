@@ -107,14 +107,17 @@
             <option value="third">Strand & Public/Private Statistics</option>
         </select>
 
-        <div class="flex h-10 gap-8">
-            <a href="" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg">
-                Soft Delete
-            </a>
+        <div>
+            <h1>Actions for Inactive Applicant:</h1>
+            <div class="flex h-10 gap-8 mt-2">
+                <a href="" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg" onclick="return confirmArchive()">
+                    Archive
+                </a>
 
-            <a href="" class="flex items-center justify-center w-32 bg-red-500 rounded-lg">
-                Hard Delete
-            </a>
+                <a href="" class="flex items-center justify-center w-32 bg-red-500 rounded-lg" onclick="return confirmDelete()">
+                    Delete
+                </a>
+            </div>
         </div>
     </div>
 </div>
