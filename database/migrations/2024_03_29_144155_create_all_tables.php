@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('contactNum')->unique();
             $table->enum('applicationType', ['SHS', 'ALS', 'OLD', 'TRANSFER']);
             $table->enum('gender', ['male', 'female']);
+            $table->enum('status', ['pending', 'approved', 'disapproved'])->default('pending');
 
             $table->timestamps();
         });

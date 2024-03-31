@@ -6,7 +6,7 @@ use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\AdmissionPageController;
 use App\Http\Controllers\ApplicantController;
 
 /*
@@ -46,11 +46,7 @@ Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangay
 Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::get('/admin/dashboard', function () {
-    $routeSegment = request()->segment(1);
-    $currentRoute = request()->segment(2);
-    return view('pages.admin.dashboard', compact('routeSegment', 'currentRoute'));
-})->middleware('auth:admin')->name('admin.dashboard');
+Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->middleware('auth:admin')->where('currentRoute', 'dashboard|applicants|exam|attendance|result')->name('admin.page');
 
 Route::get('/applicant/dashboard', function () {
     $routeSegment = request()->segment(1);
