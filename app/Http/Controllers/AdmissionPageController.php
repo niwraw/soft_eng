@@ -85,7 +85,9 @@ class AdmissionPageController extends Controller
             'nonManila' => $nonManila,
         ];
 
+        $inactive = ApplicantList::where('activity', 'inactive')->count();
+
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive'));
     }
 }

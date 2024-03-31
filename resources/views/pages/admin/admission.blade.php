@@ -41,6 +41,7 @@
         var currentStatus = JSON.parse('{!! json_encode($status) !!}');
         var regions = JSON.parse('{!! json_encode($regions) !!}');
         var manilaRatio = JSON.parse('{!! json_encode($manilaRatio) !!}');
+        var inactive = JSON.parse('{!! json_encode($inactive) !!}');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -56,7 +57,7 @@
         }
 
         function confirmDelete() {
-            return confirm('Are you sure you want to delete Inactive Applicants?');
+            return confirm('Are you sure you want to delete Inactive Applicants? Total Count: ' + inactive);
         }
     </script>
 
