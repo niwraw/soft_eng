@@ -7,7 +7,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmissionPageController;
-use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ActionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +46,13 @@ Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangay
 Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->middleware('auth:admin')->where('currentRoute', 'dashboard|applicants|exam|attendance|result')->name('admin.page');
+Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
 
 Route::get('/applicant/dashboard', function () {
     $routeSegment = request()->segment(1);
     return view('pages.applicant.dashboard', compact('routeSegment'));
 })->name('user.dashboard');
+
+Route::get('/admin/admission/restore', [ActionController::class, 'restore'])->name('admin.restore');
+Route::get('/admin/admission/archive', [ActionController::class, 'archive'])->name('admin.archive');
+Route::get('/admin/admission/delete', [ActionController::class, 'delete'])->name('admin.delete');

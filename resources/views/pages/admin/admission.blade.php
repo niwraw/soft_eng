@@ -47,6 +47,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="{{ asset('../assets/js/adminDashboard/initial_admission.js') }}"></script>
     <script>
+        function confirmRestore() {
+            return confirm('Are you sure you want to restore Inactive Applicants?');
+        }
+
         function confirmArchive() {
             return confirm('Are you sure you want to archive Inactive Applicants?');
         }
@@ -55,4 +59,10 @@
             return confirm('Are you sure you want to delete Inactive Applicants?');
         }
     </script>
+
+    @if(session('success'))
+        <script>
+            alert('{{ session('success') }}');
+        </script>
+    @endif
 </html>

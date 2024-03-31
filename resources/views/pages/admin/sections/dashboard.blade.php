@@ -10,7 +10,7 @@
 
     <div class="h-auto chart-field" id="first" style="display: block;">
         <div class="grid gap-4 mb-4" style="grid-template-columns: 1fr 1fr 1.3fr;">
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Application Progress</h1>
                 </div>
@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Gender Percentage</h1>
                 </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Applicant Types</h1>
                 </div>
@@ -44,7 +44,7 @@
 
     <div class="h-auto chart-field" id="second" style="display: none;">
         <div class="grid gap-4 mb-4" style="grid-template-columns: 1fr 1fr;">
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Applicants per Region</h1>
                 </div>
@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Manila/Non-Manila Ratio</h1>
                 </div>
@@ -68,7 +68,7 @@
 
     <div class="h-auto chart-field" id="third" style="display: none;">
         <div class="grid gap-4 mb-4" style="grid-template-columns: 1.9fr 1fr 1fr;">
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Applicants per Strand</h1>
                 </div>
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Manila Public/Private Ratio</h1>
                 </div>
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="w-full h-80">
+            <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Other Public/Private Ratio</h1>
                 </div>
@@ -110,7 +110,10 @@
         <div>
             <h1>Actions for Inactive Applicant:</h1>
             <div class="flex h-10 gap-8 mt-2">
-                <a href="" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg" onclick="return confirmArchive()">
+                <a href="{{ route('admin.restore') }}" class="flex items-center justify-center w-32 bg-green-400 rounded-lg" onclick="return confirmRestore()">
+                    Restore
+                </a>
+                <a href="{{ route('admin.archive') }}" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg" onclick="return confirmArchive()">
                     Archive
                 </a>
 
