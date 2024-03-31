@@ -38,6 +38,7 @@
         var male = JSON.parse('{!! json_encode($maleApplicants) !!}');
         var female = JSON.parse('{!! json_encode($femaleApplicants) !!}');
         var count = JSON.parse('{!! json_encode($count) !!}');
+        var currentStatus = JSON.parse('{!! json_encode($status) !!}');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

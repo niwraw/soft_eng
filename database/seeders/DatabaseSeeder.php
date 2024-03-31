@@ -10,6 +10,10 @@ use App\Models\ApplicantGuardianInformation;
 use App\Models\ApplicantSchoolInformation;
 use App\Models\ApplicantProgramInformation;
 use App\Models\User;
+use App\Models\Regions;
+use App\Models\Provinces;
+use App\Models\Cities;
+use App\Models\Barangays;
 use App\Helper\Helper;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -100,6 +104,11 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 150; $i++) {
             $applicantId = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
 
+            $region = Regions::inRandomOrder()->first();
+            $province = Provinces::where('region_code', $region->region_code)->inRandomOrder()->first();
+            $city = Cities::where('province_code', $province->province_code)->inRandomOrder()->first();
+            $barangay = Barangays::where('city_code', $city->city_code)->inRandomOrder()->first();
+
             $personalInfo = ApplicantPersonalInformation::create([
                 'applicant_id' => $applicantId,
                 'lastName' => $this->faker->lastName,
@@ -107,9 +116,10 @@ class DatabaseSeeder extends Seeder
                 'middleName' => $this->faker->lastName,
                 'suffix' => $this->faker->randomElement(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V']),
                 'email' => $this->faker->unique()->safeEmail,
-                'contactNum' => $this->faker->unique()->phoneNumber,
+                'contactNum' => $this->faker->unique()->numerify('09#########'),
                 'applicationType' => $this->faker->randomElement(['SHS', 'ALS', 'OLD', 'TRANSFER']),
                 'gender' => $this->faker->randomElement(['male', 'female']),
+                'status' => $this->faker->randomElement(['pending', 'approved', 'resubmission']),
             ]);
 
             ApplicantOtherInformation::create([
@@ -118,9 +128,10 @@ class DatabaseSeeder extends Seeder
                 'birthDate' => $this->faker->date,
                 'birthPlace' => $this->faker->city,
                 'address' => $this->faker->address,
-                'region' => $this->faker->state,
-                'city' => $this->faker->city,
-                'barangay' => $this->faker->citySuffix,
+                'region' => $region->region_name,
+                'province' => $province->province_name,
+                'city' => $city->city_name,
+                'barangay' => $barangay->brgy_name,
             ]);
 
             ApplicantFatherInformation::create([
@@ -161,7 +172,7 @@ class DatabaseSeeder extends Seeder
 
             ApplicantSchoolInformation::create([
                 'applicant_id' => $applicantId,
-                'lrn' => $this->faker->unique()->numerify('##########'),
+                'lrn' => $this->faker->unique()->numerify('############'),
                 'school' => $this->faker->company,
                 'schoolEmail' => $this->faker->companyEmail,
                 'schoolType' => $this->faker->randomElement(['public', 'private']),

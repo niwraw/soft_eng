@@ -3,7 +3,7 @@ const dataProgress = {
     labels: ['Approved', 'Pending', 'Resubmission'],
     datasets: [{
         label: 'Application Status',
-        data: [12, 19, 3],
+        data: [currentStatus['approved'], currentStatus['pending'], currentStatus['resubmission']],
         borderWidth: 1
     }]
 }

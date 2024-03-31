@@ -133,6 +133,7 @@ class ApplicationController extends Controller
             'birthPlace' => ['required', 'string', 'max:75'],
             'address' => ['required', 'string', 'max:255'],
             'region' => ['required'],
+            'province' => ['required'],
             'city' => ['required'],
             'barangay' => ['required'],
             // 'zip' => ['required', 'string', 'max:4'],
@@ -525,6 +526,7 @@ class ApplicationController extends Controller
             'birthPlace' => $validated['birthPlace'],
             'address' => $validated['address'],
             'region' => $validated['region'],
+            'province' => $validated['province'],
             'city' => $validated['city'],
             'barangay' => $validated['barangay']
         ];

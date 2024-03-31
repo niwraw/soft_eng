@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('contactNum')->unique();
             $table->enum('applicationType', ['SHS', 'ALS', 'OLD', 'TRANSFER']);
             $table->enum('gender', ['male', 'female']);
-            $table->enum('status', ['pending', 'approved', 'disapproved'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'resubmission'])->default('pending');
             $table->enum('activity', ['active', 'inactive'])->default('active');
 
             $table->timestamps();
@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('birthPlace');
             $table->string('address');
             $table->string('region');
+            $table->string('province');
             $table->string('city');
             $table->string('barangay');
             // $table->string('zip');
