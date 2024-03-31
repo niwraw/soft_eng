@@ -108,7 +108,7 @@ class ApplicationController extends Controller
     {
         $year = date('Y');
 
-        $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 6, $year);
+        $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
         
         $validated = $request->validate([
             // Application Information

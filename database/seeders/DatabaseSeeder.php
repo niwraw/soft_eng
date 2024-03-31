@@ -2,12 +2,28 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ApplicantPersonalInformation;
+use App\Models\ApplicantOtherInformation;
+use App\Models\ApplicantFatherInformation;
+use App\Models\ApplicantMotherInformation;
+use App\Models\ApplicantGuardianInformation;
+use App\Models\ApplicantSchoolInformation;
+use App\Models\ApplicantProgramInformation;
+use App\Models\User;
+use App\Helper\Helper;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
 {
+    protected $faker;
+
+    public function __construct()
+    {
+        $this->faker = Faker::create();
+    }
+
     /**
      * Seed the application's database.
      */
@@ -55,7 +71,7 @@ class DatabaseSeeder extends Seeder
 
         $applicant = [
             [
-                'applicant_id' => '202200001',
+                'applicant_id' => '2022-00001',
                 'lastName' => 'Dela Cruz',
                 'firstName' => 'Juan',
                 'middleName' => 'Dela',
@@ -71,12 +87,100 @@ class DatabaseSeeder extends Seeder
 
         $applicant = [
             [
-                'applicant_id' => '202200001',
+                'applicant_id' => '2022-00001',
                 'email' => 'applicant@gmail.com',
-                'password' => bcrypt('202200001'),
+                'password' => bcrypt('password'),
             ],
         ];
 
         DB::table('applicant_accounts')->insert($applicant);
+
+        $year = date('Y');
+
+        for ($i = 0; $i < 150; $i++) {
+            $applicantId = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
+
+            $personalInfo = ApplicantPersonalInformation::create([
+                'applicant_id' => $applicantId,
+                'lastName' => $this->faker->lastName,
+                'firstName' => $this->faker->firstName,
+                'middleName' => $this->faker->lastName,
+                'suffix' => $this->faker->randomElement(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V']),
+                'email' => $this->faker->unique()->safeEmail,
+                'contactNum' => $this->faker->unique()->phoneNumber,
+                'applicationType' => $this->faker->randomElement(['SHS', 'ALS', 'OLD', 'TRANSFER']),
+                'gender' => $this->faker->randomElement(['male', 'female']),
+            ]);
+
+            ApplicantOtherInformation::create([
+                'applicant_id' => $applicantId,
+                'maidenName' => $this->faker->lastName,
+                'birthDate' => $this->faker->date,
+                'birthPlace' => $this->faker->city,
+                'address' => $this->faker->address,
+                'region' => $this->faker->state,
+                'city' => $this->faker->city,
+                'barangay' => $this->faker->citySuffix,
+            ]);
+
+            ApplicantFatherInformation::create([
+                'applicant_id' => $applicantId,
+                'fatherLast' => $this->faker->lastName,
+                'fatherFirst' => $this->faker->firstName,
+                'fatherMiddle' => $this->faker->lastName,
+                'fatherSuffix' => $this->faker->randomElement(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V']),
+                'fatherAddress' => $this->faker->address,
+                'fatherContact' => $this->faker->phoneNumber,
+                'fatherJob' => $this->faker->jobTitle,
+                'fatherIncome' => $this->faker->randomNumber(5),
+            ]);
+
+            ApplicantMotherInformation::create([
+                'applicant_id' => $applicantId,
+                'motherLast' => $this->faker->lastName,
+                'motherFirst' => $this->faker->firstName,
+                'motherMiddle' => $this->faker->lastName,
+                'motherSuffix' => $this->faker->randomElement(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V']),
+                'motherAddress' => $this->faker->address,
+                'motherContact' => $this->faker->phoneNumber,
+                'motherJob' => $this->faker->jobTitle,
+                'motherIncome' => $this->faker->randomNumber(5),
+            ]);
+
+            ApplicantGuardianInformation::create([
+                'applicant_id' => $applicantId,
+                'guardianLast' => $this->faker->lastName,
+                'guardianFirst' => $this->faker->firstName,
+                'guardianMiddle' => $this->faker->lastName,
+                'guardianSuffix' => $this->faker->randomElement(['None', 'Jr.', 'Sr.', 'I', 'II', 'III', 'IV', 'V']),
+                'guardianAddress' => $this->faker->address,
+                'guardianContact' => $this->faker->phoneNumber,
+                'guardianJob' => $this->faker->jobTitle,
+                'guardianIncome' => $this->faker->randomNumber(5),
+            ]);
+
+            ApplicantSchoolInformation::create([
+                'applicant_id' => $applicantId,
+                'lrn' => $this->faker->unique()->numerify('##########'),
+                'school' => $this->faker->company,
+                'schoolEmail' => $this->faker->companyEmail,
+                'schoolType' => $this->faker->randomElement(['public', 'private']),
+                'strand' => $this->faker->randomElement(['ABM', 'HUMSS', 'STEM', 'GAS', 'TVL', 'SPORTS', 'ADT', 'PBM']),
+                'gwa' => $this->faker->randomFloat(2, 75, 100),
+            ]);
+
+            ApplicantProgramInformation::create([
+                'applicant_id' => $applicantId,
+                'choice1' => $this->faker->randomElement(['Program A', 'Program B', 'Program C']),
+                'choice2' => $this->faker->randomElement(['Program A', 'Program B', 'Program C']),
+                'choice3' => $this->faker->randomElement(['Program A', 'Program B', 'Program C']),
+            ]);
+
+            User::create([
+                'applicant_id' => $applicantId,
+                'email' => $personalInfo->email,
+                'password' => bcrypt('secret'),
+            ]);
+        }
     }
 }

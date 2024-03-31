@@ -3,7 +3,7 @@ namespace App\Helper;
 
 class Helper
 {
-    public static function IDGenerator($model, $trow, $length = 6, $prefix)
+    public static function IDGenerator($model, $trow, $length = 5, $prefix)
     {
         $data = $model::orderBy('id', 'desc')->first();
         
@@ -16,10 +16,9 @@ class Helper
         {
             $code = substr($data->$trow, strlen($prefix) * -1);
             $actual_last_number = ($code/1) * 1;
-            $increment_last_number = $actual_last_number + 1;
-            $last_number_length = strlen($increment_last_number);
+            $last_number = $actual_last_number + 1;
+            $last_number_length = strlen($last_number);
             $og_length = $length - $last_number_length;
-            $last_number = $increment_last_number + 1;
         }
 
         $zeros = "";

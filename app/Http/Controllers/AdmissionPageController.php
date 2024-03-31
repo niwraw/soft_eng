@@ -14,7 +14,7 @@ class AdmissionPageController extends Controller
         $shsApplicants = ApplicantList::where('applicationType', 'SHS')->get();
         $alsApplicants = ApplicantList::where('applicationType', 'ALS')->get();
         $oldApplicants = ApplicantList::where('applicationType', 'OLD')->get();
-        $transferApplicants = ApplicantList::where('applicationType', 'TRANSFEREE')->get();
+        $transferApplicants = ApplicantList::where('applicationType', 'TRANSFER')->get();
 
         $totalApplicants = $shsApplicants->count() + $alsApplicants->count() + $oldApplicants->count() + $transferApplicants->count();
 
@@ -57,7 +57,7 @@ class AdmissionPageController extends Controller
             'SHS' => count($shsApplicants),
             'ALS' => count($alsApplicants),
             'OLD' => count($oldApplicants),
-            'TRANSFEREE' => count($transferApplicants),
+            'TRANSFER' => count($transferApplicants),
         ];
 
 

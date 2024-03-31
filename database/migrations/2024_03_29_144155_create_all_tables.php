@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('applicationType', ['SHS', 'ALS', 'OLD', 'TRANSFER']);
             $table->enum('gender', ['male', 'female']);
             $table->enum('status', ['pending', 'approved', 'disapproved'])->default('pending');
+            $table->enum('activity', ['active', 'inactive'])->default('active');
 
             $table->timestamps();
         });
