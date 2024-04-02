@@ -178,10 +178,10 @@ class DatabaseSeeder extends Seeder
                 'schoolType' => $this->faker->randomElement(['public', 'private']),
                 'strand' => $this->faker->randomElement(['ABM', 'HUMSS', 'STEM', 'GAS', 'TVL', 'SPORTS', 'ADT', 'PBM']),
                 'gwa' => $this->faker->randomFloat(2, 75, 100),
-                'region' => $region->region_name,
-                'province' => $province->province_name,
-                'city' => $city->city_name,
-                'address' => $this->faker->address,
+                'schoolRegion' => $region->region_name,
+                'schoolProvince' => $province->province_name,
+                'schoolCity' => $city->city_name,
+                'schoolAddress' => $this->faker->address,
             ]);
 
             ApplicantProgramInformation::create([

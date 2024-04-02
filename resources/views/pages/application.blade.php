@@ -425,6 +425,46 @@
 
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
+                                <x-input-label for="schoolAdd" :value="__('School Address')" />
+                                <x-text-input id="schoolAdd" class="block w-full mt-1" type="text" name="schoolAdd" required autofocus value="{{ old('schoolAdd') }}"/>
+                                <x-input-error :messages="$errors->get('schoolAdd')" class="mt-2" />
+                            </div>
+                            <div class="w-1/3">
+                                <x-input-label for="schoolReg" :value="__('School Region')" />
+                                <div>
+                                    <select name="schoolReg" id="schoolReg" class="block w-full mt-1" required>
+                                        <option value="" disabled {{ old('schoolReg') === null ? 'selected' : '' }}>Please select</option>
+                                        @foreach ($regions as $region)
+                                            <option value="{{ $region->region_code }}" {{ old('region') == $region->region_code ? 'selected' : '' }}>{{ $region->region_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <x-input-error :messages="$errors->get('schoolReg')" class="mt-2" />
+                            </div>
+
+                            <div class="w-1/3">
+                                <x-input-label for="schoolProv" :value="__('School Province')" />
+                                <div>
+                                    <select name="schoolProv" id="schoolProv" class="block w-full mt-1" required>
+                                        <option value="" disabled {{ old('schoolProv') === null ? 'selected' : '' }}>Please select</option>
+                                    </select>
+                                </div>
+                                <x-input-error :messages="$errors->get('schoolProv')" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row gap-3">
+                            <div class="w-1/3">
+                                <x-input-label for="schoolMun" :value="__('School City/Municipality')" />
+                                <div>
+                                    <select name="schoolMun" id="schoolMun" class="block w-full mt-1" required>
+                                        <option value="" disabled {{ old('schoolMun') === null ? 'selected' : '' }}>Please select</option>
+                                    </select>
+                                </div>
+                                <x-input-error :messages="$errors->get('schoolMun')" class="mt-2" />
+                            </div>
+                            
+                            <div class="w-1/3">
                                 <x-input-label for="strand" :value="__('Academic Strand')" />
                                 <div>
                                     <select name="strand" id="strand" required class="block w-full mt-1" required>
@@ -443,12 +483,6 @@
                             <div class="w-1/3">
                                 <x-input-label for="gwa" :value="__('Grade Weighted Average (GWA)')" />
                                 <x-text-input id="gwa" class="block w-full mt-1" type="number" name="gwa" required value="{{ old('gwa') }}"/>
-                            </div>
-
-                            <div class="w-1/3">
-                            </div>
-
-                            <div class="w-1/6">
                             </div>
                         </div>
 
@@ -770,6 +804,40 @@
                     } else {
                         $('#guardianAddress').val('');
                     }
+                });
+
+                $('#schoolReg').on('change', function() {
+                    var regionCode = $(this).val();
+                    $.ajax({
+                        url: '/get-provinces/' + regionCode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#schoolProv').html(data);
+                            $('#schoolMun').html('<option value="" disabled selected="true">Please select</option>');
+                            var oldProvince = "{{ old('schoolProv') }}";
+                            if (oldProvince) {
+                                $('#province').val(oldProvince).trigger('change');
+                            }
+                            
+                        }
+                    });
+                }).trigger('change');
+
+                $('#schoolProv').on('change', function() {
+                    var provinceCode = $(this).val();
+
+                    $.ajax({
+                        url: '/get-cities/' + provinceCode,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#schoolMun').html(data);
+
+                            var oldCity = "{{ old('schoolMun') }}";
+                            if (oldCity) {
+                                $('#city').val(oldCity).trigger('change');
+                            }
+                        }
+                    });
                 });
             });
         </script>

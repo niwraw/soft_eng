@@ -250,9 +250,6 @@ return new class extends Migration
         Schema::create('app_form_school', function (Blueprint $table) {
             $table->integer('school_id')->primary();
             $table->string('school_name');
-            $table->string('region');
-            $table->string('province');
-            $table->string('city');
             
             $table->timestamps();
         });

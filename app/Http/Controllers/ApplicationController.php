@@ -175,6 +175,10 @@ class ApplicationController extends Controller
             'schoolType' => ['required'],
             'strand' => ['required'],
             'gwa' => ['required'],
+            'schoolAdd' => ['required', 'string', 'max:255'],
+            'schoolReg' => ['required'],
+            'schoolProv' => ['required'],
+            'schoolMun' => ['required'],
 
             // Selection Information
             'choice1' => ['required'],
@@ -580,7 +584,11 @@ class ApplicationController extends Controller
             'schoolEmail' => $validated['schoolEmail'],
             'schoolType' => $validated['schoolType'],
             'strand' => $validated['strand'],
-            'gwa' => $validated['gwa']
+            'gwa' => $validated['gwa'],
+            'schoolAddress' => $validated['schoolAdd'],
+            'schoolRegion' => $validated['schoolReg'],
+            'schoolProvince' => $validated['schoolProv'],
+            'schoolCity' => $validated['schoolMun']
         ];
         ApplicantSchoolInformation::create($schoolInfoData);
 
@@ -689,6 +697,7 @@ class ApplicationController extends Controller
                 Password: ' . $student_id . '';
 
         $credentials = [
+            'applicant_id' => $student_id,
             'email' => $validated['email'],
             'password' => Hash::make($student_id)
         ];
