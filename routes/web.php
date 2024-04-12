@@ -8,6 +8,7 @@ use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmissionPageController;
 use App\Http\Controllers\ActionController;
+use App\Http\Controllers\WelcomePageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,9 @@ use App\Http\Controllers\ActionController;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+Route::redirect('/', '/home');
+
+Route::get('/{currentRoute}', [WelcomePageController::class, 'index'])->name('welcome.page')->where('currentRoute', '.*')->defaults('currentRoute', 'home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
