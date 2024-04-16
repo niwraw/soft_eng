@@ -190,6 +190,8 @@ class ApplicationController extends Controller
                 'required',
                 'mimes:pdf',
                 function($attribute, $value, $fail) {
+                    $year = date('Y');
+                    $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
                     $upload_dir = 'uploads/';
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
@@ -200,7 +202,7 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.jpeg';
 
                     $pdf->saveImage($file_path);
 
@@ -243,6 +245,8 @@ class ApplicationController extends Controller
                 $request->applicationType == 'SHS' ? 'required' : 'nullable', 
                 'mimes:pdf',
                 function($attribute, $value, $fail) {
+                    $year = date('Y');
+                    $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
                     $upload_dir = 'uploads/';
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
@@ -253,7 +257,7 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . 'test' . '.jpeg';
 
                     $pdf->saveImage($file_path);
 
@@ -296,6 +300,8 @@ class ApplicationController extends Controller
                 $request->applicationType == 'ALS' ? 'required' : 'nullable', 
                 'mimes:pdf',
                 function($attribute, $value, $fail) {
+                    $year = date('Y');
+                    $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
                     $upload_dir = 'uploads/';
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
@@ -306,7 +312,7 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.jpeg';
 
                     $pdf->saveImage($file_path);
 
@@ -349,6 +355,8 @@ class ApplicationController extends Controller
                 $request->applicationType == 'OLD' ? 'required' : 'nullable', 
                 'mimes:pdf',
                 function($attribute, $value, $fail) {
+                    $year = date('Y');
+                    $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
                     $upload_dir = 'uploads/';
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
@@ -359,7 +367,7 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.jpeg';
 
                     $pdf->saveImage($file_path);
 
@@ -402,6 +410,8 @@ class ApplicationController extends Controller
                 $request->applicationType == 'OLD' ? 'required' : 'nullable', 
                 'mimes:pdf',
                 function($attribute, $value, $fail) {
+                    $year = date('Y');
+                    $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
                     $upload_dir = 'uploads/';
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
@@ -412,7 +422,7 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.jpeg';
 
                     $pdf->saveImage($file_path);
 
@@ -455,6 +465,8 @@ class ApplicationController extends Controller
                 $request->applicationType == 'TRANSFER' ? 'required' : 'nullable', 
                 'mimes:pdf',
                 function($attribute, $value, $fail) {
+                    $year = date('Y');
+                    $student_id = Helper::IDGenerator(new ApplicantPersonalInformation, 'applicant_id', 5, $year);
                     $upload_dir = 'uploads/';
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
@@ -465,7 +477,7 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.jpeg';
 
                     $pdf->saveImage($file_path);
 
