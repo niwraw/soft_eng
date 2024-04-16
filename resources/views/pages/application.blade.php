@@ -88,7 +88,7 @@
                             </div>
 
                             <div class="w-1/3">
-                                <x-input-label for="applicationType" :value="__('Appication Type')" />
+                                <x-input-label for="applicationType" :value="__('Application Type')" />
                                 <div>
                                     <select name="applicationType" id="applicationType" class="block w-full mt-1" required>
                                         <option value="" disabled {{ old('applicationType', '') == '' ? 'selected' : '' }}>Please select</option>

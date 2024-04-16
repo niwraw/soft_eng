@@ -33,7 +33,7 @@
                     <span>Colleges</span>
                 </a>
 
-                <a href="#">
+                <a href="{{ route('welcome.page', ['currentRoute' => 'inquiry' ]) }}">
                     <span>Inquiry</span>
                 </a>
 
@@ -48,6 +48,8 @@
                 @include('components.landing_page.home')
             @elseif ($currentRoute === "colleges")
                 @include('components.landing_page.colleges')
+            @elseif ($currentRoute === "inquiry")
+                @include('components.landing_page.inquiry')
             @endif
         </main>
         
