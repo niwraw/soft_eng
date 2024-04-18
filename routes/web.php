@@ -42,7 +42,7 @@ Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangay
 Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
+Route::get('/admission/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
 
 Route::get('/applicant/dashboard', function () {
     $routeSegment = request()->segment(1);

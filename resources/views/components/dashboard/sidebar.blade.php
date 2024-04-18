@@ -1,6 +1,6 @@
 <div class="sticky top-0 flex items-center justify-center w-15v h-90v">
     <div class="flex flex-col items-center pt-6 bg-blue-800 h-85v w-14v rounded-xl gap-9">
-        @if($routeSegment === 'admin')
+        @if($routeSegment === 'admission')
             @include('components.dashboard.sections.admission')
         @endif
 
