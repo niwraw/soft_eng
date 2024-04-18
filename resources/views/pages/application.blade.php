@@ -576,7 +576,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('home') }}" wire:navigate>
+                            <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{  route('welcome.page', ['currentRoute' => 'home' ]) }}" wire:navigate>
                                 {{ __('Already registered?') }}
                             </a>
 

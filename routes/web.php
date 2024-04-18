@@ -22,24 +22,17 @@ use App\Http\Controllers\WelcomePageController;
 */
 
 Route::redirect('/', '/home');
+Route::redirect('/logout', '/home');
 
-Route::get('/{currentRoute}', [WelcomePageController::class, 'index'])->name('welcome.page')->where('currentRoute', '.*')->defaults('currentRoute', 'home');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::get('/{currentRoute}', [WelcomePageController::class, 'index'])->name('welcome.page')->defaults('currentRoute', 'home');
 
 require __DIR__.'/auth.php';
 
 Route::middleware('guest')->group(function () {
-    Route::get('apply', [ApplicationController::class, 'create'])
+    Route::get('/applicant/apply', [ApplicationController::class, 'create'])
     ->name('apply');
 
-    Route::post('apply', [ApplicationController::class, 'store'])->name('apply.post');
+    Route::post('/applicant/apply', [ApplicationController::class, 'store'])->name('apply.post');
 });
 
 Route::get('/get-provinces/{regionCode}', [ProvinceController::class, 'getProvinces']);
