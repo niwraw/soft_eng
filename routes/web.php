@@ -21,33 +21,9 @@ use App\Http\Controllers\WelcomePageController;
 |
 */
 
-Route::redirect('/', '/home');
-Route::redirect('/logout', '/home');
-
-Route::get('/{currentRoute}', [WelcomePageController::class, 'index'])->name('welcome.page')->defaults('currentRoute', 'home');
-
 require __DIR__.'/auth.php';
 
-Route::middleware('guest')->group(function () {
-    Route::get('/applicant/apply', [ApplicationController::class, 'create'])
-    ->name('apply');
-
-    Route::post('/applicant/apply', [ApplicationController::class, 'store'])->name('apply.post');
-});
-
-Route::get('/get-provinces/{regionCode}', [ProvinceController::class, 'getProvinces']);
-Route::get('/get-cities/{provinceCode}', [CityController::class, 'getCities']);
-Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangays']);
-
-Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
-Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
-
 Route::get('/admission/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
-
-Route::get('/applicant/dashboard', function () {
-    $routeSegment = request()->segment(1);
-    return view('pages.applicant.dashboard', compact('routeSegment'));
-})->name('user.dashboard');
 
 Route::get('/admin/admission/restore', [ActionController::class, 'restore'])->name('admin.restore');
 Route::get('/admin/admission/archive', [ActionController::class, 'archive'])->name('admin.archive');

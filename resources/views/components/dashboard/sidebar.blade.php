@@ -4,9 +4,9 @@
             @include('components.dashboard.sections.admission')
         @endif
 
-        <a href="{{ route('logout') }}" class="flex items-center w-11/12 gap-5 pl-5 text-white transition-all duration-300 ease-in h-14">
+        {{-- <a href="{{ route('logout') }}" class="flex items-center w-11/12 gap-5 pl-5 text-white transition-all duration-300 ease-in h-14">
             <span class="material-symbols-sharp">logout</span>
             <h3>Logout</h3>
-        </a>
+        </a> --}}
     </div>
 </div>
