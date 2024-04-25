@@ -39,7 +39,7 @@ Route::get('/get-provinces/{regionCode}', [ProvinceController::class, 'getProvin
 Route::get('/get-cities/{provinceCode}', [CityController::class, 'getCities']);
 Route::get('/get-barangays/{cityCode}', [BarangayController::class, 'getBarangays']);
 
-Route::post('/login', [LoginController::class, 'store'])->name('login.submit');
+Route::post('/applicant/login', [LoginController::class, 'store'])->name('login.submit');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
