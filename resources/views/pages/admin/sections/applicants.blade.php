@@ -119,31 +119,37 @@
                             </thead>
 
                             <tbody class="bg-white divide-y divide-gray-200 ">
-                                @for ($i = 1; $i <= 8; $i++)
+                                @foreach ($applicants as $applicant)
                                 <tr>
                                     <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                        2021-00000{{ $i }}
+                                        {{ $applicant->applicant_id }}
                                     </td>
                                     
                                     <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                        Applicant
+                                        {{ $applicant->lastName }}, {{ $applicant->firstName }} {{ $applicant->middleName }} @if ($applicant->suffix != 'None') {{ $applicant->suffix }} @endif
                                     </td>
                                     
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        test@gmail.com
+                                        {{ $applicant->email }}
                                     </td>
 
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        09123456789
+                                        {{ $applicant->contactNum }}
                                     </td>
 
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        SHS
+                                        {{ $applicant->applicationType }}
                                     </td>
 
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        <div class="inline px-3 py-1 text-sm font-normal text-yellow-700 rounded-full gap-x-2 bg-yellow-200/60">
-                                            Pending
+                                        @if ($applicant->status == 'pending')
+                                            <div class="inline px-3 py-1 text-sm font-normal text-yellow-700 rounded-full gap-x-2 bg-yellow-200/60">
+                                        @elseif ($applicant->status == 'approved')
+                                            <div class="inline px-3 py-1 text-sm font-normal text-green-700 rounded-full gap-x-2 bg-green-200/60">
+                                        @elseif ($applicant->status == 'resubmission')
+                                            <div class="inline px-3 py-1 text-sm font-normal text-red-700 rounded-full gap-x-2 bg-red-200/60">
+                                        @endif
+                                            {{ ucfirst($applicant->status) }}
                                         </div>
                                     </td>
 
@@ -155,7 +161,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                @endfor
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
