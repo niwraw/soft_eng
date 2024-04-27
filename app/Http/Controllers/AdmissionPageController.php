@@ -11,14 +11,26 @@ use App\Models\ApplicantSchoolInformation;
 
 class AdmissionPageController extends Controller
 {
-    public function AdmissionDashboard($currentRoute)
+    public function AdmissionDashboard($currentRoute, Request $request)
     {
         $shsApplicants = ApplicantList::where('applicationType', 'SHS')->where('activity', 'active')->get();
         $alsApplicants = ApplicantList::where('applicationType', 'ALS')->where('activity', 'active')->get();
         $oldApplicants = ApplicantList::where('applicationType', 'OLD')->where('activity', 'active')->get();
         $transferApplicants = ApplicantList::where('applicationType', 'TRANSFER')->where('activity', 'active')->get();
 
-        $applicants =  ApplicantList::where('activity', 'active')->paginate(8);
+        $type = $request->query('type', 'all');
+        $statusType = $request->query('statusType', 'all');
+        $query = ApplicantList::where('activity', 'active');
+
+        if ($type !== 'all') {
+            $query =  $query->where('applicationType', $type);
+        }
+
+        if ($statusType !== 'all') {
+            $query =  $query->where('status', $statusType);
+        }
+
+        $applicants = $query->paginate(8);
 
         $totalApplicants = $shsApplicants->count() + $alsApplicants->count() + $oldApplicants->count() + $transferApplicants->count();
 
@@ -124,6 +136,6 @@ class AdmissionPageController extends Controller
         // $otherPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
 
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType'));
     }
 }
