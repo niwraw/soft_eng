@@ -20,6 +20,7 @@ class AdmissionPageController extends Controller
 
         $type = $request->query('type', 'all');
         $statusType = $request->query('statusType', 'all');
+        $searchApplicant = $request->query('searchApplicant', '');
         $query = ApplicantList::where('activity', 'active');
 
         if ($type !== 'all') {
@@ -28,6 +29,14 @@ class AdmissionPageController extends Controller
 
         if ($statusType !== 'all') {
             $query =  $query->where('status', $statusType);
+        }
+
+        if (!empty($searchApplicant)) {
+            $query = $query->where(function ($query) use ($searchApplicant) {
+                $query->where('firstName', 'like', "%{$searchApplicant}%")
+                      ->orWhere('lastName', 'like', "%{$searchApplicant}%")
+                      ->orWhere('email', 'like', "%{$searchApplicant}%");
+            });
         }
 
         $applicants = $query->paginate(8);
@@ -136,6 +145,6 @@ class AdmissionPageController extends Controller
         // $otherPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
 
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant'));
     }
 }
