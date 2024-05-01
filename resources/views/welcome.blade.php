@@ -53,7 +53,7 @@
             @endif
         </main>
         
-        <footer class="flex flex-row h-auto gap-3 px-5 py-3 border-t-2 border-yellow-400">
+        <footer class="flex flex-row gap-3 px-5 py-3 border-t-2 border-yellow-400 h-96">
             <div class="flex flex-col w-1/3 gap-5 h-96">
                 <div class="flex flex-row items-center h-1/3">
                     <img src="{{ asset('assets/image/school.png') }}" class="h-full">
@@ -63,13 +63,13 @@
                     </div>
                 </div>
 
-                <div class="h-2/3">
+                <div class="">
                     <span>About Us:</span>
                     <span>Pamantasan ng Lungsod ng Maynila (PLM) is the first and only charted and autonomous university funded by a city government which is situated inside the historic walled area of Intramuros, Manila, Philippines.</span>
                 </div>
             </div>
 
-            <div class="flex flex-col w-1/3 h-96 gap-7">
+            <div class="flex flex-col w-1/3 gap-7">
                 <h3>For more information, you may contact the Admission Office.</h3>
                 
                 <div class="flex flex-row gap-3">
@@ -91,7 +91,9 @@
                 </div>
             </div>
 
-            <div class="w-1/3 h-auto bg-pink-400">
+            <div class="w-1/3 h-96">
+                <h4 class="font-semibold">Location on Map</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.2154584311866!2d120.97360247587424!3d14.586795177412977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ca2336770053%3A0x1b731714778d3506!2sPamantasan%20ng%20Lungsod%20ng%20Maynila!5e0!3m2!1sen!2sph!4v1714550720717!5m2!1sen!2sph" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full h-80"></iframe>
             </div>
         </footer>
 

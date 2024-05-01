@@ -656,8 +656,6 @@
             }
 
             $(document).ready(function() {
-                
-                
                 $('#applicationType').on('change', function() {
                     var selectedType = this.value;
                     var shsInputs = document.getElementById('shsInputs');
@@ -706,7 +704,6 @@
                             if (oldProvince) {
                                 $('#province').val(oldProvince).trigger('change');
                             }
-                            
                         }
                     });
                 }).trigger('change');
