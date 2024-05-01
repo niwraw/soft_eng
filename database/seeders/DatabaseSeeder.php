@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RegionSeed::class);
         $this->call(SchoolSeed::class);
+        $this->call(AnnouncementSeeder::class);
+        $this->call(QuestionSeeder::class);
 
         $collegedepartment = [
             ['college_code' => 'CN', 'college' => 'College of Nursing'],

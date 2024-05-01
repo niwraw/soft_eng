@@ -100,12 +100,12 @@
         
         <div class="flex flex-col gap-3 px-5 py-3">
             <div class="flex flex-row gap-3">
-                <span class="font-bold">January 1, 2021:</span>
+                <span class="font-bold">{{ $start->date }}:</span>
                 <span>Start of Application</span>
             </div>
             
             <div class="flex flex-row gap-3">
-                <span class="font-bold">January 1, 2021:</span>
+                <span class="font-bold">{{ $end->date }}:</span>
                 <span>End of Application</span>
             </div>
         </div>
@@ -117,13 +117,13 @@
         </div>
         
         <div class="flex flex-col gap-3 px-5 py-3 overflow-x-hidden overflow-y-scroll h-5/6 ">
-            <?php for ($i = 0; $i < 10; $i++) { ?>
+            @foreach($announcements as $announcement)
                 <div class="flex flex-col gap-2 pb-3 border-b-2 border-yellow-400">
-                        <h3 class="font-bold">January 1, 2021</h3>
+                        <h3 class="font-bold">{{ $announcement->date }}</h3>
                         
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati, unde.</p>
+                        <p>{{ $announcement->announcement }}</p>
                 </div>
-            <?php } ?>
+            @endforeach
         </div>
     </div>
 </div>
