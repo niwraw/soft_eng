@@ -7,8 +7,9 @@ use Illuminate\View\View;
 
 class ApplicantController extends Controller
 {
-    public function create(): View
+    public function ApplicantPage($currentRoute, Request $request)
     {
-        return view('pages.applicant.dashboard');
+        $routeSegment = request()->segment(1);
+        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment'));
     }
 }

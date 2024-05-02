@@ -16,10 +16,12 @@
     </head>
     <body class="antialiased">
         @include('components.dashboard.header')
-        HELLO APPLICANT
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
+        <div class="grid" style="grid-template-columns: 1fr 5fr;">
+            @include('components.dashboard.sidebar')
+
+            @if ($currentRoute === 'dashboard')
+                @include('pages.applicant.sections.dashboard')
+            @endif
+        </div>
     </body>
 </html>

@@ -7,6 +7,7 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdmissionPageController;
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\WelcomePageController;
 
@@ -44,10 +45,7 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
 
-Route::get('/applicant/dashboard', function () {
-    $routeSegment = request()->segment(1);
-    return view('pages.applicant.dashboard', compact('routeSegment'));
-})->name('user.dashboard');
+Route::get('/applicant/{currentRoute}',[ApplicantController::class, 'ApplicantPage'])->name('applicant.page');
 
 Route::get('/admin/admission/restore', [ActionController::class, 'restore'])->name('admin.restore');
 Route::get('/admin/admission/archive', [ActionController::class, 'archive'])->name('admin.archive');
