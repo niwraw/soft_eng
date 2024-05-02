@@ -45,7 +45,7 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
 
-Route::get('/applicant/{currentRoute}',[ApplicantController::class, 'ApplicantPage'])->name('applicant.page');
+Route::get('/applicant/{currentRoute}/{applicantId}',[ApplicantController::class, 'ApplicantPage'])->name('applicant.page');
 
 Route::get('/admin/admission/restore', [ActionController::class, 'restore'])->name('admin.restore');
 Route::get('/admin/admission/archive', [ActionController::class, 'archive'])->name('admin.archive');

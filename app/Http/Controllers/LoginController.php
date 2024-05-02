@@ -22,7 +22,8 @@ class LoginController extends Controller
             }
         } else {
             if (Auth::attempt($credentials)) {
-                return redirect()->intended('/applicant/dashboard');
+                $applicantId = Auth::user()->applicant_id;
+                return redirect()->intended('/applicant/dashboard/'. $applicantId);
             }
         }
 
