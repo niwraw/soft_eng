@@ -10,91 +10,104 @@
 
         <div class="flex flex-wrap justify-around gap-12">
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Architecture and Urban Planning</h4>
             </div>
             
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Engineering</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Humanities, Arts and Social Sciences</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Medicine</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Nursing</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Information System & Technology Management</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Physical Therapy</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Science</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">Graduate School of Law</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">College of Law</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">PLM Business School</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">School of Government</h4>
             </div>
 
             <div class="flex flex-col items-center justify-center gap-4 w-60 h-60">
-                <div class="w-32 h-32 bg-red-200">
+                <div class="w-32 h-32">
+                    <img src="{{ asset('assets/image/filler.png') }}" class="w-full h-full">
                 </div>
 
                 <h4 class="text-lg text-center">School of Public Health</h4>

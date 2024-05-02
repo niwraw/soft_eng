@@ -27,7 +27,15 @@
         </button>
         
         <div x-show="open" x-collapse>
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos aut hic excepturi possimus, et commodi nisi dolores rem quidem fuga eveniet, quibusdam eligendi vero odit voluptates dolorem aliquam illo velit maxime voluptatem, illum corrupti amet! Suscipit ducimus sapiente voluptate eum dolorum debitis sed cum, aspernatur quaerat optio. Possimus ratione adipisci corporis, temporibus, itaque hic ad officia similique sit nemo est nam unde numquam laborum animi repudiandae. Id illo autem sunt dignissimos ducimus consequatur quo nemo, adipisci temporibus. Ipsum dolores dolorum nemo saepe nulla fugit omnis necessitatibus itaque, cum voluptate eaque ad quas quam, impedit ex maxime qui laboriosam alias animi?</span>
+            <span>
+                The student-applicant may apply provided that they comply with any of the following basic qualifications:
+                
+                <br><br>Senior High School (SHS) student who is currently enrolled in Grade 12 Department of Education (DepEd) accredited senior high school with a grade 11 general weighted average (GWA) of 80 or above.
+
+                <br><br>Senior High School graduate from DepEd accredited senior high school with a grade 11 general weighted average (GWA) of 80 or above and has not taken any college or university units or programs during the application period.
+
+                <br><br>The applicant completed Alternative Learning System (ALS) and passed the Accreditation & Equivalency (A&E) as recommended for tertiary education and has not taken any college or university units/programs during the application period.
+            </span>
         </div>
     </div>
 
@@ -41,7 +49,21 @@
         </button>
         
         <div x-show="open" x-collapse>
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos aut hic excepturi possimus, et commodi nisi dolores rem quidem fuga eveniet, quibusdam eligendi vero odit voluptates dolorem aliquam illo velit maxime voluptatem, illum corrupti amet! Suscipit ducimus sapiente voluptate eum dolorum debitis sed cum, aspernatur quaerat optio. Possimus ratione adipisci corporis, temporibus, itaque hic ad officia similique sit nemo est nam unde numquam laborum animi repudiandae. Id illo autem sunt dignissimos ducimus consequatur quo nemo, adipisci temporibus. Ipsum dolores dolorum nemo saepe nulla fugit omnis necessitatibus itaque, cum voluptate eaque ad quas quam, impedit ex maxime qui laboriosam alias animi?</span>
+            <span>
+                <h3>Application Process</h3>
+                <br><br>1. Apply on-line through the PLM Admission Portal.
+                <br>2. Fill out the Application Form (online).
+                <br>3. Upload required application requirements (online).
+                <pre>                a. PSA Birth Certificate.
+                b. Certificate of Grade 11 GWA (SHS)/Certificate of Completion (ALS)</pre>
+                4. Check email for the account credentials after submitting the application successfully. Log in to PLM admission account on a regular basis to check the status of the application.
+                <br>5. Upon evaluation of the information and requirements, print the Application Form.
+                <br>6. Upload scanned-signed Application Form with ID picture (2 x 2 colored with white background).
+                <br>7. Monitor the status of the Application Form at the PLM Admission Account.
+                <br>8. Check email for the PLMAT examination schedule after the Application Form has been successfully evaluated.
+                <br>9. Print two (2) copies of the exam permit.
+                <br>10. On the specified examination date, bring two (2) signed exam permits with an ID picture (2x2 colored with white background) and the signed Application Form with ID picture (2x2 colored with white background).
+            </span>
         </div>
     </div>
 
