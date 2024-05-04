@@ -147,4 +147,9 @@ class AdmissionPageController extends Controller
         $routeSegment = request()->segment(1);
         return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant'));
     }
+
+    public function AdmissionApplicantVerify($currentRoute, $applicantId ,Request $request)
+    {
+        return view('pages.admin.verify', compact('applicantId'));
+    }
 }

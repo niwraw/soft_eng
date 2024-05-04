@@ -138,7 +138,7 @@
             <span class="text-2xl font-bold text-white ">Advisory</span>
         </div>
         
-        <div class="flex flex-col gap-3 px-5 py-3 overflow-x-hidden overflow-y-scroll h-5/6 ">
+        <div class="flex flex-col gap-3 px-5 py-3 overflow-x-hidden overflow-y-scroll h-5/6">
             @foreach($announcements as $announcement)
                 <div class="flex flex-col gap-2 pb-3 border-b-2 border-yellow-400">
                         <h3 class="font-bold">{{ $announcement->date }}</h3>

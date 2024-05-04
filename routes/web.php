@@ -11,17 +11,6 @@ use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\WelcomePageController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::redirect('/', '/home');
 Route::redirect('/logout', '/home');
 
@@ -44,6 +33,7 @@ Route::post('/applicant/login', [LoginController::class, 'store'])->name('login.
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
+Route::get('/admin/{currentRoute}/{applicantId}', [AdmissionPageController::class, 'AdmissionApplicantVerify'])->name('admin.verify');
 
 Route::get('/applicant/{currentRoute}/{applicantId}',[ApplicantController::class, 'ApplicantPage'])->name('applicant.page');
 
