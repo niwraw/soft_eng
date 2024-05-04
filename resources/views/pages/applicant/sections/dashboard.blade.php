@@ -82,7 +82,15 @@
 
                     <div class="grid gap-4 px-2 mb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
                         <h4 class="font-medium">Document: Birth Certificate</h4>
-                        <div class="flex items-center justify-center px-1 bg-red-400 rounded-2xl h-fit">Not Submitted</div>
+                        @if ($document->birthCertStatus == 'pending')
+                            <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
+                        @elseif ($document->birthCertStatus == 'approved')
+                            <div class="flex items-center justify-center px-1 bg-green-500 rounded-2xl h-fit">
+                        @elseif ($document->birthCertStatus == 'resubmission')
+                            <div class="flex items-center justify-center px-1 bg-red-500 rounded-2xl h-fit">
+                        @endif
+                            {{ ucfirst($document->birthCertStatus) }}
+                        </div>
                         <p></p>
                         <a href="">
                             <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
@@ -91,7 +99,15 @@
 
                     <div class="grid gap-4 px-2 mb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
                         <h4 class="font-medium">Document: Form137</h4>
-                        <div class="flex items-center justify-center px-1 bg-red-400 rounded-2xl h-fit">Not Submitted</div>
+                        @if ($document->formStatus == 'pending')
+                            <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
+                        @elseif ($document->formStatus == 'approved')
+                            <div class="flex items-center justify-center px-1 bg-green-500 rounded-2xl h-fit">
+                        @elseif ($document->formStatus == 'resubmission')
+                            <div class="flex items-center justify-center px-1 bg-red-500 rounded-2xl h-fit">
+                        @endif
+                            {{ ucfirst($document->formStatus) }}
+                        </div>
                         <p></p>
                         <a href="">
                             <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
@@ -109,16 +125,26 @@
                 <div class="flex flex-col gap-8">
                     <div class="grid" style="grid-template-columns: 1fr 1fr;">
                         <h3>Requirements:</h3>
-                        <p class="w-full text-center bg-red-500 h-fit rounded-xl">Not Submitted</p>
+                        @if ($overallStatus== 'pending')
+                            <p class="w-full text-center bg-yellow-500 h-fit rounded-xl">
+                        @elseif ($overallStatus == 'approved')
+                            <p class="w-full text-center bg-green-500 h-fit rounded-xl">
+                        @elseif ($overallStatus == 'resubmission')
+                            <p class="w-full text-center bg-red-500 h-fit rounded-xl">
+                        @endif
+                            {{ ucfirst($overallStatus) }}
+                        </p>
                     </div>
 
                     <div class="grid" style="grid-template-columns: 1fr 1fr;">
                         <h3>Application Form</h3>
-                        <p class="w-full text-center bg-red-500 h-fit rounded-xl">Not Available</p>
+                        <p class="w-full text-center bg-red-500 h-fit rounded-xl">
+                            Not Available
+                        </p>
                     </div>
 
                     <div class="flex items-center justify-around gap-4 py-4">
-                        <button id="download_app" class="w-full h-6 bg-yellow-500 rounded-2xl">Download</button>
+                        <button id="download_app" class="w-full h-6 bg-blue-500 rounded-2xl">Download</button>
                         <button id="submit_app" class="w-full h-6 bg-yellow-500 rounded-2xl">Submit</button>
                     </div>
                 </div>
