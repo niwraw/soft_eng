@@ -8,27 +8,31 @@
                     <div class="w-full h-fit">
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Surname:</h3>
-                            <p>Guanco</p>
+                            <p>{{ $personalInfo->lastName }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>First Name:</h3>
-                            <p>John Vincent</p>
+                            <p>{{ $personalInfo->firstName }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Middle Name:</h3>
-                            <p>Lo</p>
+                            <p>{{ $personalInfo->middleName }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Extension Name:</h3>
-                            <p></p>
+                            @if($personalInfo->suffix != "None")
+                                <p>{{ $personalInfo->suffix }}</p>
+                            @else
+                                <p></p>
+                            @endif
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Email:</h3>
-                            <p>jvlguanco@gmail.com</p>
+                            <p>{{ $personalInfo->email }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Phone Number:</h3>
-                            <p>09661550858</p>
+                            <p>{{ $personalInfo->contactNum }}</p>
                         </div>
                     </div>
                 </div>
@@ -39,27 +43,27 @@
                     <div class="w-full h-fit">
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>School:</h3>
-                            <p>Regional Science High School for Region VI</p>
+                            <p>{{ $schoolInfo->school }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>LRN:</h3>
-                            <p>1234-567890</p>
+                            <p>{{ $schoolInfo->lrn }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>School Email:</h3>
-                            <p>test@gmail.com</p>
+                            <p>{{ $schoolInfo->schoolEmail }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Program Choice 1:</h3>
-                            <p>BS Computer Science</p>
+                            <p>{{ $selectionInfo->choice1 }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Program Choice 2:</h3>
-                            <p>BS information Technology</p>
+                            <p>{{ $selectionInfo->choice2 }}</p>
                         </div>
                         <div class="grid mb-4" style="grid-template-columns: 1fr 2fr;">
                             <h3>Program Choice 3:</h3>
-                            <p>BS Statistics</p>
+                            <p>{{ $selectionInfo->choice3 }}</p>
                         </div>
                     </div>
                 </div>
