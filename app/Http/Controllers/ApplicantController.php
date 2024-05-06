@@ -48,6 +48,6 @@ class ApplicantController extends Controller
         }
 
         $routeSegment = request()->segment(1);
-        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'overallStatus'));
+        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document'));
     }
 }
