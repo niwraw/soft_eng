@@ -631,7 +631,7 @@ class ApplicationController extends Controller
             $documents = [
                 'applicant_id' => $student_id,
                 'birthCert' => $pathCert . $birth,
-                'form137' => $pathForm . $form137
+                'others' => $pathForm . $form137
             ];
 
             DocumentSHS::create($documents);
@@ -648,7 +648,7 @@ class ApplicationController extends Controller
             $documents = [
                 'applicant_id' => $student_id,
                 'birthCert' => $pathCert . $birth,
-                'certificate' => $pathCert . $certificate
+                'others' => $pathCert . $certificate
             ];
 
             DocumentALS::create($documents);
@@ -690,7 +690,7 @@ class ApplicationController extends Controller
             $documents = [
                 'applicant_id' => $student_id,
                 'birthCert' => $pathCert . $birth,
-                'transcriptRecord' => $pathTranscript . $transcript
+                'others' => $pathTranscript . $transcript
             ];
 
             DocumentTRANSFER::create($documents);

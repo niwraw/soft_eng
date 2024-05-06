@@ -99,21 +99,20 @@
 
                     <div class="grid gap-4 px-2 mb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
                         <h4 class="font-medium">Document: Form137</h4>
-                        @if ($document->formStatus == 'pending')
+                        @if ($document->othersStatus == 'pending')
                             <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
-                        @elseif ($document->formStatus == 'approved')
+                        @elseif ($document->othersStatus == 'approved')
                             <div class="flex items-center justify-center px-1 bg-green-500 rounded-2xl h-fit">
-                        @elseif ($document->formStatus == 'resubmission')
+                        @elseif ($document->othersStatus == 'resubmission')
                             <div class="flex items-center justify-center px-1 bg-red-500 rounded-2xl h-fit">
                         @endif
-                            {{ ucfirst($document->formStatus) }}
+                            {{ ucfirst($document->othersStatus) }}
                         </div>
                         <p></p>
                         <a href="">
                             <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -135,8 +135,10 @@ return new class extends Migration
             $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
-            $table->string('form137');
-            $table->enum('formStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('birthCertComment')->nullable()->default('Waiting for approval');
+            $table->string('others');
+            $table->enum('othersStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('othersComment')->nullable()->default('Waiting for approval');
 
             $table->timestamps();
         });
@@ -146,8 +148,10 @@ return new class extends Migration
             $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
-            $table->string('certificate');
-            $table->enum('certifacteStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('birthCertComment')->nullable()->default('Waiting for approval');
+            $table->string('others');
+            $table->enum('othersStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('othersComment')->nullable()->default('Waiting for approval');
 
             $table->timestamps();
         });
@@ -157,10 +161,13 @@ return new class extends Migration
             $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('birthCertComment')->nullable()->default('Waiting for approval');
             $table->string('approvalLetter');
-            $table->enum('approvalStatus', ['pending', 'approved', 'reupload'])->default('pending');
-            $table->string('record');
-            $table->enum('recordStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->enum('approvalLetterStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('approvalLetterComment')->nullable()->default('Waiting for approval');
+            $table->string('highSchoolCard');
+            $table->enum('highSchoolCardStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('highSchoolCardComment')->nullable()->default('Waiting for approval');
 
             $table->timestamps();
         });
@@ -170,8 +177,10 @@ return new class extends Migration
             $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
             $table->string('birthCert');
             $table->enum('birthCertStatus', ['pending', 'approved', 'reupload'])->default('pending');
-            $table->string('transcriptOfRecord');
-            $table->enum('torStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('birthCertComment')->nullable()->default('Waiting for approval');
+            $table->string('others');
+            $table->enum('othersStatus', ['pending', 'approved', 'reupload'])->default('pending');
+            $table->string('othersComment')->nullable()->default('Waiting for approval');
 
             $table->timestamps();
         });

@@ -39,7 +39,7 @@
                             Birth Certificate
                         </button>
 
-                        <button class="px-5 py-2 text-xs font-medium text-gray-800 transition-colors duration-200 bg-gray-200 sm:text-sm" onclick="changeDocument('{{ asset($documents->form137) }}')">
+                        <button class="px-5 py-2 text-xs font-medium text-gray-800 transition-colors duration-200 bg-gray-200 sm:text-sm" onclick="changeDocument('{{ asset($documents->others) }}')">
                             Form 137
                         </button>
                     </div>
@@ -59,17 +59,43 @@
         </div>
         <div id="floatingForm" class="hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
-                <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg">
+                <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
                     <form action="" method="POST">
                         @csrf
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" id="name" name="name" class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+                        <h1 class="mb-8">Return Status of Applicant</h1>
+                        
+                        <div class="mb-4">
+                            <x-input-label for="birthCert" :value="__('Birth Certificate Status')" />
+                            <div>
+                                <select name="birthCert" id="birthCert" class="block w-full mt-1">
+                                    <option value="" disabled selected>Please select</option>
+                                    <option value="resubmission">Resubmit</option>
+                                    <option value="approved">Approved</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mt-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" name="email" class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+
+                        <div class="mb-4">
+                            <x-input-label for="birthCertComment" :value="__('Comment on Birth Certificate')" />
+                            <x-text-input id="birthCertComment" name="birthCertComment" class="block w-full mt-1" type="text" autocomplete="off"/>
                         </div>
+                        
+                        <div class="mb-4">
+                            <x-input-label for="others" :value="__('Form 137 Status')" />
+                            <div>
+                                <select name="others" id="others" class="block w-full mt-1">
+                                    <option value="" disabled selected>Please select</option>
+                                    <option value="resubmission">Resubmit</option>
+                                    <option value="approved">Approved</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <x-input-label for="othersComment" :value="__('Comment on Form 137')" />
+                            <x-text-input id="othersComment" name="othersComment" class="block w-full mt-1" type="text" autocomplete="off"/>
+                        </div>
+                        
                         <div class="flex justify-end w-full gap-4 mt-4">
                             <button type="button" onclick="toggleForm()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-600">Cancel</button>
                             <button type="submit" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600">Submit</button>
