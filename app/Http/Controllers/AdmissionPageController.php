@@ -159,4 +159,14 @@ class AdmissionPageController extends Controller
 
         return view('pages.admin.verify', compact('applicantId','documents', 'applicationType', 'currentRoute'));
     }
+
+    public function AdmissionVerify($currentRoute, $applicationType , $applicantId, Request $request)
+    {
+        $validated = $request->validate([
+            'birthCert' => 'required',
+            'birthCertComment' => 'nullable',
+            'others' => 'required',
+            'othersComment' => 'nullable',
+        ]);
+    }
 }

@@ -16,7 +16,7 @@
     </head>
     <body class="antialiased ">
         <div class="grid w-screen h-screen" style="grid-template-columns: 1fr 2fr;">
-            <div class="px-8 py-6 overflow-hidden">
+            <div class="px-8 py-6 overflow-hidden border-r-2 border-gray-600">
                 <h1 class="mb-8 text-2xl font-bold">Verify Applicant No. {{ $applicantId }}</h1>
                 
                 <div class="flex flex-col gap-5 px-5 py-3 overflow-x-hidden overflow-y-scroll bg-gray-100 border-2 border-gray-600 h-5/6">
@@ -30,16 +30,16 @@
                 </div>
             </div>
             
-            <div class="flex flex-col items-center px-8 py-6 bg-red-200">
+            <div class="flex flex-col items-center px-8 py-6">
                 <div class="grid w-11/12 mb-8" style="grid-template-columns: 1fr 2fr;">
                     <h1 class="text-2xl font-bold ">Documents of Applicant</h1>
 
                     <div class="flex justify-end gap-4">
-                        <button class="px-5 py-2 text-xs font-medium text-gray-800 transition-colors duration-200 bg-gray-200 sm:text-sm" onclick="changeDocument('{{ asset($documents->birthCert) }}')">
+                        <button class="px-5 py-2 text-xs font-medium text-white transition-colors duration-200 bg-gray-700 sm:text-sm" onclick="changeDocument('{{ asset($documents->birthCert) }}')">
                             Birth Certificate
                         </button>
 
-                        <button class="px-5 py-2 text-xs font-medium text-gray-800 transition-colors duration-200 bg-gray-200 sm:text-sm" onclick="changeDocument('{{ asset($documents->others) }}')">
+                        <button class="px-5 py-2 text-xs font-medium text-white transition-colors duration-200 bg-gray-700 sm:text-sm" onclick="changeDocument('{{ asset($documents->others) }}')">
                             Form 137
                         </button>
                     </div>
@@ -60,14 +60,14 @@
         <div id="floatingForm" class="hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
                 <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
-                    <form action="" method="POST">
+                    <form action="{{ route('admin.verify.applicant', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId, 'applicationType' => $applicationType]) }}" method="POST">
                         @csrf
                         <h1 class="mb-8">Return Status of Applicant</h1>
                         
                         <div class="mb-4">
                             <x-input-label for="birthCert" :value="__('Birth Certificate Status')" />
                             <div>
-                                <select name="birthCert" id="birthCert" class="block w-full mt-1">
+                                <select name="birthCert" id="birthCert" class="block w-full mt-1" required>
                                     <option value="" disabled selected>Please select</option>
                                     <option value="resubmission">Resubmit</option>
                                     <option value="approved">Approved</option>
@@ -83,7 +83,7 @@
                         <div class="mb-4">
                             <x-input-label for="others" :value="__('Form 137 Status')" />
                             <div>
-                                <select name="others" id="others" class="block w-full mt-1">
+                                <select name="others" id="others" class="block w-full mt-1" required>
                                     <option value="" disabled selected>Please select</option>
                                     <option value="resubmission">Resubmit</option>
                                     <option value="approved">Approved</option>
