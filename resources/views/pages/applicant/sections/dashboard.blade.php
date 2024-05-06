@@ -93,14 +93,14 @@
                         </div>
                         <p>{{ $document->birthCertComment }}</p>
                         @if ($document->birthCertStatus == 'resubmission')
-                            <a href="">
+                            <button id="showFormButton1">
                                 <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
-                            </a>
+                            </button>
                         @endif
                     </div>
 
                     <div class="grid gap-6 pb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
-                        <h4 class="font-medium border-r-2">Document: Form137</h4>
+                        <h4 class="font-medium">Document: Form137</h4>
                         @if ($document->othersStatus == 'pending')
                             <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
                         @elseif ($document->othersStatus == 'approved')
@@ -112,9 +112,9 @@
                         </div>
                         <p>{{ $document->othersComment }}</p>
                         @if ($document->othersStatus == 'resubmission')
-                            <a href="">
+                            <button id="showFormButton2">
                                 <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
-                            </a>
+                            </button>
                         @endif
                     </div>
                 </div>
@@ -185,3 +185,81 @@
         </div>
     </div>
 </div>
+
+<div id="floatingForm1" class="hidden">
+    <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
+        <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
+            <form action="{{ route('applicant.resubmitBirth', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <h1 class="mb-8">Resubmission of Birth Certificate</h1>
+
+                <div class="mb-4">
+                    <x-input-label for="birthCert" :value="__('Birth Certificate (PSA)')" />
+                    <x-text-input id="birthCert" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="birthCert" required accept=".pdf"/>
+                    <x-input-error :messages="$errors->get('birthCert')" class="mt-2" />
+                </div>
+
+                @if($errors->any())
+                    <script>
+                        alert(`{{ implode('\n', $errors->all()) }}`);
+                    </script>
+                @endif
+                
+                <div class="flex justify-end w-full gap-4 mt-4">
+                    <button type="button" onclick="toggleForm1()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-600">Cancel</button>
+                    <button type="submit" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="floatingForm2" class="hidden">
+    <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
+        <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
+            <form action="{{ route('applicant.resubmitForm137', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <h1 class="mb-8">Resubmission of Form 137</h1>
+
+                <div class="mb-4">
+                    <x-input-label for="form137" :value="__('Form 137')" />
+                    <x-text-input id="form137" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="form137" required accept=".pdf"/>
+                    <x-input-error :messages="$errors->get('form137')" class="mt-2" />
+                </div>
+
+                @if($errors->any())
+                    <script>
+                        alert(`{{ implode('\n', $errors->all()) }}`);
+                    </script>
+                @endif
+                
+                <div class="flex justify-end w-full gap-4 mt-4">
+                    <button type="button" onclick="toggleForm2()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-600">Cancel</button>
+                    <button type="submit" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if ($document->birthCertStatus == 'resubmission')
+<script>
+    function toggleForm1() {
+        var form = document.getElementById('floatingForm1');
+        form.classList.toggle('hidden');
+    }
+
+    document.getElementById('showFormButton1').addEventListener('click', toggleForm1);
+</script>
+@endif
+
+@if ($document->othersStatus == 'resubmission')
+<script>
+    function toggleForm2() {
+        var form = document.getElementById('floatingForm2');
+        form.classList.toggle('hidden');
+    }
+
+    document.getElementById('showFormButton2').addEventListener('click', toggleForm2);
+</script>
+@endif
