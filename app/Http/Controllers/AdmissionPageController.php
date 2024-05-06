@@ -7,8 +7,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantList;
 use App\Models\ApplicantOtherInformation;
+use App\Models\ApplicantFatherInformation;
+use App\Models\ApplicantMotherInformation;
 use App\Models\ApplicantSchoolInformation;
+use App\Models\ApplicantProgramInformation;
+use App\Models\ApplicantGuardianInformation;
 use App\Models\DocumentSHS;
+use App\Models\CourseModel;
+use App\Models\Regions;
+use App\Models\Provinces;
+use App\Models\Cities;
+use App\Models\Barangays;
+use Carbon\Carbon;
 
 class AdmissionPageController extends Controller
 {
@@ -153,11 +163,56 @@ class AdmissionPageController extends Controller
     {
         if($applicationType == 'SHS') {
             $documents = DocumentSHS::where('applicant_id', $applicantId)->first();
-        } else {
-            
         }
 
-        return view('pages.admin.verify', compact('applicantId','documents', 'applicationType', 'currentRoute'));
+        $personalInformation = ApplicantList::where('applicant_id', $applicantId)->first();
+        $fatherInformation = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $motherInformation = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $schoolInformation = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+        $programInformation = ApplicantProgramInformation::where('applicant_id', $applicantId)->first();
+        $exist = ApplicantGuardianInformation::find($applicantId);
+
+        if($exist) {
+            $guardianInformation = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        } else {
+            $guardianInformation = null;
+        }
+
+        $selectionInfo = ApplicantProgramInformation::where('applicant_id', $applicantId)->first();
+
+        $course1 = CourseModel::where('course_code', $selectionInfo->choice1)->first();
+        $course2 = CourseModel::where('course_code', $selectionInfo->choice2)->first();
+        $course3 = CourseModel::where('course_code', $selectionInfo->choice3)->first();
+
+        $selectionInfo->choice1 = $course1->course;
+        $selectionInfo->choice2 = $course2->course;
+        $selectionInfo->choice3 = $course3->course;
+
+        $otherInformation = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+
+        $otherInformation->birthDate = Carbon::parse($otherInformation->birthDate)->format('F j, Y');
+
+        $region = Regions::where('region_code', $otherInformation->region)->first();
+        $province = Provinces::where('province_code', $otherInformation->province)->first();
+        $city = Cities::where('city_code', $otherInformation->city)->first();
+        $barangay = Barangays::where('brgy_code', $otherInformation->barangay)->first();
+
+        $otherInformation->region = $region->region_name;
+        $otherInformation->province = $province->province_name;
+        $otherInformation->city = $city->city_name;
+        $otherInformation->barangay = $barangay->brgy_name;
+
+        if($applicationType == "SHS"){
+            $applicationType = "Senior High School";
+        } else if($applicationType == "ALS"){
+            $applicationType = "Alternative Learning System";
+        } else if($applicationType == "OLD"){
+            $applicationType = "Old Curriculum";
+        } else if($applicationType == "TRANSFER"){
+            $applicationType = "Transfer Student";
+        }
+
+        return view('pages.admin.verify', compact('applicantId','documents', 'applicationType', 'currentRoute', 'personalInformation', 'otherInformation', 'fatherInformation', 'motherInformation', 'schoolInformation', 'selectionInfo', 'guardianInformation'));
     }
 
     public function AdmissionVerify($currentRoute, $applicationType , $applicantId, Request $request)
@@ -169,12 +224,24 @@ class AdmissionPageController extends Controller
             'othersComment' => 'nullable',
         ]);
 
-        $document = DocumentSHS::where('applicant_id', $applicantId)->first()->update([
+        DocumentSHS::where('applicant_id', $applicantId)->first()->update([
             'birthCertStatus' => $validated['birthCert'],
             'birthCertComment' => $validated['birthCertComment'],
             'othersStatus' => $validated['others'],
             'othersComment' => $validated['othersComment'],
         ]);
+
+        $overallStatus = ApplicantList::where('applicant_id', $applicantId)->first();
+
+        if($validated['birthCert'] == 'approved' && $validated['others'] == 'approved') {
+            $overallStatus->update([
+                'status' => 'approved',
+            ]);
+        } else {
+            $overallStatus->update([
+                'status' => 'resubmission',
+            ]);
+        }
 
         return redirect()->route('admin.page', ['currentRoute' => $currentRoute]);
         // return dd($validated, $currentRoute, $applicationType , $applicantId);

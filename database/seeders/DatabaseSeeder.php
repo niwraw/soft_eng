@@ -188,9 +188,9 @@ class DatabaseSeeder extends Seeder
 
             ApplicantProgramInformation::create([
                 'applicant_id' => $applicantId,
-                'choice1' => $this->faker->randomElement(['Program A', 'Program B', 'Program C']),
-                'choice2' => $this->faker->randomElement(['Program A', 'Program B', 'Program C']),
-                'choice3' => $this->faker->randomElement(['Program A', 'Program B', 'Program C']),
+                'choice1' => $this->faker->randomElement(['BSCS', 'BSIT', 'BSC', 'BSCSPR', 'BSSW', 'BSN', 'BSPT']),
+                'choice2' => $this->faker->randomElement(['BSCS', 'BSIT', 'BSC', 'BSCSPR', 'BSSW', 'BSN', 'BSPT']),
+                'choice3' => $this->faker->randomElement(['BSCS', 'BSIT', 'BSC', 'BSCSPR', 'BSSW', 'BSN', 'BSPT']),
             ]);
 
             User::create([

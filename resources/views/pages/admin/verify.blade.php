@@ -16,15 +16,19 @@
     </head>
     <body class="antialiased ">
         <div class="grid w-screen h-screen" style="grid-template-columns: 1fr 2fr;">
-            <div class="px-8 py-6 overflow-hidden border-r-2 border-gray-600">
-                <h1 class="mb-8 text-2xl font-bold">Verify Applicant No. {{ $applicantId }}</h1>
+            <div class="px-8 py-6 overflow-hidden bg-blue-800 border-r-4 border-yellow-600">
+                <h1 class="mb-8 text-2xl font-bold text-yellow-500">Verify Applicant No. {{ $applicantId }}</h1>
                 
                 <div class="flex flex-col gap-5 px-5 py-3 overflow-x-hidden overflow-y-scroll bg-gray-100 border-2 border-gray-600 h-5/6">
                     @include('pages.admin.sections.verify.personalInfo')
                     @include('pages.admin.sections.verify.otherInfo')
                     @include('pages.admin.sections.verify.fatherInfo')
                     @include('pages.admin.sections.verify.motherInfo')
-                    @include('pages.admin.sections.verify.guardianInfo')
+                    
+                    @if ($guardianInformation != null)
+                        @include('pages.admin.sections.verify.guardianInfo')
+                    @endif
+                    
                     @include('pages.admin.sections.verify.schoolInfo')
                     @include('pages.admin.sections.verify.choice')
                 </div>

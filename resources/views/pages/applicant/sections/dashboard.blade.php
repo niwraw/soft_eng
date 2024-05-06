@@ -73,14 +73,14 @@
                 <h1 class="mb-4 text-lg font-semibold text-yellow-500">Other Requirements Status</h1>
 
                 <div class="w-full h-fit">
-                    <div class="grid gap-4 mb-3 text-center" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
+                    <div class="grid gap-6 pb-3 font-semibold text-center" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
                         <h3>Requirement</h3>
                         <h3>Status</h3>
                         <h3>Remarks</h3>
                         <h3>Actions</h3>
                     </div>
 
-                    <div class="grid gap-4 px-2 mb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
+                    <div class="grid gap-6 pb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
                         <h4 class="font-medium">Document: Birth Certificate</h4>
                         @if ($document->birthCertStatus == 'pending')
                             <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
@@ -91,14 +91,14 @@
                         @endif
                             {{ ucfirst($document->birthCertStatus) }}
                         </div>
-                        <p></p>
+                        <p>{{ $document->birthCertComment }}</p>
                         <a href="">
                             <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
                         </a>
                     </div>
 
-                    <div class="grid gap-4 px-2 mb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
-                        <h4 class="font-medium">Document: Form137</h4>
+                    <div class="grid gap-6 pb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
+                        <h4 class="font-medium border-r-2">Document: Form137</h4>
                         @if ($document->othersStatus == 'pending')
                             <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
                         @elseif ($document->othersStatus == 'approved')
@@ -108,7 +108,7 @@
                         @endif
                             {{ ucfirst($document->othersStatus) }}
                         </div>
-                        <p></p>
+                        <p>{{ $document->othersComment }}</p>
                         <a href="">
                             <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
                         </a>
