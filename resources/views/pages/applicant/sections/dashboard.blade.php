@@ -92,9 +92,11 @@
                             {{ ucfirst($document->birthCertStatus) }}
                         </div>
                         <p>{{ $document->birthCertComment }}</p>
-                        <a href="">
-                            <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
-                        </a>
+                        @if ($document->birthCertStatus == 'resubmission')
+                            <a href="">
+                                <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
+                            </a>
+                        @endif
                     </div>
 
                     <div class="grid gap-6 pb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
@@ -109,9 +111,11 @@
                             {{ ucfirst($document->othersStatus) }}
                         </div>
                         <p>{{ $document->othersComment }}</p>
-                        <a href="">
-                            <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
-                        </a>
+                        @if ($document->othersStatus == 'resubmission')
+                            <a href="">
+                                <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -124,14 +128,14 @@
                 <div class="flex flex-col gap-8">
                     <div class="grid" style="grid-template-columns: 1fr 1fr;">
                         <h3>Requirements:</h3>
-                        @if ($overallStatus== 'pending')
+                        @if ($personalInfo->status == 'pending')
                             <p class="w-full text-center bg-yellow-500 h-fit rounded-xl">
-                        @elseif ($overallStatus == 'approved')
+                        @elseif ($personalInfo->status == 'approved')
                             <p class="w-full text-center bg-green-500 h-fit rounded-xl">
-                        @elseif ($overallStatus == 'resubmission')
+                        @elseif ($personalInfo->status == 'resubmission')
                             <p class="w-full text-center bg-red-500 h-fit rounded-xl">
                         @endif
-                            {{ ucfirst($overallStatus) }}
+                            {{ ucfirst($personalInfo->status) }}
                         </p>
                     </div>
 
