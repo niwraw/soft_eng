@@ -168,5 +168,15 @@ class AdmissionPageController extends Controller
             'others' => 'required',
             'othersComment' => 'nullable',
         ]);
+
+        $document = DocumentSHS::where('applicant_id', $applicantId)->first()->update([
+            'birthCertStatus' => $validated['birthCert'],
+            'birthCertComment' => $validated['birthCertComment'],
+            'othersStatus' => $validated['others'],
+            'othersComment' => $validated['othersComment'],
+        ]);
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute]);
+        // return dd($validated, $currentRoute, $applicationType , $applicantId);
     }
 }

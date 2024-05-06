@@ -9,6 +9,7 @@ class DocumentSHS extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'applicant_id';
     protected $table = 'applicant_document_SHS';
     protected $guarded = [];
 }
