@@ -52,7 +52,7 @@
                 <iframe id="documentViewer" src="{{ asset($documents->birthCert) }}" class="w-11/12 border-0 h-5/6"></iframe>
                 
                 <div class="flex justify-end w-11/12 gap-4 mt-4">
-                    <a href=""class="px-5 py-2 mt-4 text-sm font-medium text-white transition-colors duration-200 bg-red-600">
+                    <a href="{{ route('admin.page', ['currentRoute'=>'applicants']) }}"class="px-5 py-2 mt-4 text-sm font-medium text-white transition-colors duration-200 bg-red-600">
                         Back
                     </a>
                     <button id="showFormButton" class="px-5 py-2 mt-4 text-sm font-medium text-white transition-colors duration-200 bg-green-600">
