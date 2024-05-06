@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ApplicantList;
 use App\Models\ApplicantOtherInformation;
 use App\Models\ApplicantSchoolInformation;
+use App\Models\DocumentSHS;
 
 class AdmissionPageController extends Controller
 {
@@ -148,8 +149,14 @@ class AdmissionPageController extends Controller
         return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant'));
     }
 
-    public function AdmissionApplicantVerify($currentRoute, $applicantId ,Request $request)
+    public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
     {
-        return view('pages.admin.verify', compact('applicantId'));
+        if($applicationType == 'SHS') {
+            $documents = DocumentSHS::where('applicant_id', $applicantId)->first();
+        } else {
+            
+        }
+
+        return view('pages.admin.verify', compact('applicantId','documents', 'applicationType', 'currentRoute'));
     }
 }

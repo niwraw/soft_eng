@@ -30,8 +30,67 @@
                 </div>
             </div>
             
-            <div class="bg-red-200">
+            <div class="flex flex-col items-center px-8 py-6 bg-red-200">
+                <div class="grid w-11/12 mb-8" style="grid-template-columns: 1fr 2fr;">
+                    <h1 class="text-2xl font-bold ">Documents of Applicant</h1>
+
+                    <div class="flex justify-end gap-4">
+                        <button class="px-5 py-2 text-xs font-medium text-gray-800 transition-colors duration-200 bg-gray-200 sm:text-sm" onclick="changeDocument('{{ asset($documents->birthCert) }}')">
+                            Birth Certificate
+                        </button>
+
+                        <button class="px-5 py-2 text-xs font-medium text-gray-800 transition-colors duration-200 bg-gray-200 sm:text-sm" onclick="changeDocument('{{ asset($documents->form137) }}')">
+                            Form 137
+                        </button>
+                    </div>
+                </div>
+                
+                <iframe id="documentViewer" src="{{ asset($documents->birthCert) }}" class="w-11/12 border-0 h-5/6"></iframe>
+                
+                <div class="flex justify-end w-11/12 gap-4 mt-4">
+                    <a href=""class="px-5 py-2 mt-4 text-sm font-medium text-white transition-colors duration-200 bg-red-600">
+                        Back
+                    </a>
+                    <button id="showFormButton" class="px-5 py-2 mt-4 text-sm font-medium text-white transition-colors duration-200 bg-green-600">
+                        Verify
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="floatingForm" class="hidden">
+            <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
+                <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg">
+                    <form action="" method="POST">
+                        @csrf
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+                        </div>
+                        <div class="mt-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+                        </div>
+                        <div class="flex justify-end w-full gap-4 mt-4">
+                            <button type="button" onclick="toggleForm()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-600">Cancel</button>
+                            <button type="submit" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
+
+    <script>
+        function changeDocument(path) {
+            const iframe = document.getElementById('documentViewer');
+            iframe.src = path;
+        }
+
+        function toggleForm() {
+            var form = document.getElementById('floatingForm');
+            form.classList.toggle('hidden');
+        }
+
+        document.getElementById('showFormButton').addEventListener('click', toggleForm);
+    </script>
 </html>
