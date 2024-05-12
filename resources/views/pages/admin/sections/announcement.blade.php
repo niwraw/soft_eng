@@ -90,7 +90,7 @@
                                                 </div>
                                             </a>
 
-                                            <a href="" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full">
+                                            <a href="{{ route('admin.delete.announcement', ['currentRoute' => $currentRoute, 'announcementId' => $announcement->id]) }}" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full" onclick="return announceDelete()">
                                                 <div class="inline px-3 py-1 text-sm font-normal text-gray-700 bg-red-400 rounded-full gap-x-2">
                                                     Delete
                                                 </div>
@@ -130,6 +130,10 @@
         const endDate = document.getElementById('endDate').value;
 
         return confirm('Are you sure you want to change the dates?\n\nStart Date: ' + formatDate(startDate) + '\nEnd Date: ' + formatDate(endDate));
+    }
+
+    function announceDelete() {
+        return confirm('Are you sure you want to delete this announcement?');
     }
 </script>
 

@@ -278,4 +278,11 @@ class AdmissionPageController extends Controller
 
         return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('changed', 'Dates has been changed successfully.');
     }
+
+    public function AdmissionDeleteAnnouncement($currentRoute, $announcementId)
+    {
+        Announcement::where('id', $announcementId)->delete();
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('deleted', 'Announcement has been deleted successfully.');
+    }
 }
