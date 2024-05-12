@@ -23,6 +23,8 @@ Route::middleware('guest')->group(function () {
     ->name('apply');
 
     Route::post('/applicant/apply', [ApplicationController::class, 'store'])->name('apply.post');
+
+    Route::get('/applicant/back', [ApplicationController::class, 'back'])->name('back');
 });
 
 Route::get('/get-provinces/{regionCode}', [ProvinceController::class, 'getProvinces']);

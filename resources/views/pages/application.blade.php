@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -25,17 +26,27 @@
             -moz-appearance: textfield;
             }
         </style>
+        <script src="//unpkg.com/alpinejs" defer></script>
     </head>
     
     <body class="font-sans antialiased text-gray-900">
         <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0">
             <div class="w-11/12 px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg">
                 <div>
+                    <a href="{{ route('back') }}" class="flex items-center gap-4 mb-6">
+                        <span class="material-symbols-sharp">
+                            arrow_back
+                        </span>
+                        <h2>Back To Home</h2>
+                    </a>
                     <form action="{{ route('apply.post') }}" method="POST" class="flex flex-col gap-7" enctype="multipart/form-data">
                         <!-- Name -->
                         @csrf
 
-                        <span>Personal Information</span>
+                        <span>
+                            Personal Information
+                            <span class="text-red-500">(Required)</span>
+                        </span>
                         
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
@@ -114,7 +125,11 @@
                             </div>
                         </div>
 
-                        <span>Other Information</span>
+                        <span>
+                            Other Information
+                            <span class="text-red-500">(Required)</span>
+                        </span>
+                        
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="maidenName" :value="__('Maiden Name (If Married)')" />
@@ -192,7 +207,11 @@
                             </div>
                         </div>
 
-                        <span>Father's Information</span>
+                        <span>
+                            Father's Information
+                            <span class="text-red-500">(Required)</span>
+                        </span>
+
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="fatherLast" :value="__('Last Name')" />
@@ -258,7 +277,11 @@
                             </div>
                         </div>
 
-                        <span>Mother's Information (Maiden Name)</span>
+                        <span>
+                            Mother's Information (Maiden Name)
+                            <span class="text-red-500">(Required)</span>
+                        </span>
+                        
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="motherLast" :value="__('Last Name')" />
@@ -324,7 +347,11 @@
                             </div>
                         </div>
 
-                        <span>Guardian's Information (Optional)</span>
+                        <span>
+                            Guardian's Information
+                            <span class="">(Optional)</span>
+                        </span>
+                        
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="guardianLast" :value="__('Last Name')" />
@@ -391,7 +418,11 @@
                             </div>
                         </div>
 
-                        <span>School Information</span>
+                        <span>
+                            School Information
+                            <span class="text-red-500">(Required)</span>
+                        </span>
+                        
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="lrn" :value="__('Learner\'s Reference No. (LRN)')" />
@@ -486,7 +517,11 @@
                             </div>
                         </div>
 
-                        <span>Program Choices</span>
+                        <span>
+                            Program Choices
+                            <span class="text-red-500">(Required)</span>
+                        </span>
+                        
                         <div class="flex flex-row gap-3">
                             <div class="w-1/3">
                                 <x-input-label for="choice1" :value="__('Program Choice 1')" />
@@ -525,7 +560,11 @@
                             </div>
                         </div>
 
-                        <span>Required Documents (PDF ONLY)</span>
+                        <span>
+                            Required Documents (PDF ONLY)
+                            <span class="text-red-500">(Required)</span>
+                        </span>
+                        
                         <div>
                             <x-input-label for="birthCert" :value="__('Birth Certificate (PSA)')" />
                             <x-text-input id="birthCert" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="birthCert" required accept=".pdf"/>
@@ -564,28 +603,29 @@
                             <x-input-error :messages="$errors->get('transcriptRecord')" class="mt-2" />
                         </div>
                         
+                        <div x-data="{ agreed: false }">
+                            <div class="flex items-center">
+                                <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" x-model="agreed" />
+                                <label for="terms-and-privacy" class="block ml-2 text-sm text-gray-900">
+                                    I agree to the
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms</a>
+                                    and
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.
+                                </label>
+                            </div>
 
-                        <div class="flex items-center">
-                            <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" />
-                            <label for="terms-and-privacy" class="block ml-2 text-sm text-gray-900"
-                            >I agree to the
-                            <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms</a>
-                            and
-                            <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.
-                            </label>
-                        </div>
+                            <div class="flex items-center justify-end mt-4">
+                                <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{  route('welcome.page', ['currentRoute' => 'home' ]) }}" wire:navigate>
+                                    {{ __('Already registered?') }}
+                                </a>
 
-                        <div class="flex items-center justify-end mt-4">
-                            <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{  route('welcome.page', ['currentRoute' => 'home' ]) }}" wire:navigate>
-                                {{ __('Already registered?') }}
-                            </a>
-
-                            <x-primary-button class="ms-4">
-                                {{ __('Apply') }}
-                            </x-primary-button>
+                                <button class="px-6 py-2 text-white bg-gray-700 rounded-lg ms-4" :disabled="!agreed">
+                                    {{ __('Apply') }}
+                                </button>
+                            </div>
                         </div>
                     </form>
-                    </div>
+                </div>
             </div>
         </div>
 

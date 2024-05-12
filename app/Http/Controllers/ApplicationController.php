@@ -720,4 +720,9 @@ class ApplicationController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    public function back(): RedirectResponse
+    {
+        return redirect()->intended('/home');
+    }
 }
