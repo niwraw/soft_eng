@@ -11,3 +11,8 @@
     <span class="material-symbols-sharp">person</span>
     <h3>Applicant</h3>
 </a>
+
+<a href="{{ route('admin.page', ['currentRoute' => 'announcements']) }}" class="flex items-center gap-5  transition-all duration-300 ease-in h-14 w-11/12 pl-5 {{$currentRoute == 'announcements' ? 'bg-white text-black' : 'text-white'}}">
+    <span class="material-symbols-sharp">breaking_news</span>
+    <h3>Announcements</h3>
+</a>

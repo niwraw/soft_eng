@@ -24,8 +24,8 @@
                 @include('pages.admin.sections.dashboard')
             @elseif ($currentRoute === 'applicants')
                 @include('pages.admin.sections.applicants')
-            @elseif ($currentRoute === 'exam')
-
+            @elseif ($currentRoute === 'announcements')
+                @include('pages.admin.sections.announcement')
             @elseif ($currentRoute === 'attendance')
 
             @elseif ($currentRoute === 'result')
