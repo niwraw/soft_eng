@@ -4,15 +4,15 @@
     </div>
 
     <div class="grid h-70v" style="grid-template-columns: 1fr 2fr;">
-        <div class="pr-2 border-r-2 border-gray-600">
+        <div class="pr-4 border-r-2 border-gray-600">
             <h2 class="mb-4 text-lg font-medium text-indigo-700">Edit Important Dates</h2>
 
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('admin.change', ['currentRoute'=>$currentRoute]) }}">
                 @csrf
 
                 <div class="flex items-center gap-4 mb-6">
                     <h3>Start of Application:</h3>
-                    <span>January 13, 2003</span>
+                    <span>{{ $startDate->date }}</span>
                 </div>
 
                 <div class="mb-10">
@@ -23,7 +23,7 @@
 
                 <div class="flex items-center gap-4 mb-6">
                     <h3>End of Application:</h3>
-                    <span>January 13, 2003</span>
+                    <span>{{ $endDate->date }}</span>
                 </div>
 
                 <div class="mb-10">
@@ -33,14 +33,14 @@
                 </div>
 
                 <div class="flex justify-end w-full ">
-                    <button type="submit" class="px-4 py-1 text-white bg-gray-700 rounded-lg">
+                    <button type="submit" class="px-4 py-1 text-white bg-gray-700 rounded-lg" onclick="return confirmChange()">
                         Update Dates
                     </button>
                 </div>
             </form>
         </div>
 
-        <div class="pl-2">
+        <div class="pl-4">
             <h2 class="mb-4 text-lg font-medium text-indigo-700">Add/Edit Advisories</h2>
 
             <div class="flex flex-col mt-6">
@@ -69,17 +69,18 @@
                                 </thead>
 
                                 <tbody class="bg-white divide-y divide-gray-200 ">
+                                    @foreach($announcements as $announcement)
                                     <tr>
                                         <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                            asddas
+                                            {{ $announcement->id }}
                                         </td>
                                         
                                         <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                            asdasd
+                                            {{ $announcement->date }}
                                         </td>
                                         
                                         <td class="px-4 py-4 text-sm break-words whitespace-normal">
-                                            asdasdasda sdas das das das da das d a da a sdas das das da sdas dikas idais jdia jisdjasi dja  asd asd asi dhiasj dija isdjiasjid jasi djai djia sjdijai sjdiasj id jais jdia sjid jai djai jdi ajsidjias jiasj dijasd 
+                                            {{ $announcement->announcement }}
                                         </td>
 
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
@@ -96,6 +97,7 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -103,6 +105,36 @@
                 </div>
             </div>
 
+            <div class="my-6">
+                {{ $announcements->links() }}
+            </div>
+
+            <div class="flex justify-end w-full ">
+                <a href="" class="px-4 py-1 text-white bg-gray-700 rounded-lg">
+                    Add Announcement
+                </a>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
+    function confirmChange() {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        return confirm('Are you sure you want to change the dates?\n\nStart Date: ' + formatDate(startDate) + '\nEnd Date: ' + formatDate(endDate));
+    }
+</script>
+
+@if(session('changed'))
+    <script>
+        alert('{{ session('changed') }}');
+    </script>
+@endif

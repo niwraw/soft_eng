@@ -18,6 +18,8 @@ use App\Models\Regions;
 use App\Models\Provinces;
 use App\Models\Cities;
 use App\Models\Barangays;
+use App\Models\StartEnd;
+use App\Models\Announcement;
 use Carbon\Carbon;
 
 class AdmissionPageController extends Controller
@@ -155,8 +157,20 @@ class AdmissionPageController extends Controller
 
         // $otherPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
 
+        $startDate = StartEnd::where('status', 'start')->first();
+        $endDate = StartEnd::where('status', 'end')->first();
+
+        $startDate->date = Carbon::parse($startDate->date)->format('F j, Y');
+        $endDate->date = Carbon::parse($endDate->date)->format('F j, Y');
+
+        $announcements = Announcement::paginate(6);
+
+        $announcements->each(function ($annoucement) {
+            $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');
+        });
+
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements'));
     }
 
     public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
@@ -245,5 +259,23 @@ class AdmissionPageController extends Controller
 
         return redirect()->route('admin.page', ['currentRoute' => $currentRoute]);
         // return dd($validated, $currentRoute, $applicationType , $applicantId);
+    }
+
+    public function AdmissionChangeDate($currentRoute, Request $request)
+    {
+        $validated = $request->validate([
+            'startDate' => 'required',
+            'endDate' => 'required',
+        ]);
+
+        StartEnd::where('status', 'start')->first()->update([
+            'date' => $validated['startDate'],
+        ]);
+
+        StartEnd::where('status', 'end')->first()->update([
+            'date' => $validated['endDate'],
+        ]);
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('changed', 'Dates has been changed successfully.');
     }
 }

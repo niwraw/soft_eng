@@ -35,6 +35,7 @@ Route::post('/applicant/login', [LoginController::class, 'store'])->name('login.
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
+Route::post('/admin/{currentRoute}/ChangeDate', [AdmissionPageController::class, 'AdmissionChangeDate'])->name('admin.change');
 Route::get('/admin/{currentRoute}/{applicationType}/{applicantId}', [AdmissionPageController::class, 'AdmissionApplicantVerify'])->name('admin.verify');
 Route::post('/admin/{currentRoute}/{applicationType}/{applicantId}/verify', [AdmissionPageController::class, 'AdmissionVerify'])->name('admin.verify.applicant');
 
