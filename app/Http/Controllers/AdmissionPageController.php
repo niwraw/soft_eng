@@ -285,4 +285,11 @@ class AdmissionPageController extends Controller
 
         return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('deleted', 'Announcement has been deleted successfully.');
     }
+
+    public function AdmissionEditAnnouncement($currentRoute, $announcementId)
+    {
+        $announcement = Announcement::where('id', $announcementId)->first();
+
+        return view('pages.admin.sections.edit_announcement', compact('currentRoute', 'announcement'));
+    }
 }
