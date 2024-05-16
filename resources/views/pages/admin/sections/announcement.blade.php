@@ -105,14 +105,27 @@
                 </div>
             </div>
 
-            <div class="my-6">
+            <div class="mt-6 mb-4">
                 {{ $announcements->links() }}
             </div>
 
-            <div class="flex justify-end w-full ">
-                <a href="" class="px-4 py-1 text-white bg-gray-700 rounded-lg">
-                    Add Announcement
-                </a>
+            <div class="w-full h-8 mb-4">
+                <form method="POST" action="{{ route('admin.add.announcement', ['currentRoute'=> $currentRoute]) }}">
+                    @csrf
+                    <h1 class="mb-4 text-lg font-medium text-indigo-700">Add New Advisory</h1>
+
+                    <div class="mb-10">
+                        <x-input-label for="advisory" :value="__('Add New Advisory (Note: The date will be current when posting new advisory)')" />
+                        <x-text-input id="advisory" class="w-full" type="text" name="advisory" value="" required autofocus/>
+                        <x-input-error :messages="$errors->get('advisory')" class="mt-2" />
+                    </div>
+
+                    <div class="flex justify-end w-full">
+                        <button type="submit" onclick="confirmAdd()" class="px-4 py-1 text-white bg-gray-700 rounded-lg">
+                            Add Advisory
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -130,6 +143,10 @@
         const endDate = document.getElementById('endDate').value;
 
         return confirm('Are you sure you want to change the dates?\n\nStart Date: ' + formatDate(startDate) + '\nEnd Date: ' + formatDate(endDate));
+    }
+
+    function confirmAdd() {
+        return confirm('Are you sure you want to add this advisory?');
     }
 
     function announceDelete() {

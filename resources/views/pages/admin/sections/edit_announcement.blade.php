@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="mb-10">
-                        <x-input-label for="announcement" :value="__('Edit Announcement')" />
+                        <x-input-label for="announcement" :value="__('Edit Advisory')" />
                         <x-text-input id="announcement" class="w-full" type="text" name="announcement" value="" autofocus/>
                         <x-input-error :messages="$errors->get('announcement')" class="mt-2" />
                     </div>

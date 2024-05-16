@@ -39,6 +39,7 @@ Route::post('/admin/{currentRoute}/ChangeDate', [AdmissionPageController::class,
 Route::post('/admin/{currentRoute}/{announcementId}/update', [AdmissionPageController::class, 'AdmissionUpdateAnnouncement'])->name('admin.update.announcement');
 Route::get('/admin/{currentRoute}/{announcementId}/delete', [AdmissionPageController::class, 'AdmissionDeleteAnnouncement'])->name('admin.delete.announcement');
 Route::get('/admin/{currentRoute}/{announcementId}', [AdmissionPageController::class, 'AdmissionEditAnnouncement'])->name('admin.edit.announcement');
+Route::post('/admin/{currentRoute}/add', [AdmissionPageController::class, 'AdmissionAddAnnouncement'])->name('admin.add.announcement');
 Route::get('/admin/{currentRoute}/{applicationType}/{applicantId}', [AdmissionPageController::class, 'AdmissionApplicantVerify'])->name('admin.verify');
 Route::post('/admin/{currentRoute}/{applicationType}/{applicantId}/verify', [AdmissionPageController::class, 'AdmissionVerify'])->name('admin.verify.applicant');
 

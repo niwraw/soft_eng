@@ -283,7 +283,7 @@ class AdmissionPageController extends Controller
     {
         Announcement::where('id', $announcementId)->delete();
 
-        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('deleted', 'Announcement has been deleted successfully.');
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('deleted', 'Advisory has been deleted successfully.');
     }
 
     public function AdmissionEditAnnouncement($currentRoute, $announcementId)
@@ -314,6 +314,20 @@ class AdmissionPageController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('changed', 'Announcement has been changed successfully.');
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('changed', 'Advisory has been changed successfully.');
+    }
+
+    public function AdmissionAddAnnouncement($currentRoute, Request $request)
+    {
+        $validated = $request->validate([
+            'advisory' => 'nullable'
+        ]);
+
+        Announcement::create([
+            'date' => Carbon::now(),
+            'announcement' => $validated['advisory'],
+        ]);
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('add', 'Advisory has been changed successfully.');
     }
 }
