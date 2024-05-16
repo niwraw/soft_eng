@@ -292,4 +292,28 @@ class AdmissionPageController extends Controller
 
         return view('pages.admin.sections.edit_announcement', compact('currentRoute', 'announcement'));
     }
+
+    public function AdmissionUpdateAnnouncement($currentRoute, $announcementId, Request $request)
+    {
+        $validated = $request->validate([
+            'date' => 'nullable',
+            'announcement' => 'nullable'
+        ]);
+
+        $announcement = Announcement::where('id', $announcementId)->first();
+
+        if($validated['date'] != null) {
+            $announcement->update([
+                'date' => $validated['date'],
+            ]);
+        }
+
+        if($validated['announcement'] != null) {
+            $announcement->update([
+                'announcement' => $validated['announcement'],
+            ]);
+        }
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('changed', 'Announcement has been changed successfully.');
+    }
 }
