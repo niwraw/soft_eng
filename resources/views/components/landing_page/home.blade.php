@@ -13,7 +13,15 @@
         </button>
         
         <div x-show="open" x-collapse>
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos aut hic excepturi possimus, et commodi nisi dolores rem quidem fuga eveniet, quibusdam eligendi vero odit voluptates dolorem aliquam illo velit maxime voluptatem, illum corrupti amet! Suscipit ducimus sapiente voluptate eum dolorum debitis sed cum, aspernatur quaerat optio. Possimus ratione adipisci corporis, temporibus, itaque hic ad officia similique sit nemo est nam unde numquam laborum animi repudiandae. Id illo autem sunt dignissimos ducimus consequatur quo nemo, adipisci temporibus. Ipsum dolores dolorum nemo saepe nulla fugit omnis necessitatibus itaque, cum voluptate eaque ad quas quam, impedit ex maxime qui laboriosam alias animi?</span>
+            <span>
+                The Pamantsan ng Lungsod ng Maynila (PLM) will be accepting applicants (online) for freshmen students (undergraduate programs) for Academic Year (AY) 2025-2026 starting December 01, 2024. 
+                <br><br>For AY 2024-2025, there will be an on-site PLM Admission Test (PLMAT). Minimum health protocols wil be observed to ensure the safety of student-applicants. PLMAT is a 4 hour examination consisting of sub test in English, Science, Mathematics, Filipino, and Abstract Reasoning. Passing the PLMAT is one of the requirements for admission to PLM.
+                <br><br>Applicants must prepare the scanned copy (PDF) of the following:
+
+                <br><br>1.) PSA Birth Certificate
+                <br>2.) For Senior High School (SHS): Grade 11 certificate of General Weighted Average (GWA)
+                <br>3.) For Alternative Learning System (ALS) completers and Accreditation & Equivalency (A&E) Passers: Certificate of Completion
+            </span>
         </div>
     </div>
 
@@ -51,7 +59,7 @@
         <div x-show="open" x-collapse>
             <span>
                 <h3>Application Process</h3>
-                <br><br>1. Apply on-line through the PLM Admission Portal.
+                <br>1. Apply on-line through the PLM Admission Portal.
                 <br>2. Fill out the Application Form (online).
                 <br>3. Upload required application requirements (online).
                 <pre>                a. PSA Birth Certificate.
@@ -77,7 +85,54 @@
         </button>
         
         <div x-show="open" x-collapse>
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos aut hic excepturi possimus, et commodi nisi dolores rem quidem fuga eveniet, quibusdam eligendi vero odit voluptates dolorem aliquam illo velit maxime voluptatem, illum corrupti amet! Suscipit ducimus sapiente voluptate eum dolorum debitis sed cum, aspernatur quaerat optio. Possimus ratione adipisci corporis, temporibus, itaque hic ad officia similique sit nemo est nam unde numquam laborum animi repudiandae. Id illo autem sunt dignissimos ducimus consequatur quo nemo, adipisci temporibus. Ipsum dolores dolorum nemo saepe nulla fugit omnis necessitatibus itaque, cum voluptate eaque ad quas quam, impedit ex maxime qui laboriosam alias animi?</span>
+            <span>
+                <b>College of Architecture and Urban Planning (CAUP)</b>
+                <br>Bachelor of Science in Architecture (BS Arch)
+
+                <br><br><b>PLM Business School (PLMBS)</b>
+                <br>Bachelor of Science in Accountancy (BSA)
+                <br>Bachelor of Science in Business Administration major in Financial Management (BS BA-FM) Bachelor of Science in Business Administration major in Marketing Management (BS BA-MM) Bachelor of Science in Business Administration major in Business Economics (BS BA-BE)
+                <br>Bachelor of Science in Entrepreneurship (BS Entrep)
+                <br>Bachelor of Science in Hospitality Management (BS HM) Bachelor of Science in Real Estate Management (BS REM) Bachelor of Science in Tourism Management (BS TM)
+
+                <br><br><b>College of Engineering (CEng)</b>
+                <br>Bachelor of Science in Chemical Engineering (BS CHE) Bachelor of Science in Civil Engineering (BS CE) Bachelor of Science in Computer Engineering (BS CPE) Bachelor of Science in Electrical Engineering (BS EE) Bachelor of Science in Electronics Engineering (BS ECE)
+                <br>Bachelor of Science in Mechanical Engineering (BS ME)
+                <br>Bachelor of Science in Manufacturing Engineering (BS MfgE)
+                <br>Bachelor of Science in Computer Science (BS CS)
+                <br>Bachelor of Science in Information Technology (BS IT)
+
+                <br><br><b>College of Humanities, Arts and Social Sciences (CHASS)</b>
+                <br>Bachelor of Arts in Communication (BAC)
+                <br>Bachelor of Arts in Communication Major in Public Relations (BAC-PR)
+
+                <br><br><b>College of Music (CMU)</b>
+                <br>Bachelor of Music in Music Performance (BMMP)
+
+                <br><br><b>School of Social Work (SSW)</b>
+                <br>Bachelor of Science in Social Work (BS SW)
+
+                <br><br><b>College of Nursing (CN)</b>
+                <br>Bachelor of Science in Nursing (BSN)
+                <br>College of Physical Therapy (CPT)
+                <br>Bachelor of Science in Physical Therapy (BSPT)
+
+                <br><br><b>College of Science (CS)</b>
+                <br>Bachelor of Science in Biology (BS Bio)
+                <br>Bachelor of Science in Mathematics (BS Math)
+                <br>Bachelor of Science in Chemistry (BS Chem)
+                <br>Bachelor of Science in Psychology (BS Psy)
+
+                <br><br><b>College of Education (CED)</b>
+                <br>Bachelor of Physical Education (BPEd)
+                <br>Bachelor of Secondary Education with Specialization in English (BSEd-Eng) Bachelor of Secondary Education with Specialization in Filipino (BSEd-Fil)
+                <br>Bachelor of Secondary Education with Specialization in Mathematics (BSEd-Math)
+                <br>Bachelor of Secondary Education with Specialization in Science (BSEd-Sci) Bachelor of Secondary Education major in Social Studies (BSEd-SS)
+
+                <br><br><b>School of Government (SOG)</b>
+                <br>Bachelor of Public Administration (BPA)
+            
+            </span>
         </div>
     </div>
 </div>
