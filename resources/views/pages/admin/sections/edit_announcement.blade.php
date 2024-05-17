@@ -46,13 +46,13 @@
 
                     <div class="flex justify-end gap-4 px-4">
                         <div>
-                            <button onclick="history.back()" class="px-4 py-1 text-white bg-red-600 rounded-lg">
+                            <button type="button" onclick="window.history.back();" class="px-4 py-1 text-white bg-red-600 rounded-lg">
                                 Back
                             </button>
                         </div>
 
                         <div>
-                            <button type="submit" onclick="confirmChange()" class="px-4 py-1 text-white bg-gray-700 rounded-lg">
+                            <button type="submit" onclick="return confirmChange()" class="px-4 py-1 text-white bg-gray-700 rounded-lg">
                                 Update
                             </button>
                         </div>
