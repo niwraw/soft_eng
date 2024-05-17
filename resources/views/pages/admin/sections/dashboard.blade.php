@@ -111,14 +111,14 @@
             <h1>Actions for Inactive Applicant:</h1>
             <h1>Total Inactive Applicant: {{ $inactive }}</h1>
             <div class="flex h-10 gap-8 mt-2">
-                <a href="{{ route('admin.restore') }}" class="flex items-center justify-center w-32 bg-green-400 rounded-lg" onclick="return confirmRestore()">
+                <a href="{{ route('admin.restore', ['currentRoute'=>$currentRoute]) }}" class="flex items-center justify-center w-32 bg-green-400 rounded-lg" onclick="return confirmRestore()">
                     Restore
                 </a>
-                <a href="{{ route('admin.archive') }}" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg" onclick="return confirmArchive()">
+                <a href="{{ route('admin.archive', ['currentRoute'=>$currentRoute]) }}" class="flex items-center justify-center w-32 bg-yellow-400 rounded-lg" onclick="return confirmArchive()">
                     Archive
                 </a>
 
-                <a href="{{ route('admin.delete') }}" class="flex items-center justify-center w-32 bg-red-500 rounded-lg" onclick="return confirmDelete()">
+                <a href="{{ route('admin.delete', ['currentRoute'=>$currentRoute]) }}" class="flex items-center justify-center w-32 bg-red-500 rounded-lg" onclick="return confirmDelete()">
                     Delete
                 </a>
             </div>

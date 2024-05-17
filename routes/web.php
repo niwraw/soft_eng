@@ -47,6 +47,6 @@ Route::get('/applicant/{currentRoute}/{applicantId}',[ApplicantController::class
 Route::post('/applicant/{currentRoute}/{applicantId}/resubmitBirth',[ApplicantController::class, 'ResubmitBirthCert'])->name('applicant.resubmitBirth');
 Route::post('/applicant/{currentRoute}/{applicantId}/resubmitForm137',[ApplicantController::class, 'ResubmitForm137'])->name('applicant.resubmitForm137');
 
-Route::get('/admin/admission/restore', [ActionController::class, 'restore'])->name('admin.restore');
-Route::get('/admin/admission/archive', [ActionController::class, 'archive'])->name('admin.archive');
-Route::get('/admin/admission/delete', [ActionController::class, 'delete'])->name('admin.delete');
+Route::get('/admin/{currentRoute}/restore/all/status', [ActionController::class, 'restore'])->name('admin.restore');
+Route::get('/admin/{currentRoute}/archive/all/status', [ActionController::class, 'archive'])->name('admin.archive');
+Route::get('/admin/{currentRoute}/delete/all/status', [ActionController::class, 'delete'])->name('admin.delete');
