@@ -185,6 +185,16 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('applicant_application_form', function (Blueprint $table) {
+            $table->string('applicant_id')->primary();
+            $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('applicationForm');
+            $table->enum('applicationFormStatus', ['pending', 'approved', 'resubmission'])->default('pending');
+            $table->string('applicationFormComment')->nullable()->default('Waiting for approval');
+
+            $table->timestamps();
+        });
+
         Schema::create('applicant_accounts', function (Blueprint $table) {
             $table->string('applicant_id')->primary();
             $table->foreign('applicant_id')->references('applicant_id')->on('applicant_personal_information')->onUpdate('cascade')->onDelete('cascade');

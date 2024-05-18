@@ -117,6 +117,27 @@
                             </button>
                         @endif
                     </div>
+
+                    @if ($applicationForm == "Available")
+                    <div class="grid gap-6 pb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
+                        <h4 class="font-medium">Document: Application Form</h4>
+                        @if ($document->othersStatus == 'pending')
+                            <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
+                        @elseif ($document->othersStatus == 'approved')
+                            <div class="flex items-center justify-center px-1 bg-green-500 rounded-2xl h-fit">
+                        @elseif ($document->othersStatus == 'resubmission')
+                            <div class="flex items-center justify-center px-1 bg-red-500 rounded-2xl h-fit">
+                        @endif
+                            {{ ucfirst($document->othersStatus) }}
+                        </div>
+                        <p>{{ $document->othersComment }}</p>
+                        @if ($document->othersStatus == 'resubmission')
+                            <button id="showFormButton2">
+                                <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
+                            </button>
+                        @endif
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -139,17 +160,6 @@
                         </p>
                     </div>
 
-                    @php
-                        if($personalInfo->status == 'pending' || $personalInfo->status == 'resubmission')
-                        {
-                            $applicationForm = "Not Available";
-                        }
-                        else
-                        {
-                            $applicationForm = "Available";
-                        }
-                    @endphp
-
                     <div class="grid" style="grid-template-columns: 1fr 1fr;">
                         <h3>Application Form</h3>
                         @if( $applicationForm == "Not Available")
@@ -164,9 +174,7 @@
                     @if( $applicationForm != "Not Available")
                         <div class="flex items-center justify-around gap-4 py-4">
                             <a href="{{ route('applicant.generate.application', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" class="w-full h-6 text-center bg-blue-500 rounded-2xl">Download</a>
-                            <button class="w-full h-6 bg-yellow-500 rounded-2xl">Submit</button>
                         </div>
-                        {{-- href="{{ route('applicant.generate.application', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" --}}
                     @endif
                 </div>
             </div>

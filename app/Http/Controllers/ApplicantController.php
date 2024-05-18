@@ -116,8 +116,14 @@ class ApplicantController extends Controller
             $overallStatus = 'approved';
         }
 
+        if ($personalInfo->status == "approved") {
+            $applicationForm = "Available";
+        } else {
+            $applicationForm = "Not Available";
+        }
+
         $routeSegment = request()->segment(1);
-        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId'));
+        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId', 'applicationForm'));
     }
 
     public function ResubmitBirthCert($currentRoute, $applicantId, Request $request)
