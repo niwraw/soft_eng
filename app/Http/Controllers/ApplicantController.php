@@ -13,6 +13,7 @@ use App\Models\DocumentSHS;
 use App\Models\DocumentTRANSFER;
 use App\Models\CourseModel;
 use App\Models\ApplicantLoginCreds;
+use App\Models\ApplicationForm;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use Barryvdh\DomPDF\Facade\Pdf as gen;
@@ -122,8 +123,16 @@ class ApplicantController extends Controller
             $applicationForm = "Not Available";
         }
 
+        $form = ApplicationForm::where('applicant_id', $applicantId)->first();
+
+        if($form == null) {
+            $appStatus = "Not Submitted";
+        } else {
+            $appStatus = "Submitted";
+        }
+
         $routeSegment = request()->segment(1);
-        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId', 'applicationForm'));
+        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId', 'applicationForm', 'appStatus', 'form'));
     }
 
     public function ResubmitBirthCert($currentRoute, $applicantId, Request $request)

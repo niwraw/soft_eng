@@ -121,18 +121,30 @@
                     @if ($applicationForm == "Available")
                     <div class="grid gap-6 pb-4" style="grid-template-columns: 2fr 1fr 3fr 1fr;">
                         <h4 class="font-medium">Document: Application Form</h4>
-                        @if ($document->othersStatus == 'pending')
+                        @if($appStatus == 'Not Submitted')
+                            <div class="flex items-center justify-center px-1 bg-red-500 rounded-2xl h-fit">
+                        @elseif ($form->applicationFormStatus == 'pending' && $appStatus == 'Submitted')
                             <div class="flex items-center justify-center px-1 bg-yellow-500 rounded-2xl h-fit">
-                        @elseif ($document->othersStatus == 'approved')
+                        @elseif ($form->applicationFormStatus == 'approved' && $appStatus == 'Submitted')
                             <div class="flex items-center justify-center px-1 bg-green-500 rounded-2xl h-fit">
-                        @elseif ($document->othersStatus == 'resubmission')
+                        @elseif ($form->applicationFormStatus == 'resubmission' && $appStatus == 'Submitted')
                             <div class="flex items-center justify-center px-1 bg-red-500 rounded-2xl h-fit">
                         @endif
-                            {{ ucfirst($document->othersStatus) }}
+                            @if ($appStatus == 'Submitted')
+                                {{ ucfirst($form->applicationFormStatus) }}
+                            @else
+                                Not Available
+                            @endif
                         </div>
-                        <p>{{ $document->othersComment }}</p>
-                        @if ($document->othersStatus == 'resubmission')
-                            <button id="showFormButton2">
+                        
+                        <p>
+                            @if($appStatus == 'Submitted')
+                            {{ $document->othersComment }}
+                            @endif
+                        </p>
+
+                        @if ($form == null || $form->applicationFormStatus == 'resubmission')
+                            <button id="showFormButton3">
                                 <div class="flex items-center justify-center px-1 bg-yellow-300 h-fit rounded-2xl">Submit</div>
                             </button>
                         @endif
@@ -268,6 +280,40 @@
     </div>
 </div>
 
+<div id="floatingForm3" class="hidden">
+    <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
+        <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
+            <form action="" method="POST" enctype="multipart/form-data">
+                @csrf
+                <h1 class="mb-8">
+                    @if($form == null)
+                        Submission of Application Form
+                    @else
+                        Resubmission of Application Form
+                    @endif
+                </h1>
+
+                <div class="mb-4">
+                    <x-input-label for="appform" :value="__('Application Form')" />
+                    <x-text-input id="appform" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="file" name="appform" required accept=".pdf"/>
+                    <x-input-error :messages="$errors->get('appform')" class="mt-2" />
+                </div>
+
+                @if($errors->any())
+                    <script>
+                        alert(`{{ implode('\n', $errors->all()) }}`);
+                    </script>
+                @endif
+                
+                <div class="flex justify-end w-full gap-4 mt-4">
+                    <button type="button" onclick="toggleForm3()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-600">Cancel</button>
+                    <button type="submit" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @if ($document->birthCertStatus == 'resubmission')
 <script>
     function toggleForm1() {
@@ -287,5 +333,16 @@
     }
 
     document.getElementById('showFormButton2').addEventListener('click', toggleForm2);
+</script>
+@endif
+
+@if ( $form == null  || $form->applicationFormStatus == 'resubmission')
+<script>
+    function toggleForm3() {
+        var form = document.getElementById('floatingForm3');
+        form.classList.toggle('hidden');
+    }
+
+    document.getElementById('showFormButton3').addEventListener('click', toggleForm3);
 </script>
 @endif
