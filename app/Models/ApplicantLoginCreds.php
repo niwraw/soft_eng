@@ -9,6 +9,7 @@ class ApplicantLoginCreds extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'applicant_id';
     protected $table = 'applicant_accounts';
     protected $guarded = [];
 }

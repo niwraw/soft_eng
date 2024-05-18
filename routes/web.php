@@ -46,6 +46,7 @@ Route::post('/admin/{currentRoute}/{applicationType}/{applicantId}/verify', [Adm
 Route::get('/applicant/{currentRoute}/{applicantId}',[ApplicantController::class, 'ApplicantPage'])->name('applicant.page');
 Route::post('/applicant/{currentRoute}/{applicantId}/resubmitBirth',[ApplicantController::class, 'ResubmitBirthCert'])->name('applicant.resubmitBirth');
 Route::post('/applicant/{currentRoute}/{applicantId}/resubmitForm137',[ApplicantController::class, 'ResubmitForm137'])->name('applicant.resubmitForm137');
+Route::post('/applicant/{currentRoute}/{applicantId}',[ApplicantController::class, 'ChangePassword'])->name('applicant.change');
 
 Route::get('/admin/{currentRoute}/restore/all/status', [ActionController::class, 'restore'])->name('admin.restore');
 Route::get('/admin/{currentRoute}/archive/all/status', [ActionController::class, 'archive'])->name('admin.archive');

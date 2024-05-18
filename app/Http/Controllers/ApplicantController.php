@@ -12,12 +12,15 @@ use App\Models\DocumentOLD;
 use App\Models\DocumentSHS;
 use App\Models\DocumentTRANSFER;
 use App\Models\CourseModel;
+use App\Models\ApplicantLoginCreds;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 function laplacianVariance($imagePath) {
     $image = imagecreatefromjpeg($imagePath);
@@ -305,5 +308,30 @@ class ApplicantController extends Controller
 
         // return dd($currentRoute, $applicantId);
         return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);
+    }
+
+    public function ChangePassword($currentRoute, $applicantId, Request $request)
+    {
+        $validated = $request->validate([
+            'curPass' => 'required',
+            'newPass' => 'required|min:8|confirmed',
+        ], [
+            'curPass.required' => 'Current password is required.',
+            'newPass.required' => 'New password is required.',
+            'newPass.min' => 'New password must be at least 8 characters.',
+            'newPass.confirmed' => 'Passwords do not match.',
+        ]);
+
+        $personalInfo = ApplicantLoginCreds::where('applicant_id', $applicantId)->first();
+
+        if (!Hash::check($request->curPass, $personalInfo->password)) {
+            return redirect()->back()->withErrors(['curPass' => 'Current password is incorrect.']);
+        }
+
+        $personalInfo->update([
+            'password' => bcrypt($validated['newPass'])
+        ]);
+
+        return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId])->with('changed', 'Password successfully changed.');
     }
 }
