@@ -226,6 +226,28 @@ class AdmissionPageController extends Controller
             $applicationType = "Transfer Student";
         }
 
+        $schoolInformation->schoolRegion = Regions::where('region_code', $schoolInformation->schoolRegion)->first()->region_name;
+        $schoolInformation->schoolProvince = Provinces::where('province_code', $schoolInformation->schoolProvince)->first()->province_name;
+        $schoolInformation->schoolCity = Cities::where('city_code', $schoolInformation->schoolCity)->first()->city_name;
+        
+        if($schoolInformation->strand == "ABM"){
+            $schoolInformation->strand = "Accountancy, Business, and Management";
+        } else if($schoolInformation->strand == "HUMSS"){
+            $schoolInformation->strand = "Humanities and Social Sciences";
+        } else if($schoolInformation->strand == "STEM"){
+            $schoolInformation->strand = "Science, Technology, Engineering, and Mathematics";
+        } else if($schoolInformation->strand == "GAS"){
+            $schoolInformation->strand = "General Academic Strand";
+        } else if($schoolInformation->strand == "TVL"){
+            $schoolInformation->strand = "Technical-Vocational-Livelihood";
+        } else if($schoolInformation->strand == "SPORTS"){
+            $schoolInformation->strand = "Sports Track";
+        } else if($schoolInformation->strand == "ADT"){
+            $schoolInformation->strand = "Arts and Design Track";
+        } else if($schoolInformation->strand == "PBM"){
+            $schoolInformation->strand = "Personal Development Track";
+        }
+
         return view('pages.admin.verify', compact('applicantId','documents', 'applicationType', 'currentRoute', 'personalInformation', 'otherInformation', 'fatherInformation', 'motherInformation', 'schoolInformation', 'selectionInfo', 'guardianInformation'));
     }
 

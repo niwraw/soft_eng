@@ -63,7 +63,7 @@
 
                             <div class="w-1/3">
                                 <x-input-label for="middleName" :value="__('Middle Name')" />
-                                <x-text-input id="middleName" class="block w-full mt-1" type="text" name="middleName" required autofocus value="{{ old('middleName') }}"/>
+                                <x-text-input id="middleName" class="block w-full mt-1" type="text" name="middleName" autofocus value="{{ old('middleName') }}"/>
                                 
                             </div>
 
@@ -226,7 +226,7 @@
 
                             <div class="w-1/3">
                                 <x-input-label for="fatherMiddle" :value="__('Middle Name')" />
-                                <x-text-input id="fatherMiddle" class="block w-full mt-1" type="text" name="fatherMiddle" required value="{{ old('fatherMiddle') }}"/>
+                                <x-text-input id="fatherMiddle" class="block w-full mt-1" type="text" name="fatherMiddle" value="{{ old('fatherMiddle') }}"/>
                                 <x-input-error :messages="$errors->get('fatherMiddle')" class="mt-2" />
                             </div>
 
@@ -296,7 +296,7 @@
 
                             <div class="w-1/3">
                                 <x-input-label for="motherMiddle" :value="__('Middle Name')" />
-                                <x-text-input id="motherMiddle" class="block w-full mt-1" type="text" name="motherMiddle" required value="{{ old('motherMiddle') }}"/>
+                                <x-text-input id="motherMiddle" class="block w-full mt-1" type="text" name="motherMiddle" value="{{ old('motherMiddle') }}"/>
                                 <x-input-error :messages="$errors->get('motherMiddle')" class="mt-2" />
                             </div>
 
