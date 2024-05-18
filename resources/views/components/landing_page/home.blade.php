@@ -157,8 +157,11 @@
 
                     <div class="flex flex-col gap-2">
                         <label class="block text-gray-700 text-m">Password</label>
-                        <div class="mt-1">
+                        <div class="relative mt-1">
                             <input id="password" name="password" type="password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-800 focus:ring-1 focus:ring-blue-500">
+                            <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
+                                <span class="material-symbols-sharp">visibility</span>
+                            </button>
                         </div>
                     </div>
 
@@ -204,3 +207,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        var passwordFieldType = passwordField.type;
+        passwordField.type = passwordFieldType === "password" ? "text" : "password";
+    }
+</script>

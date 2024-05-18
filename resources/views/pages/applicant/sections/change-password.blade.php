@@ -6,19 +6,35 @@
             @csrf
             <div class="mb-4">
                 <x-input-label for="curPass" :value="__('Current Password')" />
-                <x-text-input id="curPass" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="password" name="curPass" required/>
+                <div class="relative">
+                    <x-text-input id="curPass" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="password" name="curPass" required/>
+                    <button type="button" onclick="toggleCur()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
+                        <span class="material-symbols-sharp">visibility</span>
+                    </button>
+                </div>
                 <x-input-error :messages="$errors->get('curPass')" class="mt-2" />
             </div>
 
             <div class="mb-4">
                 <x-input-label for="newPass" :value="__('New Password')" />
-                <x-text-input id="newPass" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="password" name="newPass" required/>
+                <div class="relative">
+                    <x-text-input id="newPass" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="password" name="newPass" required/>
+                    <button type="button" onclick="toggleNew()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
+                        <span class="material-symbols-sharp">visibility</span>
+                    </button>
+                </div>
                 <x-input-error :messages="$errors->get('newPass')" class="mt-2" />
             </div>
 
             <div class="mb-4">
                 <x-input-label for="newPass_confirmation" :value="__('Confirm New Password')" />
-                <x-text-input id="newPass_confirmation" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="password" name="newPass_confirmation" required/>
+                <div class="relative">
+                    <x-text-input id="newPass_confirmation" class="block w-full px-3 py-2 mt-1 border-2 border-gray-500" type="password" name="newPass_confirmation" required/>
+                    
+                    <button type="button" onclick="toggleNewCon()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
+                        <span class="material-symbols-sharp">visibility</span>
+                    </button>
+                </div>
                 <x-input-error :messages="$errors->get('newPass_confirmation')" class="mt-2" />
             </div>
 
@@ -30,6 +46,24 @@
 <script>
     function confirmChangePass() {
         return confirm('Are you sure you want to change your password?');
+    }
+
+    function toggleCur() {
+        var passwordField = document.getElementById("curPass");
+        var passwordFieldType = passwordField.type;
+        passwordField.type = passwordFieldType === "password" ? "text" : "password";
+    }
+
+    function toggleNew() {
+        var passwordField = document.getElementById("newPass");
+        var passwordFieldType = passwordField.type;
+        passwordField.type = passwordFieldType === "password" ? "text" : "password";
+    }
+
+    function toggleNewCon() {
+        var passwordField = document.getElementById("newPass_confirmation");
+        var passwordFieldType = passwordField.type;
+        passwordField.type = passwordFieldType === "password" ? "text" : "password";
     }
 </script>
 
