@@ -15,6 +15,7 @@ use App\Models\CourseModel;
 use App\Models\ApplicantLoginCreds;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as gen;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -333,5 +334,18 @@ class ApplicantController extends Controller
         ]);
 
         return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId])->with('changed', 'Password successfully changed.');
+    }
+
+    public function GenerateApplication($currentRoute, $applicantId, Request $request)
+    {
+        $personalInfo = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+
+        $data = [
+            'title' => 'Application_Form',
+            'age' => 20,
+        ];
+
+        $pdf = gen::loadView('documents.applicationform', $data);
+        return $pdf->download('application.pdf');
     }
 }

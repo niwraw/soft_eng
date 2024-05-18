@@ -163,9 +163,10 @@
 
                     @if( $applicationForm != "Not Available")
                         <div class="flex items-center justify-around gap-4 py-4">
-                            <button id="download_app" class="w-full h-6 bg-blue-500 rounded-2xl">Download</button>
-                            <button id="submit_app" class="w-full h-6 bg-yellow-500 rounded-2xl">Submit</button>
+                            <a href="{{ route('applicant.generate.application', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" class="w-full h-6 text-center bg-blue-500 rounded-2xl">Download</a>
+                            <button class="w-full h-6 bg-yellow-500 rounded-2xl">Submit</button>
                         </div>
+                        {{-- href="{{ route('applicant.generate.application', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" --}}
                     @endif
                 </div>
             </div>
