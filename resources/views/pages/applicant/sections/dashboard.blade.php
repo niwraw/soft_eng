@@ -139,21 +139,38 @@
                         </p>
                     </div>
 
+                    @php
+                        if($personalInfo->status == 'pending' || $personalInfo->status == 'resubmission')
+                        {
+                            $applicationForm = "Not Available";
+                        }
+                        else
+                        {
+                            $applicationForm = "Available";
+                        }
+                    @endphp
+
                     <div class="grid" style="grid-template-columns: 1fr 1fr;">
                         <h3>Application Form</h3>
-                        <p class="w-full text-center bg-red-500 h-fit rounded-xl">
-                            Not Available
+                        @if( $applicationForm == "Not Available")
+                            <p class="w-full text-center bg-red-500 h-fit rounded-xl">
+                        @else
+                            <p class="w-full text-center bg-green-500 h-fit rounded-xl">
+                        @endif
+                            {{ $applicationForm }}
                         </p>
                     </div>
 
-                    <div class="flex items-center justify-around gap-4 py-4">
-                        <button id="download_app" class="w-full h-6 bg-blue-500 rounded-2xl">Download</button>
-                        <button id="submit_app" class="w-full h-6 bg-yellow-500 rounded-2xl">Submit</button>
-                    </div>
+                    @if( $applicationForm != "Not Available")
+                        <div class="flex items-center justify-around gap-4 py-4">
+                            <button id="download_app" class="w-full h-6 bg-blue-500 rounded-2xl">Download</button>
+                            <button id="submit_app" class="w-full h-6 bg-yellow-500 rounded-2xl">Submit</button>
+                        </div>
+                    @endif
                 </div>
             </div>
 
-
+            @if( $applicationForm != "Not Available")
             <div class="w-11/12 p-4 bg-gray-100 border-2 border-gray-700 h-fit rounded-2xl">
                 <h1 class="mb-4 text-xl font-semibold text-yellow-500">Exam Details</h1>
 
@@ -180,8 +197,8 @@
                 <div class="flex items-center justify-center w-full mt-4">
                     <button id="download" class="w-10/12 bg-yellow-500 h-fit rounded-2xl">Download Exam Slip</button>
                 </div>
-                
             </div>
+            @endif
         </div>
     </div>
 </div>
