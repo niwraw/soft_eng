@@ -16,13 +16,12 @@ use App\Models\ApplicantLoginCreds;
 use App\Models\ApplicationForm;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
-use Barryvdh\DomPDF\Facade\Pdf as gen;
+use Spatie\Browsershot\Browsershot;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 function laplacianVariance($imagePath) {
     $image = imagecreatefromjpeg($imagePath);
@@ -353,14 +352,19 @@ class ApplicantController extends Controller
 
     public function GenerateApplication($currentRoute, $applicantId, Request $request)
     {
-        $personalInfo = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+        $html = view('documents.applicationform')->render();
+        
+        $pdf = Browsershot::html($html)
+            ->setNodeBinary('C:\Program Files\nodejs\node') // Specify the path to your Node.js binary if needed
+            ->setNpmBinary('C:\Program Files\nodejs\npm') // Specify the path to your npm binary if needed
+            ->options([
+                'args' => ['--user-data-dir=C:\\puppeteer-temp'],
+            ])
+            ->pdf();
 
-        $data = [
-            'title' => 'Application_Form',
-            'age' => 20,
-        ];
-
-        $pdf = gen::loadView('documents.applicationform', $data);
-        return $pdf->download('application.pdf');
+        return response()->make($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="plm_application_form.pdf"'
+        ]);
     }
 }

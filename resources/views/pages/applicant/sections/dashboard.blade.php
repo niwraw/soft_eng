@@ -133,7 +133,7 @@
                             @if ($appStatus == 'Submitted')
                                 {{ ucfirst($form->applicationFormStatus) }}
                             @else
-                                Not Available
+                                Not Submitted
                             @endif
                         </div>
                         
@@ -185,7 +185,7 @@
 
                     @if( $applicationForm != "Not Available")
                         <div class="flex items-center justify-around gap-4 py-4">
-                            <a href="{{ route('applicant.generate.application', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" class="w-full h-6 text-center bg-blue-500 rounded-2xl">Download</a>
+                            <a href="" class="w-full h-6 text-center bg-blue-500 rounded-2xl">Download</a>
                         </div>
                     @endif
                 </div>
