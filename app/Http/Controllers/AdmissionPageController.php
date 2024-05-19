@@ -160,6 +160,9 @@ class AdmissionPageController extends Controller
         $startDate = StartEnd::where('status', 'start')->first();
         $endDate = StartEnd::where('status', 'end')->first();
 
+        $startDBDate = $startDate->date;
+        $endDBDate = $endDate->date;
+
         $startDate->date = Carbon::parse($startDate->date)->format('F j, Y');
         $endDate->date = Carbon::parse($endDate->date)->format('F j, Y');
 
@@ -170,7 +173,7 @@ class AdmissionPageController extends Controller
         });
 
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate'));
     }
 
     public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
@@ -312,7 +315,11 @@ class AdmissionPageController extends Controller
     {
         $announcement = Announcement::where('id', $announcementId)->first();
 
-        return view('pages.admin.sections.edit_announcement', compact('currentRoute', 'announcement'));
+        $date = $announcement->date;
+
+        $announcement->date = Carbon::parse($announcement->date)->format('F j, Y');
+
+        return view('pages.admin.sections.edit_announcement', compact('currentRoute', 'announcement', 'date'));
     }
 
     public function AdmissionUpdateAnnouncement($currentRoute, $announcementId, Request $request)

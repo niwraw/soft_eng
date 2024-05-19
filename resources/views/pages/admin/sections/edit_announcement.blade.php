@@ -29,7 +29,7 @@
                     
                     <div class="mb-10">
                         <x-input-label for="date" :value="__('Edit Date of Announcement')" />
-                        <x-text-input id="date" class="block w-full mt-1" type="date" name="date" autofocus value=""/>
+                        <x-text-input id="date" class="block w-full mt-1" type="date" name="date" autofocus value="{{ $date }}"/>
                         <x-input-error :messages="$errors->get('date')" class="mt-2" />
                     </div>
 
@@ -40,7 +40,7 @@
 
                     <div class="mb-10">
                         <x-input-label for="announcement" :value="__('Edit Advisory')" />
-                        <x-text-input id="announcement" class="w-full" type="text" name="announcement" value="" autofocus/>
+                        <x-text-input id="announcement" class="w-full" type="text" name="announcement" value="{{ $announcement->announcement }}" autofocus/>
                         <x-input-error :messages="$errors->get('announcement')" class="mt-2" />
                     </div>
 

@@ -17,7 +17,7 @@
 
                 <div class="mb-10">
                     <x-input-label for="startDate" :value="__('Edit Start Date')" />
-                    <x-text-input id="startDate" class="block w-full mt-1" type="date" name="startDate" required autofocus value=""/>
+                    <x-text-input id="startDate" class="block w-full mt-1" type="date" name="startDate" required autofocus value="{{ $startDBDate }}"/>
                     <x-input-error :messages="$errors->get('startDate')" class="mt-2" />
                 </div>
 
@@ -28,7 +28,7 @@
 
                 <div class="mb-10">
                     <x-input-label for="endDate" :value="__('Edit End Date')" />
-                    <x-text-input id="endDate" class="block w-full mt-1" type="date" name="endDate" required autofocus value=""/>
+                    <x-text-input id="endDate" class="block w-full mt-1" type="date" name="endDate" required autofocus value="{{ $endDBDate }}"/>
                     <x-input-error :messages="$errors->get('endDate')" class="mt-2" />
                 </div>
 
