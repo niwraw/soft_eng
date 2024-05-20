@@ -166,7 +166,7 @@ class AdmissionPageController extends Controller
         $startDate->date = Carbon::parse($startDate->date)->format('F j, Y');
         $endDate->date = Carbon::parse($endDate->date)->format('F j, Y');
 
-        $announcements = Announcement::paginate(6);
+        $announcements = Announcement::paginate(5);
 
         $announcements->each(function ($annoucement) {
             $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');
@@ -349,7 +349,7 @@ class AdmissionPageController extends Controller
     public function AdmissionAddAnnouncement($currentRoute, Request $request)
     {
         $validated = $request->validate([
-            'advisory' => 'nullable'
+            'advisory' => 'required|max:200',
         ]);
 
         Announcement::create([

@@ -46,7 +46,7 @@
 
                     <div class="flex justify-end gap-4 px-4">
                         <div>
-                            <button type="button" onclick="window.history.back();" class="px-4 py-1 text-white bg-red-600 rounded-lg">
+                            <button type="button" onclick="window.history.back(confirmBack());" class="px-4 py-1 text-white bg-red-600 rounded-lg">
                                 Back
                             </button>
                         </div>
@@ -66,6 +66,10 @@
         function confirmChange() {
             return confirm('Are you sure you want to change the dates?');
         }
+         function confirmBack() {
+            return confirm('Are you sure you want to go back?');
+        }
+        
     </script>
 
 </html>
