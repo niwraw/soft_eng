@@ -25,6 +25,10 @@
             input[type="number"] {
             -moz-appearance: textfield;
             }
+
+            .no-scroll {
+                overflow: hidden;
+            }
         </style>
         <script src="//unpkg.com/alpinejs" defer></script>
     </head>
@@ -113,7 +117,7 @@
                             </div>
 
                             <div class="w-1/6">
-                                <x-input-label for="gender" :value="__('Gender')" />
+                                <x-input-label for="gender" :value="__('Sex At Birth')" />
                                 <div>
                                     <select name="gender" id="gender" class="block w-full mt-1" required>
                                         <option value="" disabled {{ old('gender', '') == '' ? 'selected' : '' }}>Please select</option>
@@ -608,9 +612,7 @@
                                 <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" x-model="agreed" />
                                 <label for="terms-and-privacy" class="block ml-2 text-sm text-gray-900">
                                     I agree to the
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms</a>
-                                    and
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.
+                                    <button type="button" id="showFormButton1" class="text-indigo-600 hover:text-indigo-500">Data Privary Consent Form</a>
                                 </label>
                             </div>
 
@@ -629,7 +631,55 @@
             </div>
         </div>
 
+        <div id="floatingForm1" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+            <div class="p-8 overflow-y-scroll bg-white shadow-lg w-70v h-80v">
+                <button onclick="toggleForm1()" class="flex items-center gap-4 mb-6">
+                    <span class="material-symbols-sharp">
+                        arrow_back
+                    </span>
+                    <h2>Back</h2>
+                </button>
+
+                <h1 class="mb-4 text-2xl font-bold text-center">DATA PRIVACY CONSENT FORM</h1>
+                <p class="mb-4">The Pamantasan ng Lungsod ng Maynila (PLM) and its duly authorized representatives are
+                    duty-bound and obligated under Republic Act No. 10173 (Data Privacy Act of 2012) and its Implementing Rules and Regulations (IRR), and other data privacy rules, to protect the personal and sensitive personal information that PLM collects, possesses, and retains upon your enrollment and during your stay in the University.
+                </p>
+                <p class="mb-4">Personal and sensitive personal information includes any information about your identity, academics, or any document containing your identity. This includes, but is not limited to, your name, address, landline/mobile number, email address, names of your parents or guardians, date of birth, academic information such as grades and attendance, and other information necessary for basic administration and instruction. By consenting to this Data Privacy Consent Form, you agree that:</p>
+
+                <ol class="mb-4 ml-6 list-decimal">
+                    <li class="mb-2">You authorize the University to collect, retain and process information relating to your PLMAT application for purposes of admission to the University and for your subsequent enrollment should you eventually qualify to be admitted in PLM. PLM shall also collect, retain and process your personal and sensitive personal information to pursue its legitimate interests as an educational and government institution.</li>
+                    <li class="mb-2">You expressly authorize PLM to verify, validate and authenticate the information and documents that you submitted with relevant government and non-government sources and third parties, for purposes of your admission, enrollment, and other legitimate transactions in PLM.</li>
+                    <li class="mb-2">You authorize PLM to share your personal and sensitive personal information with its affiliated or partner organizations as part of its contractual obligations, or with government agencies such as, but not exclusive to, the Commission on Higher Education (CHED), UniFAST, and the City Government of Manila, pursuant to law or legal processes.</li>
+                    <li class="mb-2">You understand that photocopies or electronic copies of the personal documents that you submitted in relation to your application for admission will either be returned to you or properly disposed of by PLM if you are not accepted for admission or should you decide not to pursue your application. On the other hand, once accepted and upon enrollment, you will submit the originals of the needed documents to the Office of the University Registrar.</li>
+                    <li class="mb-2">If the University has determined that you qualify for the Social Amelioration Program (SAP) of the City of Manila under City Ordinance No. 8568, you further authorize PLM and the City Government of Manila, their agents, representatives and/or outsourced service providers, to:</li>
+                    <ol class="mb-2 ml-6 list-decimal">
+                        <li class="mb-2">Collect, process, update or disclose personal information about you, and to obtain information about your personal and academic records, for the purpose of availing the services of the Land Bank of the Philippines (LBP), or any necessary third party, for the monthly monetary allowance program of the City Government of Manila; and</li>
+                        <li class="mb-2">Establish, confirm, review or update your record with the said LBP or necessary third party, provided that the same is for a legitimate purpose, and to use, submit, or issue the same to comply with reporting obligations under applicable laws, rules and regulations.</li>
+                    </ol>
+                    <p class="mb-2">For this purpose, you agree to hold the City Government of Manila and PLM and the persons or entities from whom they may obtain, or with whom they may disclose or verify your personal information, free and harmless from any liability arising from the use of any such information.</p>
+                    <li class="mb-2">You confirm that you are aware that under the Data Privacy Act, you have (a) the right to withdraw the consent hereby given or to object to the processing of your personal information provided there is no other legal ground or overriding legitimate interest for the processing thereof; (b) the right to reasonable access; (c) the right to rectification; and (d) the right to erasure or blocking of your personal information; subject, however to the conditions for the legitimate exercise of the said rights under the Data Privacy Act and its IRR, and subject further to the right of PLM to disqualify you from admission or enrollment to PLM or from availing of any transaction or benefit to which you may be entitled under the laws or other rules and regulations, should you withdraw your consent or request the removal of your personal information.</li>
+                </ol>
+            </div>
+        </div>
+
         <script>
+            function toggleForm1() {
+                var form = document.getElementById('floatingForm1');
+                var body = document.body;
+
+                // Toggle the hidden class
+                form.classList.toggle('hidden');
+
+                // Toggle the no-scroll class on the body
+                if (form.classList.contains('hidden')) {
+                    body.classList.remove('no-scroll');
+                } else {
+                    body.classList.add('no-scroll');
+                }
+            }
+
+            document.getElementById('showFormButton1').addEventListener('click', toggleForm1);
+            
             var schools = @json($schools);
             const search = document.querySelector('.search-bar');
             const datalist = search.querySelector('.datalist');

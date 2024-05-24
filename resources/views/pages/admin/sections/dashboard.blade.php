@@ -22,7 +22,7 @@
 
             <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
-                    <h1>Gender Percentage</h1>
+                    <h1>Sex at Birth Percentage</h1>
                 </div>
 
                 <div class="flex items-center justify-center w-full p-1 h-72">

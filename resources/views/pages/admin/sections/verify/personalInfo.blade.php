@@ -23,6 +23,6 @@
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 2fr;">
-    <h3 class="font-bold">Gender:</h3>
+    <h3 class="font-bold">Sex at Birth:</h3>
     <h3>{{ucfirst($personalInformation->gender)}}</h3>
 </div>

@@ -106,7 +106,7 @@ new #[Layout('layouts.guest')] class extends Component
             </div>
 
             <div class="w-1/6">
-                <x-input-label for="gender" :value="__('Gender')" />
+                <x-input-label for="gender" :value="__('Sex at Birth')" />
                 <div>
                     <select name="gender" id="gender" class="block w-full mt-1" required>
                         <option value="">Please select</option>

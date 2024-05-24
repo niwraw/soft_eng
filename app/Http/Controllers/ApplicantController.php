@@ -352,19 +352,15 @@ class ApplicantController extends Controller
 
     public function GenerateApplication($currentRoute, $applicantId, Request $request)
     {
+        return view('documents.applicationform');
+
         $html = view('documents.applicationform')->render();
         
         $pdf = Browsershot::html($html)
-            ->setNodeBinary('C:\Program Files\nodejs\node') // Specify the path to your Node.js binary if needed
-            ->setNpmBinary('C:\Program Files\nodejs\npm') // Specify the path to your npm binary if needed
-            ->options([
-                'args' => ['--user-data-dir=C:\\puppeteer-temp'],
-            ])
+            ->setIncludePath('C:\Program Files\nodejs')
+            ->format('A4')
             ->pdf();
 
-        return response()->make($pdf, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="plm_application_form.pdf"'
-        ]);
+        return response()->download($pdf);
     }
 }
