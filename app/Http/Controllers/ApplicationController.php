@@ -510,7 +510,7 @@ class ApplicationController extends Controller
                         unlink($file_path);
                     }
 
-                    if(strpos($file_read, 'record') === false) {
+                    if(strpos($file_read, 'transcript') === false) {
                         $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
                     }
                 }
