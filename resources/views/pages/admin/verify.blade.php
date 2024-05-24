@@ -43,9 +43,25 @@
                             Birth Certificate
                         </button>
 
-                        <button class="px-5 py-2 text-xs font-medium text-white transition-colors duration-200 bg-gray-700 sm:text-sm" onclick="changeDocument('{{ asset($documents->others) }}')">
-                            Form 137
-                        </button>
+                        @if($abvAppType != 'OLD')
+                            <button class="px-5 py-2 text-xs font-medium text-white transition-colors duration-200 bg-gray-700 sm:text-sm" onclick="changeDocument('{{ asset($documents->others) }}')">
+                                @if($abvAppType == 'SHS')
+                                    Form 137
+                                @elseif($abvAppType == 'ALS')
+                                    ALS Certificate
+                                @elseif($abvAppType == 'TRANSFER')
+                                    TOR
+                                @endif
+                            </button>
+                        @else
+                            <button class="px-5 py-2 text-xs font-medium text-white transition-colors duration-200 bg-gray-700 sm:text-sm" onclick="changeDocument('{{ asset($documents->approvalLetter) }}')">
+                                Approval Letter
+                            </button>
+
+                            <button class="px-5 py-2 text-xs font-medium text-white transition-colors duration-200 bg-gray-700 sm:text-sm" onclick="changeDocument('{{ asset($documents->highSchoolCard) }}')">
+                                High School Card
+                            </button>
+                        @endif
                     </div>
                 </div>
                 
@@ -64,7 +80,7 @@
         <div id="floatingForm" class="hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
                 <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
-                    <form action="{{ route('admin.verify.applicant', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId, 'applicationType' => $applicationType]) }}" method="POST">
+                    <form action="{{ route('admin.verify.applicant', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId, 'applicationType' => $abvAppType]) }}" method="POST">
                         @csrf
                         <h1 class="mb-8">Return Status of Applicant</h1>
                         
@@ -84,21 +100,71 @@
                             <x-text-input id="birthCertComment" name="birthCertComment" class="block w-full mt-1" type="text" autocomplete="off"/>
                         </div>
                         
-                        <div class="mb-4">
-                            <x-input-label for="others" :value="__('Form 137 Status')" />
-                            <div>
-                                <select name="others" id="others" class="block w-full mt-1" required>
-                                    <option value="" disabled selected>Please select</option>
-                                    <option value="resubmission">Resubmit</option>
-                                    <option value="approved">Approved</option>
-                                </select>
+                        @if($abvAppType != 'OLD')
+                            <div class="mb-4">
+                                @if($abvAppType == 'SHS')
+                                    <x-input-label for="others" :value="__('Form 137 Status')" />
+                                @elseif($abvAppType == 'ALS')
+                                    <x-input-label for="others" :value="__('ALS Certificate Status')" />
+                                @elseif($abvAppType == 'TRANSFER')
+                                    <x-input-label for="others" :value="__('TOR Status')" />
+                                @endif
+                                
+                                <div>
+                                    <select name="others" id="others" class="block w-full mt-1">
+                                        <option value="" disabled selected>Please select</option>
+                                        <option value="resubmission">Resubmit</option>
+                                        <option value="approved">Approved</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-4">
-                            <x-input-label for="othersComment" :value="__('Comment on Form 137')" />
-                            <x-text-input id="othersComment" name="othersComment" class="block w-full mt-1" type="text" autocomplete="off"/>
-                        </div>
+                            <div class="mb-4">
+                                @if($abvAppType == 'SHS')
+                                    <x-input-label for="othersComment" :value="__('Comment on Form 137')" />
+                                @elseif($abvAppType == 'ALS')
+                                    <x-input-label for="othersComment" :value="__('Comment on ALS Certificate')" />
+                                @elseif($abvAppType == 'TRANSFER')
+                                    <x-input-label for="othersComment" :value="__('Comment on TOR')" />
+                                @endif
+                                
+                                <x-text-input id="othersComment" name="othersComment" class="block w-full mt-1" type="text" autocomplete="off"/>
+                            </div>
+                        @else
+                            <div class="mb-4">
+                                <x-input-label for="approval" :value="__('Approval Letter Status')" />
+                                
+                                <div>
+                                    <select name="approval" id="approval" class="block w-full mt-1">
+                                        <option value="" disabled selected>Please select</option>
+                                        <option value="resubmission">Resubmit</option>
+                                        <option value="approved">Approved</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <x-input-label for="approvalComment" :value="__('Comment on Approval Letter')" />
+                                <x-text-input id="approvalComment" name="approvalComment" class="block w-full mt-1" type="text" autocomplete="off"/>
+                            </div>
+
+                            <div class="mb-4">
+                                <x-input-label for="highSchool" :value="__('High School Card Status')" />
+                                
+                                <div>
+                                    <select name="highSchool" id="highSchool" class="block w-full mt-1">
+                                        <option value="" disabled selected>Please select</option>
+                                        <option value="resubmission">Resubmit</option>
+                                        <option value="approved">Approved</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <x-input-label for="highSchoolComment" :value="__('Comment on High School Card')" />
+                                <x-text-input id="highSchoolComment" name="highSchoolComment" class="block w-full mt-1" type="text" autocomplete="off"/>
+                            </div>
+                        @endif
                         
                         <div class="flex justify-end w-full gap-4 mt-4">
                             <button type="button" onclick="toggleForm()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-red-600">Cancel</button>

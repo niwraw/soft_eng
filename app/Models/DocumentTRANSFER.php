@@ -9,6 +9,7 @@ class DocumentTRANSFER extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'applicant_id';
     protected $table = 'applicant_document_TRANSFER';
     protected $guarded = [];
 }
