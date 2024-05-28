@@ -34,7 +34,7 @@ use App\Mail\CredentialsMail;
 use Illuminate\Support\Facades\Hash;
 
 function laplacianVariance($imagePath) {
-    $image = imagecreatefromjpeg($imagePath);
+    $image = imagecreatefrompng($imagePath);
     $width = imagesx($image);
     $height = imagesy($image);
 
@@ -64,7 +64,7 @@ function laplacianVariance($imagePath) {
 }
 
 function calculateContrast($imagePath) {
-    $image = imagecreatefromjpeg($imagePath);
+    $image = imagecreatefrompng($imagePath);
     $width = imagesx($image);
     $height = imagesy($image);
 
@@ -202,9 +202,9 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . '-test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -257,9 +257,9 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . 'test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -312,9 +312,9 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . '-test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -367,9 +367,9 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . '-test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -422,9 +422,9 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . '-test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -477,9 +477,9 @@ class ApplicationController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . '-test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 

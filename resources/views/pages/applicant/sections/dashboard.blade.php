@@ -251,33 +251,9 @@
                 </div>
             </div>
 
-            @if( $applicationForm != "Not Available")
+            @if($form != null && $form->applicationFormStatus == 'approved')
             <div class="w-11/12 p-4 bg-gray-100 border-2 border-gray-700 h-fit rounded-2xl">
-                <h1 class="mb-4 text-xl font-semibold text-yellow-500">Exam Details</h1>
-
-                <div class="flex items-center justify-between p-2">
-                    <h3 class="font-semibold">Exam Date</h3>
-                    <p>January 1, 2023</p>
-                </div>
-
-                <div class="flex items-center justify-between p-2">
-                    <h3 class="font-semibold">Exam Time</h3>
-                    <p>13:00-15:00</p>
-                </div>
-
-                <div class="flex items-center justify-between p-2">
-                    <h3 class="font-semibold">Assigned Building</h3>
-                    <p>Gusaling Villegas</p>
-                </div>
-
-                <div class="flex items-center justify-between p-2">
-                    <h3 class="font-semibold">Assigned Room</h3>
-                    <p>310</p>
-                </div>
-
-                <div class="flex items-center justify-center w-full mt-4">
-                    <button id="download" class="w-10/12 bg-yellow-500 h-fit rounded-2xl">Download Exam Slip</button>
-                </div>
+                <h1 class="mb-4 text-xl font-semibold text-yellow-500">Exam Details Will Be Provided Soon!</h1>
             </div>
             @endif
         </div>
@@ -362,7 +338,7 @@
 <div id="floatingForm3" class="hidden">
     <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
         <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('applicant.upload.application', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <h1 class="mb-8">
                     @if($form == null)

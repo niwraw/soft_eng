@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 
 function laplacianVariance($imagePath) {
-    $image = imagecreatefromjpeg($imagePath);
+    $image = imagecreatefrompng($imagePath);
     $width = imagesx($image);
     $height = imagesy($image);
 
@@ -54,7 +54,7 @@ function laplacianVariance($imagePath) {
 }
 
 function calculateContrast($imagePath) {
-    $image = imagecreatefromjpeg($imagePath);
+    $image = imagecreatefrompng($imagePath);
     $width = imagesx($image);
     $height = imagesy($image);
 
@@ -153,9 +153,9 @@ class ApplicantController extends Controller
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . '-test' . '.jpeg';
+                    $file_path = $folder . $student_id . '-test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -242,15 +242,25 @@ class ApplicantController extends Controller
                     $file_read = "";
                     $manager = new ImageManager(new Driver());
 
-                    $uploadedFile = "Form 137";
+                    $type = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first()->applicationType;
+
+                    if ($type == 'SHS') {
+                        $uploadedFile = "Form 137";
+                    } else if ($type == 'ALS') {
+                        $uploadedFile = "ALS Certificate";
+                    } else if ($type == 'TRANSFER') {
+                        $uploadedFile = "TOR";
+                    } else if ($type == 'OLD') {
+                        $uploadedFile = "Approval Letter";
+                    }
 
                     $folder = base_path('public/' . $upload_dir . 'test/');
                     Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
                     $pdf = new Pdf($value);
 
-                    $file_path = $folder . $student_id . 'test' . '.jpeg';
+                    $file_path = $folder . $student_id . 'test' . '.png';
 
-                    $pdf->saveImage($file_path);
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
 
                     $image = $manager->read($file_path);
 
@@ -281,7 +291,17 @@ class ApplicantController extends Controller
                         unlink($file_path);
                     }
 
-                    if(strpos($file_read, 'permanent') === false) {
+                    if ($type == 'SHS') {
+                        $keyword = "permanent";
+                    } else if ($type == 'ALS') {
+                        $keyword = "certificate";
+                    } else if ($type == 'TRANSFER') {
+                        $keyword = "transcript";
+                    } else if ($type == 'OLD') {
+                        $keyword = "approval";
+                    }
+
+                    if(strpos($file_read, $keyword) === false) {
                         $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
                     }
                 }
@@ -289,12 +309,25 @@ class ApplicantController extends Controller
         ]);
 
         $personalInfo = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+        $appType = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first()->applicationType;
 
         $file = $request->file('form137');
         $extension = $file->getClientOriginalExtension();
 
-        $form = $applicantId . '_Form137.' . $extension;
-        $pathCert = 'uploads/Form_137/';
+        if($appType == "SHS"){
+            $form = $applicantId . '_Form137.' . $extension;
+            $pathCert = 'uploads/Form_137/';
+        } else if ($appType == "ALS") {
+            $form = $applicantId . '_ALS_Cert.' . $extension;
+            $pathCert = 'uploads/ALS_Cert/';
+        } else if ($appType == "TRANSFER") {
+            $form = $applicantId . '_Transcript_Record.' . $extension;
+            $pathCert = 'uploads/Transcript_Record/';
+        } else if ($appType == "OLD") {
+            $form = $applicantId . '_Approval_Letter.' . $extension;
+            $pathCert = 'uploads/Approval_Letter/';
+        }
+        
 
         $fullPath = $pathCert . $form;
 
@@ -311,15 +344,254 @@ class ApplicantController extends Controller
                 'othersStatus' => 'pending',
                 'othersComment' => 'Waiting for approval'
             ]);
+
+            $document = DocumentSHS::where('applicant_id', $applicantId)->first();
+
+            if ($document->othersStatus == 'pending' && $document->birthCertStatus == 'pending') {
+                $personalInfo->update([
+                    'status' => 'pending'
+                ]);
+            }
+        } else if ($personalInfo->applicationType == "ALS")
+        {
+            $document = DocumentALS::where('applicant_id', $applicantId)->first()->update([
+                'others' => $pathCert . $form,
+                'othersStatus' => 'pending',
+                'othersComment' => 'Waiting for approval'
+            ]);
+
+            $document = DocumentALS::where('applicant_id', $applicantId)->first();
+
+            if ($document->othersStatus == 'pending' && $document->birthCertStatus == 'pending') {
+                $personalInfo->update([
+                    'status' => 'pending'
+                ]);
+            }
+        } else if ($personalInfo->applicationType == "TRANSFER")
+        {
+            $document = DocumentTRANSFER::where('applicant_id', $applicantId)->first()->update([
+                'others' => $pathCert . $form,
+                'othersStatus' => 'pending',
+                'othersComment' => 'Waiting for approval'
+            ]);
+
+            $document = DocumentTRANSFER::where('applicant_id', $applicantId)->first();
+
+            if ($document->othersStatus == 'pending' && $document->birthCertStatus == 'pending') {
+                $personalInfo->update([
+                    'status' => 'pending'
+                ]);
+            }
+        } else if ($personalInfo->applicationType == "OLD")
+        {
+            $document = DocumentOLD::where('applicant_id', $applicantId)->first()->update([
+                'approvalLetter' => $pathCert . $form,
+                'approvalLetterStatus' => 'pending',
+                'approvalLetterComment' => 'Waiting for approval'
+            ]);
+
+            $document = DocumentOLD::where('applicant_id', $applicantId)->first();
+
+            if ($document->approvalLetterStatus == 'pending' && $document->birthCertStatus == 'pending' && $document->highSchoolCardStatus == 'pending') {
+                $personalInfo->update([
+                    'status' => 'pending'
+                ]);
+            }
         }
 
-        $document = DocumentSHS::where('applicant_id', $applicantId)->first();
+        // return dd($currentRoute, $applicantId);
+        return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);
+    }
 
-        if ($document->othersStatus == 'pending' || $document->birthCertStatus == 'pending') {
+    public function ResubmitHighSchoolCard($currentRoute, $applicantId, Request $request)
+    {
+        $validated = $request->validate([
+            'card' => [
+                'required',
+                'mimes:pdf',
+                function($attribute, $value, $fail) use ($applicantId) {
+                    $student_id = $applicantId;
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "High School Card";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . $student_id . '-test' . '.png';
+
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, 'report') === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ]
+        ]);
+
+        $personalInfo = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+
+        $file = $request->file('card');
+        $extension = $file->getClientOriginalExtension();
+
+        $birth = $applicantId . 'Report_Card.' . $extension;
+        $pathCert = 'uploads/Report_Card/';
+
+        $fullPath = $pathCert . $birth;
+
+        if (Storage::exists($fullPath)) {
+            Storage::delete($fullPath);
+        }
+
+        $file->move($pathCert, $birth);
+
+        if ($personalInfo->applicationType == "OLD")
+        {
+            $document = DocumentOLD::where('applicant_id', $applicantId)->first()->update([
+                'highSchoolCard' => $pathCert . $birth,
+                'highSchoolCardStatus' => 'pending',
+                'highSchoolCardComment' => 'Waiting for approval'
+            ]);
+        }
+
+        $document = DocumentOLD::where('applicant_id', $applicantId)->first();
+
+        if ($document->approvalLetterStatus == 'pending' && $document->birthCertStatus == 'pending' && $document->highSchoolCardStatus == 'pending') {
             $personalInfo->update([
                 'status' => 'pending'
             ]);
         }
+
+        // return dd($currentRoute, $applicantId);
+        return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);
+    }
+
+    public function SubmitApplicationForm($currentRoute, $applicantId, Request $request)
+    {
+        $validated = $request->validate([
+            'appform' => [
+                'required',
+                'mimes:pdf',
+                function($attribute, $value, $fail) use ($applicantId) {
+                    $student_id = $applicantId;
+                    $upload_dir = 'uploads/';
+                    $file_read = "";
+                    $manager = new ImageManager(new Driver());
+
+                    $uploadedFile = "Application Form";
+
+                    $folder = base_path('public/' . $upload_dir . 'test/');
+                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    $pdf = new Pdf($value);
+
+                    $file_path = $folder . $student_id . 'test' . '.png';
+
+                    $pdf->setOutputFormat('png')->saveImage($file_path);
+
+                    $image = $manager->read($file_path);
+
+                    $image->greyscale()->save($file_path);
+
+                    try
+                    {
+                        $file_read = (new TesseractOCR($file_path))->run();
+                    }
+                    catch (\Exception $e)
+                    {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+
+                    $file_read = strtolower($file_read);
+
+                    $laplacianVariance = laplacianVariance($file_path);
+                    if ($laplacianVariance < 100) {
+                        $fail('The file is too blurry. Please upload a properly scanned PDF.');
+                    }
+
+                    $contrast = calculateContrast($file_path);
+                    if ($contrast < 1.5) {
+                        $fail('The file contrast is too low. Please upload a properly scanned PDF.');
+                    }
+
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+
+                    if(strpos($file_read, $applicantId) === false) {
+                        $fail('The file cannot be recognized as a '. $uploadedFile . '. Please upload a valid '. $uploadedFile . '.');
+                    }
+                }
+            ]
+        ]);
+
+        $file = $request->file('appform');
+        $extension = $file->getClientOriginalExtension();
+
+        $birth = $applicantId . '_applicationForm.' . $extension;
+        $pathCert = 'uploads/Application_Form/';
+
+        $fullPath = $pathCert . $birth;
+
+        $ifExist = ApplicationForm::where('applicant_id', $applicantId)->first();
+
+        if($ifExist == null) 
+        {
+            $collection = [
+                'applicant_id' => $applicantId,
+                'applicationForm' => $pathCert . $birth,
+                'applicationFormStatus' => 'pending',
+                'applicationFormComment' => 'Waiting for approval'
+            ];
+
+            ApplicationForm::create($collection);
+        } 
+        else
+        {
+            if (Storage::exists($fullPath)) {
+                Storage::delete($fullPath);
+            }
+    
+            $file->move($pathCert, $birth);
+
+            $document = ApplicationForm::where('applicant_id', $applicantId)->first()->update([
+                'applicationForm' => $pathCert . $birth,
+                'applicationFormStatus' => 'pending',
+                'applicationFormComment' => 'Waiting for approval'
+            ]);
+        }
+
 
         // return dd($currentRoute, $applicantId);
         return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);

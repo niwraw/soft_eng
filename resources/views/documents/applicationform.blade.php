@@ -14,7 +14,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="">
+    <body class="bg-white">
         <div class="grid px-1 mb-2 h-fit" style="grid-template-columns: 1fr 2fr 1fr;">
             <div class="flex items-center justify-center">
                 <img src="{{ asset('assets/image/school.png') }}" class="h-28 w-28">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="mb-2">
-            <span class="text-xs">Applicant ID: 2021-01278</span>
+            <span class="text-xs">Applicant ID: 2024-00152</span>
         </div>
 
         <div class="mb-2">
