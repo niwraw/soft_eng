@@ -16,6 +16,7 @@ use App\Models\DocumentSHS;
 use App\Models\DocumentALS;
 use App\Models\DocumentOLD;
 use App\Models\DocumentTRANSFER;
+use App\Models\ApplicationForm;
 use App\Models\CourseModel;
 use App\Models\Regions;
 use App\Models\Provinces;
@@ -56,6 +57,24 @@ class AdmissionPageController extends Controller
         }
 
         $applicants = $query->paginate(8);
+
+        $statusAppForm = $request->query('statusType', 'all');
+        $searchAppForm = $request->query('search', '');
+        $appFormQuery = ApplicantList::join('applicant_application_form', 'applicant_application_form.applicant_id', '=', 'applicant_personal_information.applicant_id')->where('activity', 'active');
+        
+        if ($statusAppForm !== 'all') {
+            $appFormQuery =  $appFormQuery->where('applicationFormStatus', $statusAppForm);
+        }
+
+        if(!empty($searchAppForm)) {
+            $appFormQuery = $appFormQuery->where(function ($query) use ($searchAppForm) {
+                $query->where('firstName', 'like', "%{$searchAppForm}%")
+                      ->orWhere('lastName', 'like', "%{$searchAppForm}%")
+                      ->orWhere('email', 'like', "%{$searchAppForm}%");
+            });
+        }
+
+        $appFormList = $appFormQuery->paginate(8);
 
         $totalApplicants = $shsApplicants->count() + $alsApplicants->count() + $oldApplicants->count() + $transferApplicants->count();
 
@@ -175,8 +194,10 @@ class AdmissionPageController extends Controller
             $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');
         });
 
+        
+
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList'));
     }
 
     public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
@@ -266,6 +287,84 @@ class AdmissionPageController extends Controller
         }
 
         return view('pages.admin.verify', compact('applicantId','documents', 'applicationType', 'currentRoute', 'personalInformation', 'otherInformation', 'fatherInformation', 'motherInformation', 'schoolInformation', 'selectionInfo', 'guardianInformation', 'abvAppType'));
+    }
+
+    public function AdmissionApplicationFormVerify($currentRoute, $applicationType , $applicantId, Request $request)
+    {
+        $applicationForm = ApplicationForm::where('applicant_id', $applicantId)->first();
+
+        $abvAppType = $applicationType;
+
+        $personalInformation = ApplicantList::where('applicant_id', $applicantId)->first();
+        $fatherInformation = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $motherInformation = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $schoolInformation = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+        $programInformation = ApplicantProgramInformation::where('applicant_id', $applicantId)->first();
+        $exist = ApplicantGuardianInformation::find($applicantId);
+
+        if($exist) {
+            $guardianInformation = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        } else {
+            $guardianInformation = null;
+        }
+
+        $selectionInfo = ApplicantProgramInformation::where('applicant_id', $applicantId)->first();
+
+        $course1 = CourseModel::where('course_code', $selectionInfo->choice1)->first();
+        $course2 = CourseModel::where('course_code', $selectionInfo->choice2)->first();
+        $course3 = CourseModel::where('course_code', $selectionInfo->choice3)->first();
+
+        $selectionInfo->choice1 = $course1->course;
+        $selectionInfo->choice2 = $course2->course;
+        $selectionInfo->choice3 = $course3->course;
+
+        $otherInformation = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+
+        $otherInformation->birthDate = Carbon::parse($otherInformation->birthDate)->format('F j, Y');
+
+        $region = Regions::where('region_code', $otherInformation->region)->first();
+        $province = Provinces::where('province_code', $otherInformation->province)->first();
+        $city = Cities::where('city_code', $otherInformation->city)->first();
+        $barangay = Barangays::where('brgy_code', $otherInformation->barangay)->first();
+
+        $otherInformation->region = $region->region_name;
+        $otherInformation->province = $province->province_name;
+        $otherInformation->city = $city->city_name;
+        $otherInformation->barangay = $barangay->brgy_name;
+
+        if($applicationType == "SHS"){
+            $applicationType = "Senior High School";
+        } else if($applicationType == "ALS"){
+            $applicationType = "Alternative Learning System";
+        } else if($applicationType == "OLD"){
+            $applicationType = "Old Curriculum";
+        } else if($applicationType == "TRANSFER"){
+            $applicationType = "Transfer Student";
+        }
+
+        $schoolInformation->schoolRegion = Regions::where('region_code', $schoolInformation->schoolRegion)->first()->region_name;
+        $schoolInformation->schoolProvince = Provinces::where('province_code', $schoolInformation->schoolProvince)->first()->province_name;
+        $schoolInformation->schoolCity = Cities::where('city_code', $schoolInformation->schoolCity)->first()->city_name;
+        
+        if($schoolInformation->strand == "ABM"){
+            $schoolInformation->strand = "Accountancy, Business, and Management";
+        } else if($schoolInformation->strand == "HUMSS"){
+            $schoolInformation->strand = "Humanities and Social Sciences";
+        } else if($schoolInformation->strand == "STEM"){
+            $schoolInformation->strand = "Science, Technology, Engineering, and Mathematics";
+        } else if($schoolInformation->strand == "GAS"){
+            $schoolInformation->strand = "General Academic Strand";
+        } else if($schoolInformation->strand == "TVL"){
+            $schoolInformation->strand = "Technical-Vocational-Livelihood";
+        } else if($schoolInformation->strand == "SPORTS"){
+            $schoolInformation->strand = "Sports Track";
+        } else if($schoolInformation->strand == "ADT"){
+            $schoolInformation->strand = "Arts and Design Track";
+        } else if($schoolInformation->strand == "PBM"){
+            $schoolInformation->strand = "Personal Development Track";
+        }
+
+        return view('pages.admin.application_form_verify', compact('applicantId','applicationForm', 'applicationType', 'currentRoute', 'personalInformation', 'otherInformation', 'fatherInformation', 'motherInformation', 'schoolInformation', 'selectionInfo', 'guardianInformation', 'abvAppType'));
     }
 
     public function AdmissionVerify($currentRoute, $applicationType, $applicantId, Request $request)

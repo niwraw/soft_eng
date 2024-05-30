@@ -26,8 +26,8 @@
                 @include('pages.admin.sections.applicants')
             @elseif ($currentRoute === 'announcements')
                 @include('pages.admin.sections.announcement')
-            @elseif ($currentRoute === 'attendance')
-
+            @elseif ($currentRoute === 'application-form')
+                @include('pages.admin.sections.applicationForm')
             @elseif ($currentRoute === 'result')
 
             @endif

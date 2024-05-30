@@ -16,3 +16,8 @@
     <span class="material-symbols-sharp">breaking_news</span>
     <h3>Announcements</h3>
 </a>
+
+<a href="{{ route('admin.page', ['currentRoute' => 'application-form']) }}" class="flex items-center gap-5  transition-all duration-300 ease-in h-14 w-11/12 pl-5 {{$currentRoute == 'application-form' ? 'bg-white text-black' : 'text-white'}}">
+    <span class="material-symbols-sharp">description</span>
+    <h3>Application Form</h3>
+</a>

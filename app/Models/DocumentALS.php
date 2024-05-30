@@ -10,6 +10,6 @@ class DocumentALS extends Model
     use HasFactory;
 
     protected $primaryKey = 'applicant_id';
-    protected $table = 'applicant_document_ALS';
+    protected $table = 'applicant_document_als';
     protected $guarded = [];
 }

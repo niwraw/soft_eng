@@ -574,6 +574,8 @@ class ApplicantController extends Controller
                 'applicationFormStatus' => 'pending',
                 'applicationFormComment' => 'Waiting for approval'
             ];
+            
+            $file->move($pathCert, $birth);
 
             ApplicationForm::create($collection);
         } 
@@ -629,9 +631,13 @@ class ApplicantController extends Controller
         $html = view('documents.applicationform')->render();
         
         $pdf = Browsershot::html($html)
-            ->setIncludePath('C:\Program Files\nodejs')
+            ->newHeadless()
+            ->setNpmBinary('C:\Program Files\nodej\npm')
+            ->setNodeBinary('C:\Program Files\nodejs\node.exe')
             ->format('A4')
             ->pdf();
+
+            return view('documents.applicationform');
 
         return response()->download($pdf);
     }

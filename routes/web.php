@@ -42,6 +42,7 @@ Route::get('/admin/{currentRoute}/{announcementId}', [AdmissionPageController::c
 Route::post('/admin/{currentRoute}/add', [AdmissionPageController::class, 'AdmissionAddAnnouncement'])->name('admin.add.announcement');
 Route::get('/admin/{currentRoute}/{applicationType}/{applicantId}', [AdmissionPageController::class, 'AdmissionApplicantVerify'])->name('admin.verify');
 Route::post('/admin/{currentRoute}/{applicationType}/{applicantId}/verify', [AdmissionPageController::class, 'AdmissionVerify'])->name('admin.verify.applicant');
+Route::get('/admin/{currentRoute}/{applicationType}/{applicantId}/application', [AdmissionPageController::class, 'AdmissionApplicationFormVerify'])->name('admin.verify.application_form');
 
 Route::get('/applicant/{currentRoute}/{applicantId}',[ApplicantController::class, 'ApplicantPage'])->name('applicant.page');
 Route::post('/applicant/{currentRoute}/{applicantId}/resubmitBirth',[ApplicantController::class, 'ResubmitBirthCert'])->name('applicant.resubmitBirth');
