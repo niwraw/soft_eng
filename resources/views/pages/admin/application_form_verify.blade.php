@@ -54,14 +54,14 @@
         <div id="floatingForm" class="hidden">
             <div class="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
                 <div class="w-3/6 p-8 bg-white rounded-lg shadow-lg h-fit">
-                    <form action="" method="POST">
+                    <form action="{{ route('admin.application_form', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId, 'applicationType' => $abvAppType]) }}" method="POST">
                         @csrf
                         <h1 class="mb-8">Return Status of Application Form</h1>
                         
                         <div class="mb-4">
-                            <x-input-label for="birthCert" :value="__('Birth Certificate Status')" />
+                            <x-input-label for="application" :value="__('Application Form Status')" />
                             <div>
-                                <select name="birthCert" id="birthCert" class="block w-full mt-1" required>
+                                <select name="application" id="application" class="block w-full mt-1" required>
                                     <option value="" disabled selected>Please select</option>
                                     <option value="resubmission">Resubmit</option>
                                     <option value="approved">Approved</option>
@@ -70,8 +70,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <x-input-label for="birthCertComment" :value="__('Comment on Birth Certificate')" />
-                            <x-text-input id="birthCertComment" name="birthCertComment" class="block w-full mt-1" type="text" autocomplete="off"/>
+                            <x-input-label for="comment" :value="__('Comment on Application Form')" />
+                            <x-text-input id="comment" name="comment" class="block w-full mt-1" type="text" autocomplete="off"/>
                         </div>
 
                         <div class="flex justify-end w-full gap-4 mt-4">

@@ -446,6 +446,25 @@ class AdmissionPageController extends Controller
         // return dd($validated, $currentRoute, $applicationType , $applicantId);
     }
 
+    public function AdmissionApplicationFormConfirm($currentRoute, $applicationType, $applicantId, Request $request)
+    {
+        $validated = $request->validate([
+            'application' => 'required',
+            'comment' => 'nullable',
+        ]);
+
+
+        ApplicationForm::where('applicant_id', $applicantId)->first()->update([
+            'applicationFormStatus' => $validated['application'],
+            'applicationFormComment' => $validated['comment'],
+        ]);
+        
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute]);
+        // return dd($validated, $currentRoute, $applicationType , $applicantId);
+    }
+
+
     public function AdmissionChangeDate($currentRoute, Request $request)
     {
         $validated = $request->validate([
