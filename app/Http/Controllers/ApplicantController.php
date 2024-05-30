@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\ApplicantPersonalInformation;
+use App\Models\ApplicantOtherInformation;
+use App\Models\ApplicantFatherInformation;
+use App\Models\ApplicantMotherInformation;
+use App\Models\ApplicantGuardianInformation;
 use App\Models\ApplicantSchoolInformation;
 use App\Models\ApplicantSelectionInformation;
 use App\Models\DocumentALS;
@@ -14,6 +18,8 @@ use App\Models\DocumentTRANSFER;
 use App\Models\CourseModel;
 use App\Models\ApplicantLoginCreds;
 use App\Models\ApplicationForm;
+use App\Models\SchoolModel;
+use App\Models\Regions;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use Spatie\Browsershot\Browsershot;
@@ -640,5 +646,30 @@ class ApplicantController extends Controller
             return view('documents.applicationform');
 
         return response()->download($pdf);
+    }
+
+    public function EditInformation($currentRoute, $applicantId, Request $request)
+    {
+        $schools = SchoolModel::all()->pluck('school_name');
+        $regions = Regions::get(['region_code', 'region_name']);
+        $personal = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+        $other = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+        $father = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $mother = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $guardian = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        $school = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+
+        if($personal->applicationType == "SHS"){
+            $personal->applicationType = "Senior High School";
+        } else if($personal->applicationType == "ALS"){
+            $personal->applicationType = "Alternative Learning System";
+        } else if($personal->applicationType == "OLD"){
+            $personal->applicationType = "Old Curriculum";
+        } else if($personal->applicationType == "TRANSFER"){
+            $personal->applicationType = "Transfer Student";
+        }
+
+        // dd($regions);
+        return view('pages.applicant.edit', compact('schools', 'regions', 'personal', 'other', 'father', 'mother', 'guardian', 'school'));
     }
 }

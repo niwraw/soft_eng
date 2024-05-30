@@ -245,7 +245,7 @@
                         </div>
                     @else
                         <div class="flex items-center justify-around gap-4 py-4">
-                            <a href="" class="w-full h-6 text-center bg-blue-500 rounded-2xl">Edit Information</a>
+                            <a href="{{ route('applicant.edit.information', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" class="w-full h-6 text-center bg-blue-500 rounded-2xl">Edit Information</a>
                         </div>
                     @endif
                 </div>
