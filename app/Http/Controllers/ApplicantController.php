@@ -31,6 +31,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 function laplacianVariance($imagePath) {
     $image = imagecreatefrompng($imagePath);
@@ -635,9 +636,58 @@ class ApplicantController extends Controller
 
     public function GenerateApplication($currentRoute, $applicantId, Request $request)
     {
-        return view('documents.applicationform');
+        $personal = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+        $other = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+        $father = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $mother = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $guardian = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        $school = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+        $choice = ApplicantSelectionInformation::where('applicant_id', $applicantId)->first();
 
-        $html = view('documents.applicationform')->render();
+        $other->birthDate = Carbon::parse($other->birthDate)->format('F j, Y');
+        $other->region = Regions::where('region_code', $other->region)->first()->region_name;
+        $other->province = Provinces::where('province_code', $other->province)->first()->province_name;
+        $other->city = Cities::where('city_code', $other->city)->first()->city_name;
+        $other->barangay = Barangays::where('brgy_code', $other->barangay)->first()->brgy_name;
+
+        $school->schoolReg = Regions::where('region_code', $school->schoolRegion)->first()->region_name;
+        $school->schoolProv = Provinces::where('province_code', $school->schoolProvince)->first()->province_name;
+        $school->schoolMun = Cities::where('city_code', $school->schoolCity)->first()->city_name;
+
+        if ($school->strand == "ABM") {
+            $school->strand = "Accountancy, Business, and Management";
+        } else if ($school->strand == "HUMSS") {
+            $school->strand = "Humanities and Social Sciences";
+        } else if ($school->strand == "STEM") {
+            $school->strand = "Science, Technology, Engineering, and Mathematics";
+        } else if ($school->strand == "GAS") {
+            $school->strand = "General Academic Strand";
+        } else if ($school->strand == "TVL") {
+            $school->strand = "Technical-Vocational-Livelihood";
+        } else if ($school->strand == "SPORTS") {
+            $school->strand = "Sports Track";
+        } else if ($school->strand == "ADT") {
+            $school->strand = "Arts and Design Track";
+        } else if ($school->strand == "PBM") {
+            $school->strand = "Personal Development Track";
+        }
+        
+        $choice->choice1 = CourseModel::where('course_code', $choice->choice1)->first()->course;
+        $choice->choice2 = CourseModel::where('course_code', $choice->choice2)->first()->course;
+        $choice->choice3 = CourseModel::where('course_code', $choice->choice3)->first()->course;
+
+        return view('documents.applicationform', compact('personal', 'other', 'father', 'mother', 'guardian', 'school', 'applicantId', 'choice'));
+
+        $html = view('documents.applicationform', [
+            'applicantId' => $applicantId,
+            'personal' => $personal,
+            'other' => $other,
+            'father' => $father,
+            'mother' => $mother,
+            'guardian' => $guardian,
+            'school' => $school,
+            'choice' => $choice
+        ])->render();
         
         $pdf = Browsershot::html($html)
             ->newHeadless()
@@ -645,8 +695,6 @@ class ApplicantController extends Controller
             ->setNodeBinary('C:\Program Files\nodejs\node.exe')
             ->format('A4')
             ->pdf();
-
-            return view('documents.applicationform');
 
         return response()->download($pdf);
     }

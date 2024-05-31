@@ -36,7 +36,7 @@
         </div>
 
         <div class="mb-2">
-            <span class="text-xs">Applicant ID: 2024-00154</span>
+            <span class="text-xs">Applicant ID: {{ $applicantId  }}</span>
         </div>
 
         <div class="mb-2">
@@ -47,18 +47,19 @@
             <span class="text-xs ">Full Name:</span>
             
             <span class="text-xs font-semibold text-center border-b border-black">
-                John Vincent
+                {{ $personal->firstName }}
             </span>
 
             <span class="text-xs font-semibold text-center border-b border-black">
-                Lo
+                {{ $personal->middleName }}
             </span>
 
             <span class="text-xs font-semibold text-center border-b border-black">
-                Guanco
+                {{ $personal->lastName }}
             </span>
 
             <span class="text-xs font-semibold text-center border-b border-black">
+                {{ $personal->suffix != "None" ? $personal->suffix : "" }}
             </span>
         </div>
 
@@ -78,7 +79,7 @@
             <span class="text-xs">Address: </span>
 
             <span class="text-xs font-semibold border-b border-black">
-                John Vincenta sda sda sas 
+                {{ $other->address }}, {{ $other->barangay }}, {{ $other->city }}, {{ $other->province }}, {{ $other->region }}
             </span>
         </div>
 
@@ -86,7 +87,7 @@
             <span class="text-xs">Province: </span>
 
             <span class="text-xs font-semibold border-b border-black">
-                John Vincenta sda sda sas 
+                {{ $other->province }}
             </span>
         </div>
 
@@ -94,7 +95,7 @@
             <span class="text-xs">Region: </span>
 
             <span class="text-xs font-semibold border-b border-black">
-                John Vincenta sda sda sas 
+                {{ $other->region }}
             </span>
         </div>
 
@@ -102,19 +103,19 @@
             <span class="text-xs ">Birth Date:</span>
             
             <span class="text-xs font-semibold text-center border-b border-black">
-                January 13, 2003
+                {{ $other->birthDate }}
             </span>
 
             <span class="text-xs ">Birth Place:</span>
             
             <span class="text-xs font-semibold text-center border-b border-black">
-                Kalibo Aklan
+                {{ $other->birthPlace }}
             </span>
 
             <span class="text-xs ">Sex at Birth:</span>
             
             <span class="text-xs font-semibold text-center border-b border-black">
-                Male
+                {{ ucfirst($personal->gender) }}
             </span>
         </div>
 
@@ -133,17 +134,17 @@
         <div class="grid" style="grid-template-columns:1.1fr 3fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Full Name: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $father->fatherFirst }} {{ $father->fatherMiddle }} {{ $father->fatherLast }}</span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Mother</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $mother->motherFirst }} {{ $mother->motherMiddle }} {{ $mother->motherLast }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Address: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $father->fatherAddress }}</span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Mother</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $mother->motherAddress }}</span>
         </div>
 
         
@@ -151,17 +152,17 @@
         <div class="grid" style="grid-template-columns:1.1fr 3fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Contact No.: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $father->fatherContact }}</span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Mother</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $mother->motherContact }}</span>
         </div>
 
         <div class="grid mb-2" style="grid-template-columns:1.1fr 3fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Monthly Income: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $father->fatherIncome }}</span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Mother</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $mother->fatherIncome }}</span>
         </div>
 
         <div class="mb-2">
@@ -171,55 +172,55 @@
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-t border-b border-l border-r border-black">LRN: </span>
 
-            <span class="pl-2 text-xs border-t border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-t border-b border-r border-black">{{ $school->lrn }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">STRAND: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $school->strand }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">School Name: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $school->school }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">School Address: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $school->schoolAddress }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">School Email: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $school->schoolEmail }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">General Weighted Average (GWA): </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Grade 11: </span>
+            <span class="pl-2 text-xs border-b border-r border-black">Grade 11: {{ $school->gwa }} </span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Program Choice 1: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $choice->choice1 }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Program Choice 2: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $choice->choice2 }}</span>
         </div>
 
         <div class="grid" style="grid-template-columns:1.1fr 3fr;">
             <span class="pl-2 text-xs border-b border-l border-r border-black">Program Choice 3: </span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">Father</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $choice->choice3 }}</span>
         </div>
 
         <div class="flex flex-col gap-24 mt-20">
