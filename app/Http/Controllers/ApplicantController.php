@@ -20,6 +20,9 @@ use App\Models\ApplicantLoginCreds;
 use App\Models\ApplicationForm;
 use App\Models\SchoolModel;
 use App\Models\Regions;
+use App\Models\Provinces;
+use App\Models\Cities;
+use App\Models\Barangays;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use Spatie\Browsershot\Browsershot;
@@ -669,7 +672,34 @@ class ApplicantController extends Controller
             $personal->applicationType = "Transfer Student";
         }
 
+        $region = Regions::where('region_code', $other->region)->first()->region_name;
+        $province = Provinces::where('province_code', $other->province)->first()->province_name;
+        $city = Cities::where('city_code', $other->city)->first()->city_name;
+        $barangay = Barangays::where('brgy_code', $other->barangay)->first()->brgy_name;
+
+        $schoolReg = Regions::where('region_code', $school->schoolRegion)->first()->region_name;
+        $schoolProv = Provinces::where('province_code', $school->schoolProvince)->first()->province_name;
+        $schoolCity = Cities::where('city_code', $school->schoolCity)->first()->city_name;
+        
+        if($school->strand == "ABM"){
+            $strand = "Accountancy, Business, and Management";
+        } else if($school->strand == "HUMSS"){
+            $strand= "Humanities and Social Sciences";
+        } else if($school->strand == "STEM"){
+            $strand = "Science, Technology, Engineering, and Mathematics";
+        } else if($school->strand == "GAS"){
+            $strand = "General Academic Strand";
+        } else if($school->strand == "TVL"){
+            $strand = "Technical-Vocational-Livelihood";
+        } else if($school->strand == "SPORTS"){
+            $strand = "Sports Track";
+        } else if($school->strand == "ADT"){
+            $strand = "Arts and Design Track";
+        } else if($school->strand == "PBM"){
+            $strand = "Personal Development Track";
+        }
+
         // dd($regions);
-        return view('pages.applicant.edit', compact('schools', 'regions', 'personal', 'other', 'father', 'mother', 'guardian', 'school'));
+        return view('pages.applicant.edit', compact('schools', 'regions', 'personal', 'other', 'father', 'mother', 'guardian', 'school', 'region', 'province', 'city', 'barangay', 'schoolReg', 'schoolProv', 'schoolCity', 'strand'));
     }
 }

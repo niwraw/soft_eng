@@ -450,7 +450,7 @@
                                 <x-input-label for="schoolType" :value="__('School Type')" />
                                 <div>
                                     <select name="schoolType" id="schoolType" required class="block w-full mt-1" required>
-                                        <option value="" {{ old('schoolType') == '' ? 'selected' : '' }}>Select Type</option>
+                                        <option value="" disabled {{ old('schoolType') == '' ? 'selected' : '' }}>Select Type</option>
                                         <option value="public" {{ old('schoolType') == 'public' ? 'selected' : '' }}>Public</option>
                                         <option value="private" {{ old('schoolType') == 'private' ? 'selected' : '' }}>Private</option>
                                     </select>
