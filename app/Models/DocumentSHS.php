@@ -10,6 +10,7 @@ class DocumentSHS extends Model
     use HasFactory;
 
     protected $primaryKey = 'applicant_id';
+    protected $keyType = 'string';
     protected $table = 'applicant_document_shs';
     protected $guarded = [];
 }

@@ -10,6 +10,7 @@ class ApplicantFatherInformation extends Model
     use HasFactory;
 
     protected $primaryKey = 'applicant_id';
+    protected $keyType = 'string';
     protected $table = 'applicant_father_information';
     protected $guarded = [];
 }

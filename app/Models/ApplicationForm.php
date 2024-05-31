@@ -10,6 +10,7 @@ class ApplicationForm extends Model
     use HasFactory;
 
     protected $primaryKey = 'applicant_id';
+    protected $keyType = 'string';
     protected $table = 'applicant_application_form';
     protected $guarded = [];
 }

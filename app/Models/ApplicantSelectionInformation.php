@@ -10,6 +10,7 @@ class ApplicantSelectionInformation extends Model
     use HasFactory;
 
     protected $primaryKey = 'applicant_id';
+    protected $keyType = 'string';
     protected $table = 'applicant_program_information';
     protected $guarded = [];
 }
