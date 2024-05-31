@@ -52,6 +52,7 @@ Route::post('/applicant/{currentRoute}/{applicantId}',[ApplicantController::clas
 Route::get('/applicant/{currentRoute}/{applicantId}/application-form',[ApplicantController::class, 'GenerateApplication'])->name('applicant.generate.application');
 Route::post('/applicant/{currentRoute}/{applicantId}/upload-application', [ApplicantController::class, 'SubmitApplicationForm'])->name('applicant.upload.application');
 Route::get('/applicant/{currentRoute}/{applicantId}/edit-information',[ApplicantController::class, 'EditInformation'])->name('applicant.edit.information');
+Route::post('/applicant/{currentRoute}/{applicantId}/update-information',[ApplicantController::class, 'ConfirmInformation'])->name('applicant.update.information');
 
 Route::get('/admin/{currentRoute}/restore/all/status', [ActionController::class, 'restore'])->name('admin.restore');
 Route::get('/admin/{currentRoute}/archive/all/status', [ActionController::class, 'archive'])->name('admin.archive');

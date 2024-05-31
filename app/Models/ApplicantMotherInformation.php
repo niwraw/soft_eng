@@ -9,6 +9,7 @@ class ApplicantMotherInformation extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'applicant_id';
     protected $table = 'applicant_mother_infomation';
     protected $guarded = [];
 }

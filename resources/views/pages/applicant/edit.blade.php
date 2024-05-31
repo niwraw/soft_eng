@@ -43,7 +43,7 @@
                         </span>
                         <h2>Back</h2>
                     </a>
-                    <form action="" method="POST" class="flex flex-col gap-7" enctype="multipart/form-data">
+                    <form action="{{ route('applicant.update.information', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" method="POST" class="flex flex-col gap-7" enctype="multipart/form-data">
                         <!-- Name -->
                         @csrf
 
@@ -67,7 +67,7 @@
                             <div class="w-1/3">
                                 <x-input-label for="middleName" :value="__('Middle Name')" />
                                 <x-text-input id="middleName" class="block w-full mt-1" type="text" name="middleName" autofocus value="{{ $personal->middleName }}"/>
-                                
+                                <x-input-error :messages="$errors->get('middleName')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
@@ -104,7 +104,7 @@
                             <div class="w-1/6">
                                 <x-input-label for="gender" :value="__('Sex At Birth')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="gender" class="block w-full mt-1" name="gender" required value="{{ $personal->gender }}" readonly/>
+                                    <x-text-input id="gender" class="block w-full mt-1" name="gender" required value="{{ ucfirst($personal->gender) }}" readonly/>
                                     <button type="button" onclick="editGender()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
                                         <span class="material-symbols-sharp">edit</span>
                                     </button>
@@ -377,6 +377,7 @@
                             <div class="w-1/3">
                                 <x-input-label for="lrn" :value="__('Learner\'s Reference No. (LRN)')" />
                                 <x-text-input id="lrn" class="block w-full mt-1" type="number" name="lrn" required value="{{ $school->lrn }}"/>
+                                <x-input-error :messages="$errors->get('lrn')" class="mt-2" />
                             </div>
                             <div class="relative w-1/3 search-bar">
                                 <x-input-label for="school" :value="__('School/Senior High School Attended')" />
@@ -385,20 +386,24 @@
                                 <div class="absolute hidden w-full h-auto bg-white border border-gray-300 rounded-md max-h-80 datalist">
 
                                 </div>
+
+                                <x-input-error :messages="$errors->get('school')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
                                 <x-input-label for="schoolEmail" :value="__('School Email Address')" />
                                 <x-text-input id="schoolEmail" class="block w-full mt-1" type="email" name="schoolEmail" required value="{{ $school->schoolEmail }}"/>
+                                <x-input-error :messages="$errors->get('schoolEmail')" class="mt-2" />
                             </div>
 
                             <div class="w-1/6">
                                 <x-input-label for="schoolType" :value="__('School Type')" />
                                 <div class="relative mt-1">
-                                    <x-text-input id="schoolType" class="block w-full mt-1" type="text" name="schoolType" autofocus value="{{ $school->schoolType }}" readonly/>
+                                    <x-text-input id="schoolType" class="block w-full mt-1" type="text" name="schoolType" autofocus value="{{ ucfirst($school->schoolType) }}" readonly/>
                                     <button onclick="editSchoolType()" type="button" onclick="" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
                                         <span class="material-symbols-sharp">edit</span>
                                     </button>
+                                    <x-input-error :messages="$errors->get('schoolType')" class="mt-2" />
                                 </div>
                             </div>
                         </div>
@@ -448,11 +453,14 @@
                                     <button type="button" onclick="editStrand()" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-700 hover:text-blue-500">
                                         <span class="material-symbols-sharp">edit</span>
                                     </button>
+
+                                    <x-input-error :messages="$errors->get('strand')" class="mt-2" />
                                 </div>
                             </div>
                             <div class="w-1/3">
                                 <x-input-label for="gwa" :value="__('Grade Weighted Average (GWA)')" />
                                 <x-text-input id="gwa" class="block w-full mt-1" type="number" name="gwa" required value="{{ $school->gwa }}"/>
+                                <x-input-error :messages="$errors->get('gwa')" class="mt-2" />
                             </div>
 
                             <div class="w-1/3">
@@ -976,7 +984,7 @@
                 });
 
                 $('#suffixBtn').on('click', function() {
-                    var suffix = $('#suffixDrop option:selected').val();
+                    var suffix = $('#suffixDrop option:selected').text();
                     $('#suffix').val(suffix);
                     editAppSuffix();
                 });

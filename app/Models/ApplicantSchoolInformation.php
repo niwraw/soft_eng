@@ -9,6 +9,7 @@ class ApplicantSchoolInformation extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'applicant_id';
     protected $table = 'applicant_school_information';
     protected $guarded = [];
 }

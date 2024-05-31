@@ -700,6 +700,193 @@ class ApplicantController extends Controller
         }
 
         // dd($regions);
-        return view('pages.applicant.edit', compact('schools', 'regions', 'personal', 'other', 'father', 'mother', 'guardian', 'school', 'region', 'province', 'city', 'barangay', 'schoolReg', 'schoolProv', 'schoolCity', 'strand'));
+        return view('pages.applicant.edit', compact('schools', 'regions', 'personal', 'other', 'father', 'mother', 'guardian', 'school', 'region', 'province', 'city', 'barangay', 'schoolReg', 'schoolProv', 'schoolCity', 'strand', 'currentRoute', 'applicantId'));
+    }
+
+    public function ConfirmInformation($currentRoute, $applicantId, Request $request)
+    {
+        $validated = $request->validate([
+            'lastName' => 'required',
+            'firstName' => 'required',
+            'middleName' => 'nullable',
+            'suffix' => 'nullable',
+            'gender' => 'required',
+            'maidenName' => 'nullable',
+            'birthDate' => 'required',
+            'birthPlace' => 'required',
+            'address' => 'required',
+            'region' => 'required',
+            'province' => 'required',
+            'city' => 'required',
+            'barangay' => 'required',
+            'fatherLast' => 'required',
+            'fatherFirst' => 'required',
+            'fatherMiddle' => 'required',
+            'fatherSuffix' => 'nullable',
+            'fatherAddress' => 'required',
+            'fatherJob' => 'required',
+            'fatherContact' => 'required',
+            'fatherIncome' => 'required',
+            'motherLast' => 'required',
+            'motherFirst' => 'required',
+            'motherMiddle' => 'required',
+            'motherSuffix' => 'nullable',
+            'motherAddress' => 'required',
+            'motherJob' => 'required',
+            'motherContact' => 'required',
+            'motherIncome' => 'required',
+            'guardianLast' => 'nullable',
+            'guardianFirst' => 'nullable',
+            'guardianMiddle' => 'nullable',
+            'guardianSuffix' => 'nullable',
+            'guardianAddress' => 'nullable',
+            'guardianJob' => 'nullable',
+            'guardianContact' => 'nullable',
+            'guardianIncome' => 'nullable',
+            'lrn' => 'required',
+            'school' => 'required',
+            'schoolEmail' => 'required',
+            'schoolType' => 'required',
+            'schoolAdd' => 'required',
+            'schoolReg' => 'required',
+            'schoolProv' => 'required',
+            'schoolMun' => 'required',
+            'strand' => 'required',
+            'gwa' => 'required',
+        ]);
+
+        $personal = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+        $other = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+        $father = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $mother = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $guardian = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        $school = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+
+        if($validated['gender'] == "Male"){
+            $gender = "male";
+        } else if($validated['gender'] == "Female"){
+            $gender = "female";
+        }
+
+        $personalInfo = [
+            'lastName' => $validated['lastName'],
+            'firstName' => $validated['firstName'],
+            'middleName' => $validated['middleName'],
+            'suffix' => $validated['suffix'],
+            'gender' => $gender
+        ];
+
+        $region = Regions::where('region_name', $validated['region'])->first()->region_code;
+        $province = Provinces::where('province_name', $validated['province'])->first()->province_code;
+        $city = Cities::where('city_name', $validated['city'])->first()->city_code;
+        $barangay = Barangays::where('brgy_name', $validated['barangay'])->first()->brgy_code;
+
+        $otherInfo = [
+            'maidenName' => $validated['maidenName'],
+            'birthDate' => $validated['birthDate'],
+            'birthPlace' => $validated['birthPlace'],
+            'address' => $validated['address'],
+            'region' => $region,
+            'province' => $province,
+            'city' => $city,
+            'barangay' => $barangay
+        ];
+
+        $fatherInfo = [
+            'fatherLast' => $validated['fatherLast'],
+            'fatherFirst' => $validated['fatherFirst'],
+            'fatherMiddle' => $validated['fatherMiddle'],
+            'fatherSuffix' => $validated['fatherSuffix'],
+            'fatherAddress' => $validated['fatherAddress'],
+            'fatherJob' => $validated['fatherJob'],
+            'fatherContact' => $validated['fatherContact'],
+            'fatherIncome' => $validated['fatherIncome']
+        ];
+
+        $motherInfo = [
+            'motherLast' => $validated['motherLast'],
+            'motherFirst' => $validated['motherFirst'],
+            'motherMiddle' => $validated['motherMiddle'],
+            'motherSuffix' => $validated['motherSuffix'],
+            'motherAddress' => $validated['motherAddress'],
+            'motherJob' => $validated['motherJob'],
+            'motherContact' => $validated['motherContact'],
+            'motherIncome' => $validated['motherIncome']
+        ];
+
+        if($validated['guardianLast'] != null) {
+            $guardianInfo = [
+                'guardianLast' => $validated['guardianLast'],
+                'guardianFirst' => $validated['guardianFirst'],
+                'guardianMiddle' => $validated['guardianMiddle'],
+                'guardianSuffix' => $validated['guardianSuffix'],
+                'guardianAddress' => $validated['guardianAddress'],
+                'guardianJob' => $validated['guardianJob'],
+                'guardianContact' => $validated['guardianContact'],
+                'guardianIncome' => $validated['guardianIncome']
+            ];
+        } 
+
+        $schoolReg = Regions::where('region_name', $validated['schoolReg'])->first()->region_code;
+        $schoolProv = Provinces::where('province_name', $validated['schoolProv'])->first()->province_code;
+        $schoolCity = Cities::where('city_name', $validated['schoolMun'])->first()->city_code;
+
+        if ($validated['schoolType'] == "Public") {
+            $schoolType = "public";
+        } else if ($validated['schoolType'] == "Private") {
+            $schoolType = "private";
+        }
+
+        if ($validated['strand'] == "Accountancy, Business, and Management") {
+            $strand = "ABM";
+        } else if ($validated['strand'] == "Humanities and Social Sciences") {
+            $strand = "HUMSS";
+        } else if ($validated['strand'] == "Science, Technology, Engineering, and Mathematics") {
+            $strand = "STEM";
+        } else if ($validated['strand'] == "General Academic Strand") {
+            $strand = "GAS";
+        } else if ($validated['strand'] == "Technical-Vocational-Livelihood") {
+            $strand = "TVL";
+        } else if ($validated['strand'] == "Sports Track") {
+            $strand = "SPORTS";
+        } else if ($validated['strand'] == "Arts and Design Track") {
+            $strand = "ADT";
+        } else if ($validated['strand'] == "Personal Development Track") {
+            $strand = "PBM";
+        }
+
+
+        $schoolInfo = [
+            'lrn' => $validated['lrn'],
+            'school' => $validated['school'],
+            'schoolEmail' => $validated['schoolEmail'],
+            'schoolType' => $schoolType,
+            'schoolAddress' => $validated['schoolAdd'],
+            'schoolRegion' => $schoolReg,
+            'schoolProvince' => $schoolProv,
+            'schoolCity' => $schoolCity,
+            'strand' => $strand,
+            'gwa' => $validated['gwa']
+        ];
+
+        $personal->update($personalInfo);
+        $other->update($otherInfo);
+        $father->update($fatherInfo);
+        $mother->update($motherInfo);
+
+        if ($guardian != null) {
+            if($validated['guardianLast'] != null) {
+                $guardian->update($guardianInfo);
+            }
+        } else {
+            if($validated['guardianLast'] != null) {
+                $guardianInfo['applicant_id'] = $applicantId;
+                ApplicantGuardianInformation::create($guardianInfo);
+            }
+        }
+
+        $school->update($schoolInfo);
+
+        return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);
     }
 }
