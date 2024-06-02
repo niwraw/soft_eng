@@ -13,6 +13,14 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            @media print {
+                .no-print {
+                    display: none;
+                }
+            }
+        </style>
     </head>
     <body class="bg-white">
         <div class="grid px-1 mb-2 h-fit" style="grid-template-columns: 1fr 2fr 1fr;">
@@ -246,6 +254,14 @@
                     <div class="font-bold border-b border-black w-44"></div>
                     <div class="text-xs text-center">Date</div>
                 </div>
+            </div>
+        </div>
+
+        <div class="no-print">
+            <div class="flex justify-center mt-4">
+                <button onclick="window.print()" class="px-5 py-2 text-sm font-medium text-white transition-colors duration-200 bg-green-600">
+                    Print Application Form
+                </button>
             </div>
         </div>
     </body>
