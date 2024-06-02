@@ -124,7 +124,7 @@
                                     </td>
 
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        <a href="{{ route('admin.verify.application_form', ['currentRoute' => 'applicants', 'applicantId' => $applicant->applicant_id, 'applicationType' => $applicant->applicationType]) }}" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full">
+                                        <a href="{{ route('admin.verify.application_form', ['currentRoute' => $currentRoute, 'applicantId' => $applicant->applicant_id, 'applicationType' => $applicant->applicationType]) }}" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full">
                                             <div class="inline px-3 py-1 text-sm font-normal text-gray-700 rounded-full gap-x-2 bg-gray-200/60">
                                                 View
                                             </div>

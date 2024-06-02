@@ -460,7 +460,7 @@ class AdmissionPageController extends Controller
         ]);
         
 
-        return redirect()->route('admin.page', ['currentRoute' => $currentRoute]);
+        return redirect()->route('admin.page', ['currentRoute' => 'application-form']);
         // return dd($validated, $currentRoute, $applicationType , $applicantId);
     }
 
