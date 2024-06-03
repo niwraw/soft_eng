@@ -170,7 +170,7 @@
 
             <span class="pl-2 text-xs border-b border-r border-black">{{ $father->fatherIncome }}</span>
 
-            <span class="pl-2 text-xs border-b border-r border-black">{{ $mother->fatherIncome }}</span>
+            <span class="pl-2 text-xs border-b border-r border-black">{{ $mother->motherIncome }}</span>
         </div>
 
         <div class="mb-2">
