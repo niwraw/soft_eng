@@ -612,7 +612,7 @@
                                 <input id="terms-and-privacy" name="terms-and-privacy" type="checkbox" class="" x-model="agreed" />
                                 <label for="terms-and-privacy" class="block ml-2 text-sm text-gray-900">
                                     I agree to the
-                                    <button type="button" id="showFormButton1" class="text-indigo-600 hover:text-indigo-500">Data Privary Consent Form</a>
+                                    <button type="button" id="showFormButton1" class="text-indigo-600 hover:text-indigo-500">Data Privacy Consent Form</a>
                                 </label>
                             </div>
 
