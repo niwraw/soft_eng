@@ -11,25 +11,30 @@ use Carbon\Carbon;
 
 class WelcomePageController extends Controller
 {
-    public function index($currentRoute)
+    public function index($currentRoute, Request $request)
     {
-        $answers = Answers::join('queries', 'queries.id', '=', 'response.query_id')
+        if($currentRoute != 'verify'){
+            $answers = Answers::join('queries', 'queries.id', '=', 'response.query_id')
             ->select('response.*', 'queries.question')
             ->paginate(6);
 
-        $announcements = Announcement::all();
-        
-        $announcements->each(function ($annoucement) {
-            $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');
-        });
+            $announcements = Announcement::all();
+            
+            $announcements->each(function ($annoucement) {
+                $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');
+            });
 
-        $start = StartEnd::where('status', 'start')->orderBy('id', 'asc')->first();
-        $end = StartEnd::where('status', 'end')->orderBy('id', 'asc')->first();
+            $start = StartEnd::where('status', 'start')->orderBy('id', 'asc')->first();
+            $end = StartEnd::where('status', 'end')->orderBy('id', 'asc')->first();
 
-        $start->date = Carbon::parse($start->date)->format('F j, Y');
+            $start->date = Carbon::parse($start->date)->format('F j, Y');
 
-        $end->date = Carbon::parse($end->date)->format('F j, Y');
+            $end->date = Carbon::parse($end->date)->format('F j, Y');
 
-        return view('welcome', compact('currentRoute', 'answers', 'announcements', 'start', 'end'));
+            return view('welcome', compact('currentRoute', 'answers', 'announcements', 'start', 'end'));
+        }
+        else {
+            return redirect()->intended('/admin/dashboard');
+        }
     }
 }

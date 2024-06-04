@@ -160,7 +160,7 @@ class ApplicantController extends Controller
                     $uploadedFile = "Birth Certificate";
 
                     $folder = base_path('public/' . $upload_dir . 'test/');
-                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    Ghostscript::setGsPath(env('GS_PATH'));
                     $pdf = new Pdf($value);
 
                     $file_path = $folder . $student_id . '-test' . '.png';
@@ -265,7 +265,7 @@ class ApplicantController extends Controller
                     }
 
                     $folder = base_path('public/' . $upload_dir . 'test/');
-                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    Ghostscript::setGsPath(env('GS_PATH'));
                     $pdf = new Pdf($value);
 
                     $file_path = $folder . $student_id . 'test' . '.png';
@@ -428,7 +428,7 @@ class ApplicantController extends Controller
                     $uploadedFile = "High School Card";
 
                     $folder = base_path('public/' . $upload_dir . 'test/');
-                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    Ghostscript::setGsPath(env('GS_PATH'));
                     $pdf = new Pdf($value);
 
                     $file_path = $folder . $student_id . '-test' . '.png';
@@ -523,7 +523,7 @@ class ApplicantController extends Controller
                     $uploadedFile = "Application Form";
 
                     $folder = base_path('public/' . $upload_dir . 'test/');
-                    Ghostscript::setGsPath('C:\Program Files\gs\gs10.02.1\bin\gswin64c.exe');
+                    Ghostscript::setGsPath(env('GS_PATH'));
                     $pdf = new Pdf($value);
 
                     $file_path = $folder . $student_id . 'test' . '.png';
