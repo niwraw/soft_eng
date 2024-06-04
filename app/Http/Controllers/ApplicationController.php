@@ -642,13 +642,13 @@ class ApplicationController extends Controller
             $extension = $file->getClientOriginalExtension();
 
             $certificate = $student_id . '_ALS_Cert.' . $extension;
-            $pathCert = 'uploads/ALS_Cert/';
+            $pathForm = 'uploads/ALS_Cert/';
             $file->move($pathCert, $certificate);
 
             $documents = [
                 'applicant_id' => $student_id,
                 'birthCert' => $pathCert . $birth,
-                'others' => $pathCert . $certificate
+                'others' => $pathForm . $certificate
             ];
 
             DocumentALS::create($documents);

@@ -221,19 +221,54 @@ class ApplicantController extends Controller
 
         if ($personalInfo->applicationType == "SHS")
         {
-            $document = DocumentSHS::where('applicant_id', $applicantId)->first()->update([
+            DocumentSHS::where('applicant_id', $applicantId)->first()->update([
                 'birthCert' => $pathCert . $birth,
                 'birthCertStatus' => 'pending',
                 'birthCertComment' => 'Waiting for approval'
             ]);
+
+            $document = DocumentSHS::where('applicant_id', $applicantId)->first();
+        } else if ($personalInfo->applicationType == "ALS")
+        {
+            DocumentALS::where('applicant_id', $applicantId)->first()->update([
+                'birthCert' => $pathCert . $birth,
+                'birthCertStatus' => 'pending',
+                'birthCertComment' => 'Waiting for approval'
+            ]);
+
+            $document = DocumentALS::where('applicant_id', $applicantId)->first();
+        } else if ($personalInfo->applicationType == "TRANSFER")
+        {
+            DocumentTRANSFER::where('applicant_id', $applicantId)->first()->update([
+                'birthCert' => $pathCert . $birth,
+                'birthCertStatus' => 'pending',
+                'birthCertComment' => 'Waiting for approval'
+            ]);
+
+            $document = DocumentTRANSFER::where('applicant_id', $applicantId)->first();
+        } else if ($personalInfo->applicationType == "OLD")
+        {
+            DocumentOLD::where('applicant_id', $applicantId)->first()->update([
+                'birthCert' => $pathCert . $birth,
+                'birthCertStatus' => 'pending',
+                'birthCertComment' => 'Waiting for approval'
+            ]);
+
+            $document = DocumentOLD::where('applicant_id', $applicantId)->first();
         }
 
-        $document = DocumentSHS::where('applicant_id', $applicantId)->first();
-
-        if ($document->othersStatus == 'pending' || $document->birthCertStatus == 'pending') {
-            $personalInfo->update([
-                'status' => 'pending'
-            ]);
+        if ($personalInfo->applicationType != "OLD"){
+            if ($document->othersStatus == 'pending' || $document->birthCertStatus == 'pending') {
+                $personalInfo->update([
+                    'status' => 'pending'
+                ]);
+            }
+        } else {
+            if ($document->approvalLetterStatus == 'pending' || $document->birthCertStatus == 'pending' || $document->highSchoolCardStatus == 'pending') {
+                $personalInfo->update([
+                    'status' => 'pending'
+                ]);
+            }
         }
 
         // return dd($currentRoute, $applicantId);

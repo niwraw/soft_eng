@@ -37,12 +37,12 @@
         <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0">
             <div class="w-11/12 px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg">
                 <div>
-                    <a href="" class="flex items-center gap-4 mb-6">
+                    <button type="button" onclick="history.back()" class="flex items-center gap-4 mb-6">
                         <span class="material-symbols-sharp">
                             arrow_back
                         </span>
                         <h2>Back</h2>
-                    </a>
+                    </button>
                     <form action="{{ route('applicant.update.information', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]) }}" method="POST" class="flex flex-col gap-7" enctype="multipart/form-data">
                         <!-- Name -->
                         @csrf
