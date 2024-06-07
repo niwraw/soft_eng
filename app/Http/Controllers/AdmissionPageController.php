@@ -24,6 +24,7 @@ use App\Models\Cities;
 use App\Models\Barangays;
 use App\Models\StartEnd;
 use App\Models\Announcement;
+use App\Models\ExamSchedule;
 use Carbon\Carbon;
 
 class AdmissionPageController extends Controller
@@ -194,10 +195,11 @@ class AdmissionPageController extends Controller
             $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');
         });
 
-        
+        $withExam = ApplicationForm::where('exam', 'with')->where('applicationFormStatus', 'approved')->count();
+        $withoutExam = ApplicationForm::where('exam', 'without')->where('applicationFormStatus', 'approved')->count();
 
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList', 'withExam', 'withoutExam'));
     }
 
     public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
@@ -537,5 +539,34 @@ class AdmissionPageController extends Controller
         ]);
 
         return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('add', 'Advisory has been changed successfully.');
+    }
+
+    public function AllocateApplicantExamSchedule(Request $request)
+    {
+        $validated = $request->validate([
+            'buildingExam' => 'required',
+            'roomExam' => 'required',
+            'dateExam' => 'required',
+            'timeExam' => 'required',
+            'capacity' => 'required',
+        ]);
+
+        $applicants = ApplicationForm::where('exam', 'without')->where('applicationFormStatus', 'approved')->limit($validated['capacity'])->get();
+
+        foreach($applicants as $applicant) {
+            ExamSchedule::create([
+                'applicant_id' => $applicant->applicant_id,
+                'building' => $validated['buildingExam'],
+                'room' => $validated['roomExam'],
+                'date' => $validated['dateExam'],
+                'time' => $validated['timeExam'],
+            ]);
+
+            ApplicationForm::where('applicant_id', $applicant->applicant_id)->first()->update([
+                'exam' => 'with',
+            ]);
+        }
+
+        return redirect()->route('admin.page', ['currentRoute' => 'exam'])->with('addExam', 'Applicant exam schedule has been added successfully.');
     }
 }

@@ -251,10 +251,38 @@
                 </div>
             </div>
 
-            @if($form != null && $form->applicationFormStatus == 'approved')
+            @if($form != null && $form->exam == 'without')
             <div class="w-11/12 p-4 bg-gray-100 border-2 border-gray-700 h-fit rounded-2xl">
                 <h1 class="mb-4 text-xl font-semibold text-yellow-500">Exam Details Will Be Provided Soon!</h1>
             </div>
+            @else
+                <div class="w-11/12 p-4 bg-gray-100 border-2 border-gray-700 h-fit rounded-2xl">
+                    <h1 class="mb-4 text-xl font-semibold text-yellow-500">Exam Details</h1>
+
+                    <div class="flex items-center justify-between p-2">
+                        <h3 class="font-semibold">Exam Date</h3>
+                        <p>{{ $examDetails->date }}</p>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2">
+                        <h3 class="font-semibold">Exam Time</h3>
+                        <p>{{ $examDetails->time }}</p>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2">
+                        <h3 class="font-semibold">Assigned Building</h3>
+                        <p>{{ $examDetails->building }}</p>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2">
+                        <h3 class="font-semibold">Assigned Room</h3>
+                        <p>{{ $examDetails->room }}</p>
+                    </div>
+
+                    {{-- <div class="flex items-center justify-center w-full mt-4">
+                        <button id="download" class="w-10/12 bg-yellow-500 h-fit rounded-2xl">Download Exam Slip</button>
+                    </div> --}}
+                </div>
             @endif
         </div>
     </div>

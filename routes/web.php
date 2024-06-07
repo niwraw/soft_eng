@@ -57,3 +57,5 @@ Route::post('/applicant/{currentRoute}/{applicantId}/update-information',[Applic
 Route::get('/admin/{currentRoute}/restore/all/status', [ActionController::class, 'restore'])->name('admin.restore');
 Route::get('/admin/{currentRoute}/archive/all/status', [ActionController::class, 'archive'])->name('admin.archive');
 Route::get('/admin/{currentRoute}/delete/all/status', [ActionController::class, 'delete'])->name('admin.delete');
+
+Route::post('/admin/{currentRoute}/setExam', [AdmissionPageController::class, 'AllocateApplicantExamSchedule'])->name('admin.set.exam');

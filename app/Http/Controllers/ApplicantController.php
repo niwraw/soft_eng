@@ -23,6 +23,7 @@ use App\Models\Regions;
 use App\Models\Provinces;
 use App\Models\Cities;
 use App\Models\Barangays;
+use App\Models\ExamSchedule;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use Spatie\Browsershot\Browsershot;
@@ -141,7 +142,21 @@ class ApplicantController extends Controller
         }
 
         $routeSegment = request()->segment(1);
-        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId', 'applicationForm', 'appStatus', 'form'));
+
+        $examDetails = ExamSchedule::where('applicant_id', $applicantId)->first();
+        $examDetails->date = Carbon::parse($examDetails->date)->format('F j, Y');
+
+        if($examDetails->building == "GL"){
+            $examDetails->building = "Gusaling Lacson";
+        } else if ($examDetails->building == "GV"){
+            $examDetails->building = "Gusaling Villegas";
+        } else if ($examDetails->building == "GA"){
+            $examDetails->building = "Gusaling Atienza";
+        } else if ($examDetails->building == "GC"){
+            $examDetails->building = "Gusaling Corazon";
+        }
+
+        return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId', 'applicationForm', 'appStatus', 'form', 'examDetails'));
     }
 
     public function ResubmitBirthCert($currentRoute, $applicantId, Request $request)
