@@ -77,6 +77,12 @@ class AdmissionPageController extends Controller
 
         $appFormList = $appFormQuery->paginate(8);
 
+        $resultType = $request->query('type', 'no');
+        $searchResultApplicant = $request->query('searchResultApplicant', '');
+        $resultApplicantQuery = ApplicantList::join('exam_schedules', 'exam_schedules.applicant_id', '=', 'applicant_personal_information.applicant_id')->where('hasResult', $resultType);
+
+        $resultList = $resultApplicantQuery->paginate(8);
+
         $totalApplicants = $shsApplicants->count() + $alsApplicants->count() + $oldApplicants->count() + $transferApplicants->count();
 
         $maleApplicants = ApplicantList::where('gender', 'male')->where('activity', 'active')->count();
@@ -167,19 +173,6 @@ class AdmissionPageController extends Controller
             'PBM' => $pbm,
         ];
 
-        // $manilaPublic = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', 'Ncr, City of Manila, First District')->where('schoolType', 'public')->where('activity', 'active')->count();
-
-        // $manilaPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
-
-        // $manilaSchoolType = [
-        //     'public' => $manilaPublic,
-        //     'private' => $manilaPrivate,
-        // ];
-
-        // $otherPublic = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'public')->where('activity', 'active')->count();
-
-        // $otherPrivate = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->join('applicant_other_information', 'applicant_other_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('province', '!=', 'Ncr, City of Manila, First District')->where('schoolType', 'private')->where('activity', 'active')->count();
-
         $startDate = StartEnd::where('status', 'start')->first();
         $endDate = StartEnd::where('status', 'end')->first();
 
@@ -199,7 +192,7 @@ class AdmissionPageController extends Controller
         $withoutExam = ApplicationForm::where('exam', 'without')->where('applicationFormStatus', 'approved')->count();
 
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList', 'withExam', 'withoutExam'));
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList', 'withExam', 'withoutExam', 'resultType', 'searchResultApplicant', 'resultList'));
     }
 
     public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
