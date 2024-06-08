@@ -24,6 +24,7 @@ use App\Models\Cities;
 use App\Models\Barangays;
 use App\Models\StartEnd;
 use App\Models\Announcement;
+use App\Models\ApplicantSelectionInformation;
 use App\Models\ExamSchedule;
 use Carbon\Carbon;
 
@@ -82,6 +83,20 @@ class AdmissionPageController extends Controller
         $resultApplicantQuery = ApplicantList::join('exam_schedules', 'exam_schedules.applicant_id', '=', 'applicant_personal_information.applicant_id')->where('hasResult', $resultType);
 
         $resultList = $resultApplicantQuery->paginate(8);
+
+        foreach($resultList as $result){
+            if ($result->courseOffer != null){
+                if($result->courseOffer == 'first'){
+                    $result->courseOffer = ApplicantSelectionInformation::where('applicant_id', $result->applicant_id)->first()->choice1;
+                } else if ($result->courseOffer == 'second'){
+                    $result->courseOffer = ApplicantSelectionInformation::where('applicant_id', $result->applicant_id)->first()->choice2;
+                } else if ($result->courseOffer == 'third'){
+                    $result->courseOffer = ApplicantSelectionInformation::where('applicant_id', $result->applicant_id)->first()->choice3;
+                }
+        
+                $result->courseOffer = CourseModel::where('course_code', $result->courseOffer)->first()->course;
+            }
+        }
 
         $totalApplicants = $shsApplicants->count() + $alsApplicants->count() + $oldApplicants->count() + $transferApplicants->count();
 
@@ -561,5 +576,104 @@ class AdmissionPageController extends Controller
         }
 
         return redirect()->route('admin.page', ['currentRoute' => 'exam'])->with('addExam', 'Applicant exam schedule has been added successfully.');
+    }
+
+    public function GetViewResult($currentRoute, $applicationType, $applicantId, Request $request) 
+    {
+        $personalInformation = ApplicantList::where('applicant_id', $applicantId)->first();
+        $fatherInformation = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $motherInformation = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $schoolInformation = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+        $programInformation = ApplicantProgramInformation::where('applicant_id', $applicantId)->first();
+        $exist = ApplicantGuardianInformation::find($applicantId);
+
+        if($exist) {
+            $guardianInformation = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        } else {
+            $guardianInformation = null;
+        }
+
+        $selectionInfo = ApplicantProgramInformation::where('applicant_id', $applicantId)->first();
+
+        $course1 = CourseModel::where('course_code', $selectionInfo->choice1)->first();
+        $course2 = CourseModel::where('course_code', $selectionInfo->choice2)->first();
+        $course3 = CourseModel::where('course_code', $selectionInfo->choice3)->first();
+
+        $selectionInfo->choice1 = $course1->course;
+        $selectionInfo->choice2 = $course2->course;
+        $selectionInfo->choice3 = $course3->course;
+
+        $otherInformation = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+
+        $otherInformation->birthDate = Carbon::parse($otherInformation->birthDate)->format('F j, Y');
+
+        $region = Regions::where('region_code', $otherInformation->region)->first();
+        $province = Provinces::where('province_code', $otherInformation->province)->first();
+        $city = Cities::where('city_code', $otherInformation->city)->first();
+        $barangay = Barangays::where('brgy_code', $otherInformation->barangay)->first();
+
+        $otherInformation->region = $region->region_name;
+        $otherInformation->province = $province->province_name;
+        $otherInformation->city = $city->city_name;
+        $otherInformation->barangay = $barangay->brgy_name;
+
+        if($applicationType == "SHS"){
+            $applicationType = "Senior High School";
+        } else if($applicationType == "ALS"){
+            $applicationType = "Alternative Learning System";
+        } else if($applicationType == "OLD"){
+            $applicationType = "Old Curriculum";
+        } else if($applicationType == "TRANSFER"){
+            $applicationType = "Transfer Student";
+        }
+
+        $schoolInformation->schoolRegion = Regions::where('region_code', $schoolInformation->schoolRegion)->first()->region_name;
+        $schoolInformation->schoolProvince = Provinces::where('province_code', $schoolInformation->schoolProvince)->first()->province_name;
+        $schoolInformation->schoolCity = Cities::where('city_code', $schoolInformation->schoolCity)->first()->city_name;
+        
+        if($schoolInformation->strand == "ABM"){
+            $schoolInformation->strand = "Accountancy, Business, and Management";
+        } else if($schoolInformation->strand == "HUMSS"){
+            $schoolInformation->strand = "Humanities and Social Sciences";
+        } else if($schoolInformation->strand == "STEM"){
+            $schoolInformation->strand = "Science, Technology, Engineering, and Mathematics";
+        } else if($schoolInformation->strand == "GAS"){
+            $schoolInformation->strand = "General Academic Strand";
+        } else if($schoolInformation->strand == "TVL"){
+            $schoolInformation->strand = "Technical-Vocational-Livelihood";
+        } else if($schoolInformation->strand == "SPORTS"){
+            $schoolInformation->strand = "Sports Track";
+        } else if($schoolInformation->strand == "ADT"){
+            $schoolInformation->strand = "Arts and Design Track";
+        } else if($schoolInformation->strand == "PBM"){
+            $schoolInformation->strand = "Personal Development Track";
+        }
+
+        return view('pages.admin.sections.set_results', compact('currentRoute', 'personalInformation', 'otherInformation', 'fatherInformation', 'motherInformation', 'schoolInformation', 'selectionInfo', 'guardianInformation', 'applicationType', 'applicantId'));
+    }
+
+    public function SetResult($currentRoute, $applicationType, $applicantId, Request $request) 
+    {
+        $validated = $request->validate([
+            'remarks' => 'required',
+            'rank' => 'required',
+            'score' => 'required',
+            'course' => 'nullable',
+        ]);
+
+        ExamSchedule::where('applicant_id', $applicantId)->first()->update([
+            'hasResult' => 'yes',
+            'remark' => $validated['remarks'],
+            'rank' => $validated['rank'],
+            'score' => $validated['score'],
+        ]);
+
+        if($validated['course'] != null) {
+            ExamSchedule::where('applicant_id', $applicantId)->first()->update([
+                'courseOffer' => $validated['course'],
+            ]);
+        }
+
+        return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('setResult', 'Applicant result has been set successfully.');
     }
 }

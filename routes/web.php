@@ -59,3 +59,5 @@ Route::get('/admin/{currentRoute}/archive/all/status', [ActionController::class,
 Route::get('/admin/{currentRoute}/delete/all/status', [ActionController::class, 'delete'])->name('admin.delete');
 
 Route::post('/admin/{currentRoute}/setExam', [AdmissionPageController::class, 'AllocateApplicantExamSchedule'])->name('admin.set.exam');
+Route::get('/admin/{currentRoute}/{applicationType}/{applicantId}/SetResult', [AdmissionPageController::class, 'GetViewResult'])->name('admin.set.result');
+Route::post('/admin/{currentRoute}/{applicationType}/{applicantId}/SetResult', [AdmissionPageController::class, 'SetResult'])->name('admin.set.result.submit');

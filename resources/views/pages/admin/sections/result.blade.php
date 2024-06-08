@@ -91,12 +91,26 @@
 
                                     @if($resultType != 'yes')
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        <a href="" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full">
+                                        <a href="{{ route('admin.set.result', ['currentRoute' => $currentRoute, 'applicationType' => $applicant->applicationType, 'applicantId' => $applicant->applicant_id]) }}" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full">
                                             <div class="inline px-3 py-1 text-sm font-normal text-gray-700 rounded-full gap-x-2 bg-gray-200/60">
                                                 Add Result
                                             </div>
                                         </a>
                                     </td>
+                                    @endif
+
+                                    @if($resultType == 'yes')
+                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                            {{ $applicant->rank }}
+                                        </td>
+
+                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                            {{ $applicant->score }}
+                                        </td>
+
+                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                            {{ $applicant->courseOffer }}
+                                        </td>
                                     @endif
                                 </tr>
                                 @endforeach
@@ -108,7 +122,13 @@
         </div>
 
         <div class="mt-6">
-            {{ $applicants->appends(['resultType' => $resultType, 'searchResultApplicant' => $searchResultApplicant])->links() }}
+            {{ $resultList->appends(['resultType' => $resultType, 'searchResultApplicant' => $searchResultApplicant])->links() }}
         </div>
     </section>
 </div>
+
+@if(session('setResult'))
+    <script>
+        alert('{{ session('setResult') }}');
+    </script>
+@endif
