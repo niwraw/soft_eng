@@ -11,3 +11,10 @@
     <span class="material-symbols-sharp">manage_accounts</span>
     <h3>Change Password</h3>
 </a>
+
+@if($examDetails->hasResult == "yes")
+<a href="{{ route('applicant.page', ['currentRoute' => 'result', 'applicantId'=> $applicantId]) }}" class="flex items-center gap-5 transition-all duration-300 ease-in h-14 w-11/12 pl-5 {{$currentRoute == 'result' ? 'bg-white text-black' : 'text-white'}}">
+    <span class="material-symbols-sharp">group_add</span>
+    <h3>Result</h3>
+</a>
+@endif

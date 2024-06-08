@@ -23,6 +23,8 @@
                 @include('pages.applicant.sections.dashboard')
             @elseif ($currentRoute === 'change')
                 @include('pages.applicant.sections.change-password')
+            @elseif ($currentRoute === 'result')
+                @include('pages.applicant.sections.result')
             @endif
         </div>
     </body>

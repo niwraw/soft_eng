@@ -24,6 +24,7 @@ use App\Models\Provinces;
 use App\Models\Cities;
 use App\Models\Barangays;
 use App\Models\ExamSchedule;
+use App\Models\ConfirmedApplicants;
 use Org_Heigl\Ghostscript\Ghostscript;
 use Spatie\PdfToImage\Pdf;
 use Spatie\Browsershot\Browsershot;
@@ -154,6 +155,14 @@ class ApplicantController extends Controller
             $examDetails->building = "Gusaling Atienza";
         } else if ($examDetails->building == "GC"){
             $examDetails->building = "Gusaling Corazon";
+        }
+
+        if($examDetails->courseOffer == "first"){
+            $examDetails->courseOffer = $selectionInfo->choice1;
+        } else if ($examDetails->courseOffer == "second"){
+            $examDetails->courseOffer = $selectionInfo->choice2;
+        } else if ($examDetails->courseOffer == "third"){
+            $examDetails->courseOffer = $selectionInfo->choice3;
         }
 
         return view('pages.applicant.applicant', compact('currentRoute', 'routeSegment', 'personalInfo', 'selectionInfo', 'schoolInfo', 'document', 'applicantId', 'applicationForm', 'appStatus', 'form', 'examDetails'));
@@ -984,6 +993,67 @@ class ApplicantController extends Controller
         }
 
         $school->update($schoolInfo);
+
+        return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);
+    }
+
+    public function SlotConfirmation($currentRoute, $applicantId, Request $request)
+    {
+        $personal = ApplicantPersonalInformation::where('applicant_id', $applicantId)->first();
+        $other = ApplicantOtherInformation::where('applicant_id', $applicantId)->first();
+        $father = ApplicantFatherInformation::where('applicant_id', $applicantId)->first();
+        $mother = ApplicantMotherInformation::where('applicant_id', $applicantId)->first();
+        $guardian = ApplicantGuardianInformation::where('applicant_id', $applicantId)->first();
+        $school = ApplicantSchoolInformation::where('applicant_id', $applicantId)->first();
+
+        $other->barangay = Barangays::where('brgy_code', $other->barangay)->first()->brgy_name;
+        $other->city = Cities::where('city_code', $other->city)->first()->city_name;
+        $other->province = Provinces::where('province_code', $other->province)->first()->province_name;
+        $other->region = Regions::where('region_code', $other->region)->first()->region_name;
+
+        $address = $other->address . ', ' . $other->barangay . ', ' . $other->city . ', ' . $other->province . ', ' . $other->region;
+
+        ConfirmedApplicants::create([
+            'applicant_id' => $applicantId,
+            'last_name' => $personal->lastName,
+            'first_name' => $personal->firstName,
+            'middle_name' => $personal->middleName,
+            'suffix' => $personal->suffix,
+            'maiden_name' => $other->maidenName,
+            'birth_date' => $other->birthDate,
+            'permanent_address' => $address,
+            'personal_email' => $personal->email,
+            'contact_num' => $personal->contactNum,
+            'lrn' => $school->lrn,
+            'school_name' => $school->school,
+            'school_address' => $school->schoolAddress,
+            'school_type' => $school->schoolType,
+            'strand' => $school->strand,
+            'father_last_name' => $father->fatherLast,
+            'father_first_name' => $father->fatherFirst,
+            'father_middle_name' => $father->fatherMiddle,
+            'father_address' => $father->fatherAddress,
+            'father_contact_no' => $father->fatherContact,
+            'mother_lastname' => $mother->motherLast,
+            'mother_first_name' => $mother->motherFirst,
+            'mother_middle_name' => $mother->motherMiddle,
+            'mother_address' => $mother->motherAddress,
+            'mother_contact_no' => $mother->motherContact,
+        ]);
+
+        if($guardian != null) {
+            ConfirmedApplicants::where('applicant_id', $applicantId)->first()->update([
+                'guardian_last_name' => $guardian->guardianLast,
+                'guardian_first_name' => $guardian->guardianFirst,
+                'guardian_middle_name' => $guardian->guardianMiddle,
+                'guardian_address' => $guardian->guardianAddress,
+                'guardian_contact_no' => $guardian->guardianContact,
+            ]);
+        }
+
+        ExamSchedule::where('applicant_id', $applicantId)->first()->update([
+            'confirmed' => 'yes'
+        ]);
 
         return redirect()->route('applicant.page', ['currentRoute' => $currentRoute, 'applicantId' => $applicantId]);
     }
