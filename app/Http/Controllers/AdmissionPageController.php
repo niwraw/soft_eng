@@ -58,7 +58,7 @@ class AdmissionPageController extends Controller
             });
         }
 
-        $applicants = $query->paginate(8);
+        $applicants = $query->paginate(7);
 
         $statusAppForm = $request->query('statusType', 'all');
         $searchAppForm = $request->query('search', '');
@@ -76,13 +76,13 @@ class AdmissionPageController extends Controller
             });
         }
 
-        $appFormList = $appFormQuery->paginate(8);
+        $appFormList = $appFormQuery->paginate(7);
 
         $resultType = $request->query('type', 'no');
         $searchResultApplicant = $request->query('searchResultApplicant', '');
         $resultApplicantQuery = ApplicantList::join('exam_schedules', 'exam_schedules.applicant_id', '=', 'applicant_personal_information.applicant_id')->where('hasResult', $resultType);
 
-        $resultList = $resultApplicantQuery->paginate(8);
+        $resultList = $resultApplicantQuery->paginate(7);
 
         foreach($resultList as $result){
             if ($result->courseOffer != null){
@@ -668,7 +668,7 @@ class AdmissionPageController extends Controller
             'score' => $validated['score'],
         ]);
 
-        if($validated['course'] != null) {
+        if($validated['remarks'] == "with") {
             ExamSchedule::where('applicant_id', $applicantId)->first()->update([
                 'courseOffer' => $validated['course'],
             ]);

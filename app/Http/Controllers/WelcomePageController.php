@@ -18,7 +18,7 @@ class WelcomePageController extends Controller
             ->select('response.*', 'queries.question')
             ->paginate(6);
 
-            $announcements = Announcement::all();
+            $announcements = Announcement::all()->sortByDesc('date');
             
             $announcements->each(function ($annoucement) {
                 $annoucement->date = Carbon::parse($annoucement->date)->format('F j, Y');

@@ -3,7 +3,7 @@
         <div class="sm:flex sm:items-center sm:justify-between">
             <div>
                 <div class="flex items-center gap-x-3">
-                    <h2 class="text-lg font-medium text-gray-800">Generate Result</h2>
+                    <h2 class="text-lg font-medium text-gray-800">PLMAT Results</h2>
 
                     <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">Total Applicants with Exam: </span>
                 </div>
@@ -23,7 +23,7 @@
                 </button>
 
                 <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm {{$resultType == 'yes' ? 'bg-gray-100' : 'hover:bg-gray-100'}}" onclick="window.location.href='{{ url()->current() }}?type=yes'">
-                    With Reults
+                    With Results
                 </button>
             </div>
 
@@ -68,6 +68,14 @@
                                         <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
                                             Course
                                         </th>
+
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                            Remarks
+                                        </th>
+                                        
+                                        <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                            Confirmed Slot
+                                        </th>
                                     @endif
                                     
                                     @if($resultType != 'yes')
@@ -109,7 +117,31 @@
                                         </td>
 
                                         <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                                            {{ $applicant->courseOffer }}
+                                            @if($applicant->remark == 'with')
+                                                {{ $applicant->courseOffer }}
+                                            @endif
+                                        </td>
+
+                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                            @if($applicant->remark == 'with')
+                                                <span class="px-3 py-1 text-xs text-green-800 bg-green-100 rounded-full">
+                                                    Passed with Course
+                                                </span>
+                                            @elseif($applicant->remark == 'without')
+                                                <span class="px-3 py-1 text-xs text-yellow-800 bg-yellow-100 rounded-full">
+                                                    Waitlisted
+                                                </span>
+                                            @else
+                                                <span class="px-3 py-1 text-xs text-red-800 bg-red-100 rounded-full">
+                                                    Failed
+                                                </span>
+                                            @endif
+                                        </td>
+                                        
+                                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                                            @if($applicant->remark != 'failed')
+                                                {{ ucfirst($applicant->confirmed) }}
+                                            @endif
                                         </td>
                                     @endif
                                 </tr>
