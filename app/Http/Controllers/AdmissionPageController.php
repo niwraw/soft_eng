@@ -29,6 +29,7 @@ use App\Models\ExamSchedule;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ReportData;
+use App\Exports\ApplicantListReport;
 
 class AdmissionPageController extends Controller
 {
@@ -695,5 +696,10 @@ class AdmissionPageController extends Controller
         }   else if ($validate['select'] == 'third') {
             return Excel::download(new ReportData($validate['select']), 'third_report.xlsx');
         }
+    }
+
+    public function ExportApplicants()
+    {
+        return Excel::download(new ApplicantListReport, 'applicant-list.xlsx');
     }
 }
