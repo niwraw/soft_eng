@@ -16,30 +16,30 @@
         <script src="//unpkg.com/alpinejs" defer></script>
     </head>
     <body class="antialiased">
-        <header class="flex h-20 px-3 bg-gray-100 border-b-2 border-yellow-400 border-solid">
+        <header class="flex h-20 px-3 bg-white border-b-2 border-yellow-400 border-solid">
             <div class="flex w-1/2 h-full">
-                <img src="{{ asset('assets/image/school.png') }}" class="h-full">
-                <div class="flex flex-col justify-center mx-3">
-                    <span class="text-lg font-bold text-yellow-500">Pamantasan ng Lungsod ng Maynila</span>
-                    <span class="text-sm">University of the City of Manila</span>
-                </div>
+            <img src="{{ asset('assets/image/school.png') }}" class="h-full">
+            <div class="flex flex-col justify-center mx-3">
+                <span class="font-serif text-lg text-yellow-700">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
+                <span class="font-sans-serif text-gray-600">UNIVERSITY OF THE CITY OF MANILA</span>
+            </div>
             </div>
             <div class="flex items-center w-1/2 h-full justify-evenly">
-                <a href="{{ route('welcome.page', ['currentRoute' => 'home' ]) }}">
-                    <span>Home</span>
-                </a>
+            <a href="{{ route('welcome.page', ['currentRoute' => 'home' ]) }}">
+                <span class="hover:text-gray-600">Home</span>
+            </a>
 
-                <a href="{{ route('welcome.page', ['currentRoute' => 'colleges' ]) }}">
-                    <span>Colleges</span>
-                </a>
+            <a href="{{ route('welcome.page', ['currentRoute' => 'colleges' ]) }}">
+                <span class="text-bold hover:text-gray-600 ">Colleges</span>
+            </a>
 
-                <a href="{{ route('welcome.page', ['currentRoute' => 'inquiry' ]) }}">
-                    <span>Inquiry</span>
-                </a>
+            <a href="{{ route('welcome.page', ['currentRoute' => 'inquiry' ]) }}">
+                <span class="text-bold hover:text-gray-600">Inquiry</span>
+            </a>
 
-                <a href="{{ route('apply') }}">
-                    <span>Apply</span>
-                </a>
+            <a href="{{ route('apply') }}">
+                <span class="text-bold hover:text-gray-600 ">Apply</span>
+            </a>
             </div>
         </header>
 
@@ -53,13 +53,13 @@
             @endif
         </main>
         
-        <footer class="flex flex-row gap-3 px-5 py-3 border-t-2 border-yellow-400 h-96">
+        <footer class="flex flex-row gap-3 px-5 py-3 border-t-2 border-yellow-400 h-96 shadow-md">
             <div class="flex flex-col w-1/3 gap-5 h-96">
                 <div class="flex flex-row items-center h-1/3">
                     <img src="{{ asset('assets/image/school.png') }}" class="h-full">
                     <div class="flex flex-col justify-center mx-3">
-                        <span class="text-xl font-bold text-yellow-500">Pamantasan ng Lungsod ng Maynila</span>
-                        <span class="text-sm">University of the City of Manila</span>
+                    <span class="font-serif text-lg text-yellow-700">PAMANTASAN NG LUNGSOD NG MAYNILA</span>
+                    <span class="font-sans-serif text-gray-600">UNIVERSITY OF THE CITY OF MANILA</span>
                     </div>
                 </div>
 

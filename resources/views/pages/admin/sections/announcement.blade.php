@@ -85,13 +85,13 @@
 
                                         <td class="px-4 py-4 text-sm whitespace-nowrap">
                                             <a href="{{ route('admin.edit.announcement', ['currentRoute' => $currentRoute, 'announcementId' => $announcement->id]) }}" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full">
-                                                <div class="inline px-3 py-1 text-sm font-normal text-gray-700 rounded-full gap-x-2 bg-gray-200/60">
+                                                <div class="inline px-3 py-1 text-sm font-normal text-black rounded-md gap-x-2 bg-gray-300">
                                                     Edit
                                                 </div>
                                             </a>
 
                                             <a href="{{ route('admin.delete.announcement', ['currentRoute' => $currentRoute, 'announcementId' => $announcement->id]) }}" class="px-1 py-1 text-gray-500 transition-colors duration-200 rounded-lg hover:bg-gray-100 hover:rounded-full" onclick="return announceDelete()">
-                                                <div class="inline px-3 py-1 text-sm font-normal text-gray-700 bg-red-400 rounded-full gap-x-2">
+                                                <div class="inline px-3 py-1 text-sm font-normal text-black bg-red-400 rounded-md gap-x-2">
                                                     Delete
                                                 </div>
                                             </a>

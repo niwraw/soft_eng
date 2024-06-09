@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Admission Page</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -21,17 +21,17 @@
             @include('components.dashboard.sidebar')
 
             @if ($currentRoute === 'dashboard')
-                @include('pages.admin.sections.dashboard')
+            @include('pages.admin.sections.dashboard')
             @elseif ($currentRoute === 'applicants')
-                @include('pages.admin.sections.applicants')
+            @include('pages.admin.sections.applicants')
             @elseif ($currentRoute === 'announcements')
-                @include('pages.admin.sections.announcement')
+            @include('pages.admin.sections.announcement')
             @elseif ($currentRoute === 'application-form')
-                @include('pages.admin.sections.applicationForm')
+            @include('pages.admin.sections.applicationForm')
             @elseif ($currentRoute === 'exam')
-                @include('pages.admin.sections.exam')
+            @include('pages.admin.sections.exam')
             @elseif ($currentRoute === 'result')
-                @include('pages.admin.sections.result')
+            @include('pages.admin.sections.result')
             @endif
         </div>
     </body>
