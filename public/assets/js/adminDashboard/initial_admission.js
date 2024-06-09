@@ -203,7 +203,7 @@ const dataManilaSchool = {
     labels: ['Public', 'Private'],
     datasets: [{
         label: 'Public to Private Ratio',
-        data: [50, 23],
+        data: [public, private],
         borderWidth: 1
     }]
 }
@@ -236,46 +236,6 @@ const configManilaSchool = {
 const manilaSchoolChart = new Chart(
     document.getElementById('manilaSchoolChart'),
     configManilaSchool
-);
-
-// Other Public Private Ratio Chart
-const dataOtherSchool = {
-    labels: ['Public', 'Private'],
-    datasets: [{
-        label: 'Public to Private Ratio',
-        data: [50, 23],
-        borderWidth: 1
-    }]
-}
-
-const optionOtherSchool = {
-    plugins: {
-        datalabels: {
-            formatter: (value, ctx) => {
-                const dataset = ctx.chart.data.datasets[0];
-                const total = dataset.data.reduce((acc, data) => acc + data, 0);
-                const percentage = Math.round((value / total) * 100);
-                return percentage + '%';
-            },
-            font: {
-                size: 16,
-                weight: 'bold',
-            },
-            color: '#000000'
-        }
-    }
-}
-
-const configOtherSchool = {
-    type: 'pie',
-    data: dataOtherSchool,
-    options: optionOtherSchool,
-    plugins: [ChartDataLabels]
-}
-
-const otherSchoolChart = new Chart(
-    document.getElementById('otherSchoolChart'),
-    configOtherSchool
 );
 
 document.getElementById('chartSelector').addEventListener('change', function() {

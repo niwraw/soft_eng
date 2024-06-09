@@ -35,6 +35,7 @@ Route::post('/applicant/login', [LoginController::class, 'store'])->name('login.
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::get('/admin/{currentRoute}', [AdmissionPageController::class, 'AdmissionDashboard'])->name('admin.page');
+Route::post('/admin/{currentRoute}/generate-report', [AdmissionPageController::class, 'ExportReport'])->name('admin.generate.report');
 Route::post('/admin/{currentRoute}/ChangeDate', [AdmissionPageController::class, 'AdmissionChangeDate'])->name('admin.change');
 Route::post('/admin/{currentRoute}/{announcementId}/update', [AdmissionPageController::class, 'AdmissionUpdateAnnouncement'])->name('admin.update.announcement');
 Route::get('/admin/{currentRoute}/{announcementId}/delete', [AdmissionPageController::class, 'AdmissionDeleteAnnouncement'])->name('admin.delete.announcement');

@@ -27,6 +27,8 @@ use App\Models\Announcement;
 use App\Models\ApplicantSelectionInformation;
 use App\Models\ExamSchedule;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReportData;
 
 class AdmissionPageController extends Controller
 {
@@ -207,7 +209,11 @@ class AdmissionPageController extends Controller
         $withoutExam = ApplicationForm::where('exam', 'without')->where('applicationFormStatus', 'approved')->count();
 
         $routeSegment = request()->segment(1);
-        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList', 'withExam', 'withoutExam', 'resultType', 'searchResultApplicant', 'resultList'));
+
+        $publicCount = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('schoolType', 'public')->where('activity', 'active')->count();
+        $privateCount = ApplicantSchoolInformation::join('applicant_personal_information', 'applicant_personal_information.applicant_id', '=', 'applicant_school_information.applicant_id')->where('schoolType', 'private')->where('activity', 'active')->count();
+
+        return view('pages.admin.admission', compact('routeSegment', 'currentRoute', 'totalApplicants', 'maleApplicants', 'femaleApplicants', 'count', 'status', 'regions', 'manilaRatio', 'inactive', 'strands', 'applicants', 'type', 'statusType', 'searchApplicant', 'startDate', 'endDate', 'announcements', 'startDBDate', 'endDBDate', 'appFormList', 'withExam', 'withoutExam', 'resultType', 'searchResultApplicant', 'resultList', 'publicCount', 'privateCount'));
     }
 
     public function AdmissionApplicantVerify($currentRoute, $applicationType , $applicantId, Request $request)
@@ -474,7 +480,6 @@ class AdmissionPageController extends Controller
         // return dd($validated, $currentRoute, $applicationType , $applicantId);
     }
 
-
     public function AdmissionChangeDate($currentRoute, Request $request)
     {
         $validated = $request->validate([
@@ -675,5 +680,20 @@ class AdmissionPageController extends Controller
         }
 
         return redirect()->route('admin.page', ['currentRoute' => $currentRoute])->with('setResult', 'Applicant result has been set successfully.');
+    }
+
+    public function ExportReport(Request $request)
+    {
+        $validate = $request->validate([
+            'select' => 'required',
+        ]);
+
+        if($validate['select'] == 'first') {
+            return Excel::download(new ReportData($validate['select']), 'first_report.xlsx');
+        } else if ($validate['select'] == 'second') {
+            return Excel::download(new ReportData($validate['select']), 'second_report.xlsx');
+        }   else if ($validate['select'] == 'third') {
+            return Excel::download(new ReportData($validate['select']), 'third_report.xlsx');
+        }
     }
 }

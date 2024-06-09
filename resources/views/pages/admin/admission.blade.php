@@ -45,6 +45,8 @@
         var manilaRatio = JSON.parse('{!! json_encode($manilaRatio) !!}');
         var inactive = JSON.parse('{!! json_encode($inactive) !!}');
         var strand = JSON.parse('{!! json_encode($strands) !!}');
+        var public = JSON.parse('{!! json_encode($publicCount) !!}');
+        var private = JSON.parse('{!! json_encode($privateCount) !!}');
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -67,7 +67,7 @@
     </div>
 
     <div class="h-auto chart-field" id="third" style="display: none;">
-        <div class="grid gap-4 mb-4" style="grid-template-columns: 1.9fr 1fr 1fr;">
+        <div class="grid gap-4 mb-4" style="grid-template-columns: 2fr 1fr;">
             <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
                     <h1>Applicants per Strand</h1>
@@ -80,33 +80,29 @@
 
             <div class="w-full border-2 border-black shadow-2xl h-96">
                 <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
-                    <h1>Manila Public/Private Ratio</h1>
+                    <h1>Public/Private Ratio</h1>
                 </div>
 
                 <div class="flex items-center justify-center w-full p-1 h-72">
                     <canvas id="manilaSchoolChart"></canvas>
                 </div>
             </div>
-
-            <div class="w-full border-2 border-black shadow-2xl h-96">
-                <div class="flex items-center w-full h-10 pl-4 text-lg font-medium">
-                    <h1>Other Public/Private Ratio</h1>
-                </div>
-
-                <div class="flex items-center justify-center w-full p-1 h-72">
-                    <canvas id="otherSchoolChart"></canvas>
-                </div>
-            </div>
         </div>
     </div>
 
     <div class="flex items-center justify-between mt-16">
-        <select id="chartSelector">
-            <option value="first">Progress, Gender, & Applicant Type Statistics</option>
-            <option value="second">Regions & Manila/Non-Manila Statistics</option>
-            <option value="third">Strand & Public/Private Statistics</option>
-        </select>
-
+        <div class="flex flex-col gap-6">
+            <form action="{{ route('admin.generate.report', ['currentRoute' =>$currentRoute]) }}" method="POST" target="__blank">
+                @csrf
+                <select id="chartSelector" name="select">
+                    <option value="first">Progress, Gender, & Applicant Type Statistics</option>
+                    <option value="second">Regions & Manila/Non-Manila Statistics</option>
+                    <option value="third">Strand & Public/Private Statistics</option>
+                </select>
+            
+                <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-lg">Generate Report</button>
+            </form>
+        </div>
         <div>
             <h1>Actions for Inactive Applicant:</h1>
             <h1>Total Inactive Applicant: {{ $inactive }}</h1>
