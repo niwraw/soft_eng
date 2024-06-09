@@ -31,6 +31,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ReportData;
 use App\Exports\ApplicantListReport;
 use App\Exports\ApplicationFormReport;
+use App\Exports\ResultReport;
 
 class AdmissionPageController extends Controller
 {
@@ -707,5 +708,10 @@ class AdmissionPageController extends Controller
     public function ExportApplicantForms()
     {
         return Excel::download(new ApplicationFormReport, 'applicant-form-list.xlsx');
+    }
+
+    public function ExportResult()
+    {
+        return Excel::download(new ResultReport, 'result-list.xlsx');
     }
 }
